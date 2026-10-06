@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPAT 2026 - Band Campinas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+
+        :root {
+            --color-primary: #047857;
+            --color-secondary: #fcd34d;
+            --color-dark: #1f2937;
+            --color-accent: #3b82f6;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-fadeInUp { animation: fadeInUp 0.8s ease-out; }
+        .animate-pulse   { animation: pulse 2s infinite; }
+        .animate-float   { animation: float 3s ease-in-out infinite; }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #047857 0%, #065f46 50%, #047857 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .prize-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .prize-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .prize-card:hover::before { left: 100%; }
+        .prize-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .air-fryer-image {
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            margin: 0 auto;
+            object-fit: contain;
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            border: 3px solid white;
+            padding: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .air-fryer-image:hover { transform: scale(1.05) rotate(2deg); }
+
+        .sipat-table { 
+            border-collapse: separate; 
+            border-spacing: 0;
+            width: 100%;
+        }
+        .sipat-table th, .sipat-table td {
+            padding: 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+        .sipat-table th {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #065f46 100%);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+        .sipat-table tbody tr { transition: all 0.3s ease; }
+        .sipat-table tbody tr:hover {
+            background-color: #f0fdf4 !important;
+            transform: scale(1.01);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .sipat-table tr:nth-child(even) { background-color: #f9fafb; }
+
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn-primary:hover::after { width: 300px; height: 300px; }
+
+        html { scroll-behavior: smooth; }
+        .icon-bounce { display: inline-block; animation: float 2s ease-in-out infinite; }
+
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* SEÇÃO AO VIVO */
+        .live-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #050816 0%, #0f172a 100%);
+            color: #f4f4f5;
+        }
+        .live-section .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .live-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .live-section h2 i {
+            font-size: 3rem;
+            color: #ef4444;
+        }
+        .live-subtitle {
+            font-size: 1.1rem;
+            color: #d1d5db;
+            margin-bottom: 24px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .live-status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 999px;
+            background: rgba(220, 38, 38, 0.12);
+            color: #fecaca;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            border: 1px solid rgba(248, 113, 113, 0.4);
+            animation: pulse 2s infinite;
+            text-align: center;
+        }
+        
+        /* Badge VERDE para AO VIVO */
+        .live-status-badge.is-live {
+            background: rgba(34, 197, 94, 0.15);
+            color: #86efac;
+            border: 1px solid rgba(134, 239, 172, 0.5);
+        }
+        
+        .live-video-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .live-video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            background: radial-gradient(circle at top, #1f2937, #020617 60%);
+        }
+        .live-video-container::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%; /* 16:9 */
+        }
+        .live-video-container iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .live-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-live-primary {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35);
+        }
+        .btn-live-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(239, 68, 68, 0.5);
+        }
+
+        .live-note {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-top: 20px;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        /* Botão IR PARA PLAYER no header */
+        .btn-header-player {
+            background: transparent;
+            color: #dc2626;
+            border: 2px solid #dc2626;
+            font-weight: 700;
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .btn-header-player:hover {
+            background: #dc2626;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* RESPONSIVIDADE MOBILE */
+        @media (max-width: 768px) {
+            .sipat-table {
+                font-size: 0.75rem;
+            }
+            .sipat-table th, .sipat-table td {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+            .prize-card { 
+                margin-bottom: 1rem;
+            }
+            .air-fryer-image {
+                max-width: 150px;
+                padding: 0.5rem;
+            }
+            /* Ajuste dos cards de prêmios */
+            .prize-card h3 {
+                font-size: 1.25rem;
+            }
+            .prize-card ul li {
+                font-size: 0.875rem;
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .live-section h2 { 
+                font-size: 1.5rem; 
+                gap: 10px;
+                text-align: center;
+            }
+            .live-section h2 i { 
+                font-size: 2rem; 
+            }
+            .live-subtitle { 
+                font-size: 0.9rem;
+                padding: 0 10px;
+            }
+            .live-status-badge {
+                font-size: 0.85rem;
+                padding: 8px 15px;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            .live-actions { 
+                flex-direction: column;
+                padding: 0 15px;
+            }
+            .btn-header-player {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+            }
+            /* Hero responsivo */
+            .hero-gradient h2 {
+                font-size: 2rem;
+            }
+            .hero-gradient p {
+                font-size: 0.95rem;
+            }
+            /* Tabela responsiva */
+            .sipat-table th:nth-child(3),
+            .sipat-table td:nth-child(3) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .live-section h2 {
+                font-size: 1.25rem;
+            }
+            .live-section h2 i {
+                font-size: 1.5rem;
+            }
+            .hero-gradient h2 {
+                font-size: 1.75rem;
+            }
+            /* Esconde colunas menos importantes na tabela */
+            .sipat-table th:nth-child(5),
+            .sipat-table td:nth-child(5) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ============================================ -->
+    <!-- 🎯 COLOQUE O ID DO VÍDEO DO YOUTUBE AQUI 👇 -->
+    <!-- ============================================ -->
+    <script>
+        // 🔴 TROQUE AQUI PELO ID DO SEU VÍDEO OU LIVE
+        // VÍDEO INSTITUCIONAL: 7EJ-iJNOAvI
+        // QUANDO FOR LIVE: Troque pelo ID da live
+        
+        const YOUTUBE_VIDEO_ID = ''; // <-- TROQUE AQUI
+        
+        // 📋 LISTA DE IDs DE VÍDEOS EDUCATIVOS (adicione aqui os IDs dos vídeos institucionais)
+        const EDUCATIONAL_VIDEO_IDS = [
+            '7EJ-iJNOAvI',  // Vídeo educativo principal
+            // Adicione mais IDs aqui se tiver outros vídeos educativos
+        ];
+    </script>
+    <!-- ============================================ -->
+
+    <!-- Cabeçalho -->
+    <header class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3 animate-fadeInUp">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Band_logo_2018.png" 
+                     alt="Logo Band" 
+                     class="h-10 sm:h-12 w-auto transition-transform hover:scale-110"
+                     onerror="this.onerror=null; this.src='https://placehold.co/48x48/047857/ffffff?text=BAND'">
+                <span class="text-xl font-bold text-gray-800">Campinas</span>
+            </div>
+            
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800 hidden md:block animate-fadeInUp">
+                SIPAT 2026
+            </h1>
+            
+            <div class="flex items-center gap-2 sm:gap-3 animate-fadeInUp">
+                <button onclick="scrollToLivePlayer()" class="btn-header-player">
+                    <i class="fas fa-play-circle"></i>
+                    <span class="hidden sm:inline">IR PARA PLAYER</span>
+                    <span class="sm:hidden">PLAYER</span>
+                </button>
+                <a href="#agenda" class="btn-primary bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 px-4 sm:px-6 rounded-lg shadow-md transition duration-300 transform hover:scale-105 text-sm sm:text-base">
+                    Ver Agenda
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="text-white py-12 sm:py-20 hero-gradient">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg sm:text-xl md:text-2xl font-semibold mb-3 animate-fadeInUp opacity-90">
+                Semana Interna de Prevenção de Acidentes de Trabalho
+            </p>
+            <h2 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 leading-tight animate-fadeInUp" style="animation-delay: 0.2s;">
+                SIPAT BAND CAMPINAS 2026
+            </h2>
+            <p class="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto animate-fadeInUp opacity-90" style="animation-delay: 0.4s;">
+                A partir de 19 de Outubro. Participe e garanta um ambiente de trabalho e vida mais seguros!
+            </p>
+            <a href="#agenda" class="btn-primary inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-extrabold text-base sm:text-lg py-3 sm:py-4 px-6 sm:px-10 rounded-full shadow-2xl uppercase tracking-wider transition duration-300 transform hover:scale-110 animate-fadeInUp" style="animation-delay: 0.6s;">
+                <i class="fas fa-calendar-check mr-2"></i>
+                Não Perca! Veja a Programação
+            </a>
+        </div>
+    </section>
+    
+    <!-- Transmissão Ao Vivo -->
+    <section id="ao-vivo" class="live-section">
+        <div class="container">
+            <h2 class="animate-fadeInUp">
+                <i class="fab fa-youtube"></i> <span id="live-title">Transmissão Ao Vivo – SIPAT 2025</span>
+            </h2>
+            <p class="live-subtitle animate-fadeInUp" id="live-subtitle">
+                
+                Nos dias <strong>25, 26 e 28 de Novembro</strong>, acompanhe as palestras ao vivo neste mesmo player.
+            </p>
+
+            <div class="text-center animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div class="live-status-badge" id="live-status-badge">
+                    🎬 Vídeos educativos em reprodução contínua
+                </div>
+            </div>
+
+            <div class="live-video-wrapper animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div class="live-video-container" id="live-player">
+                    <iframe
+                        id="live-iframe"
+                        src=""
+                        title="SIPAT 2025 - Vídeos Educativos"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="live-actions animate-fadeInUp" style="animation-delay: 0.4s;">
+                <a
+                    id="btn-open-youtube"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-live-primary">
+                    <i class="fab fa-youtube"></i> Abrir no YouTube
+                </a>
+            </div>
+
+            <p class="live-note animate-fadeInUp" style="animation-delay: 0.5s;" id="live-note">
+                <i class="fas fa-info-circle"></i> Os vídeos estão em reprodução contínua (loop). Nos dias de transmissão ao vivo (25, 26 e 28/Nov), este player exibirá as palestras em tempo real.
+            </p>
+        </div>
+    </section>
+
+    <!-- Prêmios -->
+    <section id="premios" class="py-12 sm:py-20 bg-gradient-to-br from-gray-800 to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3 animate-fadeInUp">
+                    <i class="fas fa-gift text-yellow-400 mr-3"></i>
+                    Sorteio de Prêmios
+                </h2>
+                <p class="text-lg sm:text-xl text-gray-300 animate-fadeInUp">Participe e Concorra a Prêmios Incríveis!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
+                
+                <!-- Prêmios Diários -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl prize-card border-4 border-yellow-400 animate-fadeInUp">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-star text-yellow-500 text-4xl sm:text-5xl icon-bounce"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 text-center border-b-2 border-yellow-400 pb-3">
+                        Prêmios Diários
+                    </h3>
+                    <p class="text-center text-xs sm:text-sm bg-yellow-100 text-yellow-800 font-bold py-2 px-3 rounded-lg mb-4">
+                        <i class="fas fa-users mr-2"></i>PRESENCIAL
+                    </p>
+                    <p class="text-base sm:text-lg font-semibold mb-3 text-gray-700 text-center">
+                        Concorra nos dias 25, 26 e 28 de Novembro!
+                    </p>
+                    <p class="text-xs sm:text-sm font-medium text-gray-600 mb-4 text-center">Serão sorteados:</p>
+                    <ul class="space-y-2 sm:space-y-3 text-gray-700">
+                        <li class="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
+                            <i class="fas fa-star text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Convites HOPI HARI</span>
+                        </li>
+                        <li class="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
+                            <i class="fas fa-film text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Convites CINEMA</span>
+                        </li>
+                        <li class="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
+                            <i class="fas fa-hamburger text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Vouchers R$200 GIOVANETTI</span>
+                        </li>
+                        <li class="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
+                            <i class="fas fa-water text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Convites THERMAS</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- GRANDE PRÊMIO -->
+                <div class="bg-gradient-to-br from-yellow-400 to-yellow-500 p-6 sm:p-8 rounded-2xl shadow-2xl text-center border-4 border-white flex flex-col items-center justify-center transform md:scale-110 shine animate-fadeInUp" style="animation-delay: 0.2s;">
+                    <div class="mb-3">
+                        <i class="fas fa-trophy text-5xl sm:text-6xl text-red-700 animate-float"></i>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
+                        GRANDE PRÊMIO FINAL!
+                    </h3>
+                    <p class="text-base sm:text-lg font-semibold text-gray-800 mb-4">
+                        Para quem participar de <span class="text-red-700 font-extrabold">TODOS OS DIAS</span> no presencial:
+                    </p>
+                    
+                    <img src="https://gazin-images.gazin.com.br/FvUHVP2VyngzEi0HUgXjMkudEHg=/1920x/filters:format(webp):quality(75)/https://gazin-marketplace.s3.amazonaws.com/midias/imagens/2024/11/fritadeira-eletrica-air-fryer-mondial-pratic-af-36-36l-1500w-162411030410.jpg" 
+                         alt="Air Fryer Mondial" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/200x200/cccccc/333333?text=Air+Fryer+Mondial';"
+                         class="air-fryer-image my-4 sm:my-6 animate-float">
+                    
+                    <p class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-red-700 animate-pulse">
+                        AIR FRYER MONDIAL
+                    </p>
+                    <p class="text-xs sm:text-sm text-gray-800 mt-3 font-semibold">
+                        <i class="fas fa-check-circle mr-1"></i>
+                        Presença obrigatória: 25, 26 e 28/Nov
+                    </p>
+                </div>
+
+                <!-- Conteúdo Online -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 sm:p-8 rounded-2xl shadow-2xl prize-card border-4 border-blue-300 flex items-center justify-center text-center animate-fadeInUp" style="animation-delay: 0.4s;">
+                    <div>
+                        <div class="mb-4">
+                            <i class="fas fa-book-reader text-4xl sm:text-5xl text-blue-600 icon-bounce"></i>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-blue-800 mb-4">
+                            Conteúdo de Leitura Online
+                        </h3>
+                        <p class="text-blue-700 text-base sm:text-lg mb-4">
+                            Nos dias <strong>24 e 27</strong>, material informativo digital (PDF) sobre temas cruciais para sua segurança e bem-estar.
+                        </p>
+                        <div class="bg-white p-3 sm:p-4 rounded-lg shadow-inner mb-4">
+                            <ul class="space-y-2 text-blue-700 text-sm sm:text-base font-medium">
+                                <li class="flex items-center justify-start">
+                                    <i class="fas fa-home text-blue-500 mr-2"></i>
+                                    <span>Segurança Doméstica (24/Nov)</span>
+                                </li>
+                                <li class="flex items-center justify-start">
+                                    <i class="fas fa-dollar-sign text-blue-500 mr-2"></i>
+                                    <span>Bem-Estar Financeiro (27/Nov)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="text-blue-600 text-xs sm:text-sm font-semibold">
+                            <i class="fas fa-envelope mr-1"></i>
+                            Disponível no seu e-mail corporativo
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Card Especial: Sorteio Quiropraxia -->
+            <div class="max-w-4xl mx-auto mt-6 sm:mt-8">
+                <div class="bg-gradient-to-r from-purple-500 to-indigo-600 p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-white text-center animate-fadeInUp shine">
+                    <div class="flex items-center justify-center mb-4">
+                        <i class="fas fa-spa text-5xl sm:text-6xl text-white animate-float"></i>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">
+                        🎁 SORTEIO ESPECIAL DIA 28/NOV
+                    </h3>
+                    <p class="text-xl sm:text-2xl font-bold text-yellow-300 mb-3">
+                        SESSÕES DE QUIROPRAXIA
+                    </p>
+                    <p class="text-lg sm:text-xl text-white mb-4">
+                        com o Profissional <strong class="text-yellow-300">KADU MIRANDA</strong>
+                    </p>
+                    <div class="bg-white bg-opacity-20 rounded-lg p-4 inline-block">
+                        <p class="text-white font-semibold text-sm sm:text-base">
+                            <i class="fas fa-calendar-check mr-2"></i>
+                            Sorteio realizado no encerramento da SIPAT
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agenda -->
+    <section id="agenda" class="py-12 sm:py-20 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-3 animate-fadeInUp">
+                    <i class="fas fa-calendar-alt text-green-600 mr-3"></i>
+                    Agenda Completa da SIPAT 2025
+                </h2>
+                <p class="text-base sm:text-lg text-gray-600 animate-fadeInUp">Confira toda a programação da semana</p>
+            </div>
+
+            <div class="overflow-x-auto shadow-2xl rounded-2xl animate-fadeInUp">
+                <table class="min-w-full bg-white sipat-table">
+                    <thead>
+                        <tr>
+                            <th class="rounded-tl-lg">Data</th>
+                            <th>Formato</th>
+                            <th>Hora</th>
+                            <th>Tema</th>
+                            <th>Profissional</th>
+                            <th class="rounded-tr-lg">Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-gray-800">
+                                <i class="fas fa-calendar-day text-green-600 mr-1 sm:mr-2"></i>
+                                <span class="hidden sm:inline">Segunda,</span>24/Nov
+                            </td>
+                            <td>
+                                <span class="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold bg-blue-100 text-blue-700">
+                                    <i class="fas fa-laptop mr-1"></i>Online
+                                </span>
+                            </td>
+                            <td class="text-gray-600 font-medium">Todo o dia</td>
+                            <td class="font-bold text-gray-800">Segurança Doméstica e Primeiros Socorros</td>
+                            <td class="font-semibold text-green-700">CIPA</td>
+                            <td class="text-gray-700">Material sobre prevenção de acidentes no lar e dicas de emergência.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-gray-800">
+                                <i class="fas fa-calendar-day text-green-600 mr-1 sm:mr-2"></i>
+                                <span class="hidden sm:inline">Terça,</span> 25/Nov
+                            </td>
+                            <td>
+                                <span class="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold bg-red-100 text-red-700">
+                                    <i class="fas fa-users mr-1"></i>Presencial
+                                </span>
+                            </td>
+                            <td class="font-bold text-red-600 text-base sm:text-lg">10h30</td>
+                            <td class="font-bold text-gray-800">Assédio / Doenças</td>
+                            <td class="font-semibold text-green-700">Clínica Convidada</td>
+                            <td class="text-gray-700">Assédio / Doenças Sexualmente Transmissíveis.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-gray-800">
+                                <i class="fas fa-calendar-day text-green-600 mr-1 sm:mr-2"></i>
+                                <span class="hidden sm:inline">Quarta,</span> 26/Nov
+                            </td>
+                            <td>
+                                <span class="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold bg-red-100 text-red-700">
+                                    <i class="fas fa-users mr-1"></i>Presencial
+                                </span>
+                            </td>
+                            <td class="font-bold text-red-600 text-base sm:text-lg">15h00</td>
+                            <td class="font-bold text-gray-800">Qualidade de Vida</td>
+                            <td class="font-semibold text-green-700">DR VITOR VIEIRA</td>
+                            <td class="text-gray-700">Saúde Mental.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-gray-800">
+                                <i class="fas fa-calendar-day text-green-600 mr-1 sm:mr-2"></i>
+                                <span class="hidden sm:inline">Quinta,</span> 27/Nov
+                            </td>
+                            <td>
+                                <span class="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold bg-blue-100 text-blue-700">
+                                    <i class="fas fa-laptop mr-1"></i>Online
+                                </span>
+                            </td>
+                            <td class="text-gray-600 font-medium">Todo o dia</td>
+                            <td class="font-bold text-gray-800">Bem-Estar Financeiro e Saúde Ocupacional</td>
+                            <td class="font-semibold text-green-700">CIPA</td>
+                            <td class="text-gray-700">Material sobre como a gestão financeira afeta a saúde no trabalho.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-gray-800">
+                                <i class="fas fa-calendar-day text-green-600 mr-1 sm:mr-2"></i>
+                                <span class="hidden sm:inline">Sexta,</span> 28/Nov
+                            </td>
+                            <td>
+                                <span class="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold bg-red-100 text-red-700">
+                                    <i class="fas fa-users mr-1"></i>Presencial
+                                </span>
+                            </td>
+                            <td class="font-bold text-red-600 text-base sm:text-lg">14h30</td>
+                            <td class="font-bold text-gray-800">Postura no Trabalho e Encerramento</td>
+                            <td class="font-semibold text-green-700">DR KADU MIRANDA</td>
+                            <td class="text-gray-700">Ergonomia, Encerramento e o <strong class="text-yellow-600">GRANDE SORTEIO FINAL!</strong><br><span class="inline-flex items-center mt-2 px-2 sm:px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs sm:text-sm font-bold"><i class="fas fa-spa mr-2"></i>Sorteio Especial: Sessão de Quiropraxia com Kadu</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-8 sm:mt-12 p-6 sm:p-8 bg-gradient-to-r from-red-50 to-red-100 rounded-2xl border-l-8 border-red-500 shadow-xl animate-fadeInUp">
+                <p class="text-xl sm:text-2xl font-bold text-red-800 flex items-center justify-center flex-wrap gap-3">
+                    <span class="text-3xl sm:text-4xl animate-pulse">🚨</span> 
+                    <span>REGRAS DE PARTICIPAÇÃO:</span>
+                </p>
+                <p class="text-base sm:text-xl text-red-700 mt-3">
+                    Para concorrer ao <strong>Prêmio Final (Air Fryer)</strong>, a participação é <strong>obrigatória nos 3 dias presenciais</strong> (25, 26 e 28 de Novembro).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-8 sm:py-10">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <i class="fas fa-shield-alt text-3xl sm:text-4xl text-green-400 mb-3 inline-block"></i>
+            </div>
+            <p class="text-base sm:text-lg font-semibold">&copy; 2025 SIPAT Band Campinas</p>
+            <p class="text-xs sm:text-sm mt-2 text-gray-400">Realização: CIPA e Segurança do Trabalho</p>
+            <p class="text-base sm:text-lg mt-4 text-yellow-400 font-bold">
+                <i class="fas fa-heart text-red-500 mr-2"></i>
+                Sua segurança é o nosso maior prêmio.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Rolar até o player
+        function scrollToLivePlayer() {
+            const player = document.getElementById('live-player');
+            if (player) {
+                player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // Configurar player e badge automaticamente
+        window.addEventListener('DOMContentLoaded', function () {
+            const videoId = YOUTUBE_VIDEO_ID.trim();
+            const iframe  = document.getElementById('live-iframe');
+            const badge   = document.getElementById('live-status-badge');
+            const btnYT   = document.getElementById('btn-open-youtube');
+            const liveTitle = document.getElementById('live-title');
+            const liveSubtitle = document.getElementById('live-subtitle');
+            const liveNote = document.getElementById('live-note');
+
+            if (videoId && videoId !== '') {
+                // ✅ VERIFICA SE É UM VÍDEO EDUCATIVO OU UMA LIVE
+                const isEducationalVideo = EDUCATIONAL_VIDEO_IDS.includes(videoId);
+                
+                if (isEducationalVideo) {
+                    // 🎬 VÍDEO EDUCATIVO (com loop e CONTROLES VISÍVEIS)
+                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1`;
+                    badge.textContent = '🎬 Vídeos educativos em reprodução contínua';
+                    badge.classList.remove('is-live');
+                    
+                    liveTitle.textContent = 'Vídeos Educativos – SIPAT 2025';
+                    liveSubtitle.innerHTML = 'Assista aos vídeos educativos sobre <strong>Segurança no Trabalho</strong> rodando continuamente!<br>Nos dias <strong>25, 26 e 28 de Novembro</strong>, acompanhe as palestras ao vivo neste mesmo player.';
+                    liveNote.innerHTML = '<i class="fas fa-info-circle"></i> Os vídeos estão em reprodução contínua (loop). Nos dias de transmissão ao vivo (25, 26 e 28/Nov), este player exibirá as palestras em tempo real.';
+                } else {
+                    // 🔴 TRANSMISSÃO AO VIVO (sem loop e COM CONTROLES VISÍVEIS)
+                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&controls=1`;
+                    badge.textContent = '🔴 ESTAMOS AO VIVO AGORA!';
+                    badge.classList.add('is-live');
+                    
+                    liveTitle.textContent = 'Transmissão Ao Vivo – SIPAT 2025';
+                    liveSubtitle.innerHTML = 'Acompanhe <strong>AO VIVO</strong> as palestras da SIPAT 2025!<br>Participe e interaja conosco durante a transmissão.';
+                    liveNote.innerHTML = '<i class="fas fa-broadcast-tower"></i> Transmissão ao vivo em andamento. Clique no player para ativar o áudio!';
+                }
+                
+                btnYT.href = `https://www.youtube.com/watch?v=${videoId}`;
+                btnYT.style.display = 'inline-flex';
+            } else {
+                // ⏸️ SEM VÍDEO
+                iframe.src = '';
+                badge.textContent = '🔴 Ao vivo em breve – aguarde o horário da transmissão.';
+                badge.classList.remove('is-live');
+                btnYT.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
