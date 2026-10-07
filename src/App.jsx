@@ -1,8 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import { supabase } from "./supabaseClient";
 
 function App() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [setor, setSetor] = useState("");
+  const [status, setStatus] = useState("idle");
+  const [mensagem, setMensagem] = useState("");
+
+  const handleSorteioSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("loading");
+    setMensagem("");
+
+    try {
+      const { data, error } = await supabase
+        .from('ifculos_participantes')
+        .insert([{ nome, matricula_ou_email: email, setor }]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation
+            setMensagem("Este e-mail/matrícula já está cadastrado para o sorteio!");
+        } else {
+            setMensagem("Ocorreu um erro. Tente novamente mais tarde.");
+        }
+        setStatus("error");
+      } else {
+        setStatus("success");
+        setMensagem("Presença confirmada com sucesso! Boa sorte no sorteio 🍀");
+        setNome("");
+        setEmail("");
+        setSetor("");
+      }
+    } catch (err) {
+      setStatus("error");
+      setMensagem("Erro de conexão. Verifique sua internet.");
+    }
+  };
   const scrollToLivePlayer = () => {
     const player = document.getElementById("live-player");
     if (player) {
@@ -230,21 +265,26 @@ function App() {
                         <p className="text-green-700 text-lg">Confirme sua presença e participe automaticamente dos sorteios diários e do Grande Prêmio Final!</p>
                     </div>
                     <div className="md:w-1/2 w-full">
-                        <form className="bg-white p-6 rounded-xl shadow-inner w-full" id="form-sorteio" onSubmit={(e) => { e.preventDefault(); alert('Formulário em fase de teste. A conexão com o banco será ativada assim que a tabela for criada!'); }}>
+                                                <form className="bg-white p-6 rounded-xl shadow-inner w-full" id="form-sorteio" onSubmit={handleSorteioSubmit}>
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nome">Nome Completo</label>
-                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Digite seu nome" required />
+                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Digite seu nome" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
                             </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">E-mail ou Matrícula</label>
-                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="email" type="text" placeholder="Seu e-mail ou matrícula" required />
+                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="email" type="text" placeholder="Seu e-mail ou matrícula" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={status === "loading"} />
                             </div>
                             <div className="mb-6">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="setor">Setor</label>
-                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Seu setor (Ex: RH, TI, Produção)" required />
+                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Seu setor (Ex: RH, TI, Produção)" required value={setor} onChange={(e) => setSetor(e.target.value)} disabled={status === "loading"} />
                             </div>
-                            <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg" type="submit">
-                                <i className="fas fa-check-circle mr-2"></i> Confirmar Presença
+                            
+                            {status === "error" && <div className="mb-4 text-red-600 text-sm font-bold bg-red-50 p-2 rounded">{mensagem}</div>}
+                            {status === "success" && <div className="mb-4 text-green-600 text-sm font-bold bg-green-50 p-3 rounded text-center border border-green-200">{mensagem}</div>}
+                            
+                            <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" type="submit" disabled={status === "loading"}>
+                                {status === "loading" ? <i className="fas fa-spinner fa-spin mr-2"></i> : <i className="fas fa-check-circle mr-2"></i>}
+                                {status === "loading" ? "Enviando..." : "Confirmar Presença"}
                             </button>
                         </form>
                     </div>
@@ -415,5 +455,6 @@ function App() {
 }
 
 export default App;
+
 
 
