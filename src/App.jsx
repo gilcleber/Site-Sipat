@@ -3,6 +3,12 @@ import "./index.css";
 import { supabase } from "./supabaseClient";
 
 function App() {
+  const scrollToLivePlayer = () => {
+    const player = document.getElementById("live-player");
+    if (player) {
+      player.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
     const [nome, setNome] = useState("");
   const [setor, setSetor] = useState("");
   const [status, setStatus] = useState("idle");
@@ -525,6 +531,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
