@@ -186,7 +186,7 @@ function App() {
     <section id="ao-vivo" className="live-section">
         <div className="container">
             <h2 className="animate-fadeInUp">
-                <i className="fab fa-youtube"></i> <span id="live-title">Transmissão Ao Vivo – SIPAT 2025</span>
+                <i className="fab fa-youtube"></i> <span id="live-title">Transmissão Ao Vivo – SIPAT 2026</span>
             </h2>
             <p className="live-subtitle animate-fadeInUp" id="live-subtitle">
                 
@@ -204,7 +204,7 @@ function App() {
                     <iframe
                         id="live-iframe"
                         src=""
-                        title="SIPAT 2025 - Vídeos Educativos"
+                        title="SIPAT 2026 - Vídeos Educativos"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen>
@@ -381,7 +381,7 @@ function App() {
                     <p className="text-lg sm:text-xl text-white mb-4">
                         Surpresa especial para você!
                     </p>
-                    <div className="bg-white bg-opacity-20 rounded-lg p-4 inline-block">
+                    <div className="bg-white/20 rounded-lg p-4 inline-block">
                         <p className="text-white font-semibold text-sm sm:text-base">
                             <i className="fas fa-calendar-check mr-2"></i>
                             Sorteio realizado no encerramento da SIPAT
@@ -398,7 +398,7 @@ function App() {
             <div className="text-center mb-8 sm:mb-12">
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-3 animate-fadeInUp">
                     <i className="fas fa-calendar-alt text-green-600 mr-3"></i>
-                    Agenda Completa da SIPAT 2025
+                    Agenda Completa da SIPAT 2026
                 </h2>
                 <p className="text-base sm:text-lg text-gray-600 animate-fadeInUp">Confira toda a programação da semana</p>
             </div>
@@ -531,6 +531,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
