@@ -330,13 +330,15 @@ function App() {
             </div>
 
                             {/* Registration Form */}
-                <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-green-300 md:col-span-3 flex flex-col md:flex-row items-center animate-fadeInUp mt-6">
-                    <div className="md:w-1/2 mb-6 md:mb-0 md:pr-8 text-center md:text-left">
+                <div className={`bg-gradient-to-br from-green-50 to-green-100 p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-green-300 md:col-span-3 flex flex-col items-center justify-center animate-fadeInUp mt-6 ${isPresencial ? 'md:flex-row' : ''}`}>
+                    {isPresencial && (
+                    <div className="md:w-1/2 mb-6 md:mb-0 md:pr-8 text-center md:text-left w-full">
                         <i className="fas fa-ticket-alt text-5xl text-green-600 mb-4 icon-bounce"></i>
                         <h3 className="text-2xl sm:text-3xl font-bold text-green-800 mb-2">Check-in e Sorteio</h3>
                         <p className="text-green-700 text-lg">Confirme sua presença e participe automaticamente dos sorteios diários e do Grande Prêmio Final!</p>
                     </div>
-                    <div className="md:w-1/2 w-full">
+                    )}
+                    <div className={isPresencial ? "md:w-1/2 w-full" : "w-full"}>
                                                                         {isPresencial ? (
                         <form className="bg-white p-6 rounded-xl shadow-inner w-full" id="form-sorteio" onSubmit={handleSorteioSubmit}>
                             <div className="mb-4">
