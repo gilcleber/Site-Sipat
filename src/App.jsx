@@ -222,7 +222,35 @@ function App() {
                 
             </div>
 
-            {/* Card Especial: Sorteio Quiropraxia */}
+                            {/* Registration Form */}
+                <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-green-300 md:col-span-3 flex flex-col md:flex-row items-center animate-fadeInUp mt-6">
+                    <div className="md:w-1/2 mb-6 md:mb-0 md:pr-8 text-center md:text-left">
+                        <i className="fas fa-ticket-alt text-5xl text-green-600 mb-4 icon-bounce"></i>
+                        <h3 className="text-2xl sm:text-3xl font-bold text-green-800 mb-2">Check-in e Sorteio</h3>
+                        <p className="text-green-700 text-lg">Confirme sua presença e participe automaticamente dos sorteios diários e do Grande Prêmio Final!</p>
+                    </div>
+                    <div className="md:w-1/2 w-full">
+                        <form className="bg-white p-6 rounded-xl shadow-inner w-full" id="form-sorteio" onSubmit={(e) => { e.preventDefault(); alert('Formulário em fase de teste. A conexão com o banco será ativada assim que a tabela for criada!'); }}>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nome">Nome Completo</label>
+                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Digite seu nome" required />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">E-mail ou Matrícula</label>
+                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="email" type="text" placeholder="Seu e-mail ou matrícula" required />
+                            </div>
+                            <div className="mb-6">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="setor">Setor</label>
+                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Seu setor (Ex: RH, TI, Produção)" required />
+                            </div>
+                            <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg" type="submit">
+                                <i className="fas fa-check-circle mr-2"></i> Confirmar Presença
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                {/* Card Especial: Sorteio Quiropraxia */} 
             <div className="max-w-4xl mx-auto mt-6 sm:mt-8">
                 <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-white text-center animate-fadeInUp shine">
                     <div className="flex items-center justify-center mb-4">
@@ -387,3 +415,5 @@ function App() {
 }
 
 export default App;
+
+
