@@ -3,11 +3,29 @@ import "./index.css";
 import { supabase } from "./supabaseClient";
 
 function App() {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
+    const [nome, setNome] = useState("");
   const [setor, setSetor] = useState("");
   const [status, setStatus] = useState("idle");
   const [mensagem, setMensagem] = useState("");
+  const [isPresencial, setIsPresencial] = useState(false);
+  const [isSorteador, setIsSorteador] = useState(false);
+  
+  // Sorteador states
+  const [vencedor, setVencedor] = useState(null);
+  const [sorteando, setSorteando] = useState(false);
+
+  useEffect(() => {
+    // Check URL parameters for QR Code access
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get("presencial") === "sipat26") {
+      setIsPresencial(true);
+    }
+    
+    // Check if it's the sorteador page
+    if (window.location.pathname === "/sorteador") {
+      setIsSorteador(true);
+    }
+  }, []);
 
   const handleSorteioSubmit = async (e) => {
     e.preventDefault();
@@ -17,11 +35,12 @@ function App() {
     try {
       const { data, error } = await supabase
         .from('ifculos_participantes')
-        .insert([{ nome, matricula_ou_email: email, setor }]);
+        // Using nome as matricula_ou_email to satisfy the unique constraint without asking for it
+        .insert([{ nome, matricula_ou_email: nome.trim().toLowerCase(), setor }]);
 
       if (error) {
-        if (error.code === '23505') { // Unique constraint violation
-            setMensagem("Este e-mail/matrícula já está cadastrado para o sorteio!");
+        if (error.code === '23505') { 
+            setMensagem("Você já está cadastrado para o sorteio de hoje!");
         } else {
             setMensagem("Ocorreu um erro. Tente novamente mais tarde.");
         }
@@ -30,7 +49,6 @@ function App() {
         setStatus("success");
         setMensagem("Presença confirmada com sucesso! Boa sorte no sorteio 🍀");
         setNome("");
-        setEmail("");
         setSetor("");
       }
     } catch (err) {
@@ -38,20 +56,68 @@ function App() {
       setMensagem("Erro de conexão. Verifique sua internet.");
     }
   };
-  const scrollToLivePlayer = () => {
-    const player = document.getElementById("live-player");
-    if (player) {
-      player.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  const realizarSorteio = async () => {
+    setSorteando(true);
+    setVencedor(null);
+    try {
+      const { data, error } = await supabase.from('ifculos_participantes').select('*');
+      if (error || !data || data.length === 0) {
+        alert("Nenhum participante encontrado no banco de dados.");
+        setSorteando(false);
+        return;
+      }
+      
+      // Efeito de roleta
+      let counter = 0;
+      const interval = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        setVencedor(data[randomIndex]);
+        counter++;
+        if (counter > 20) {
+          clearInterval(interval);
+          const finalIndex = Math.floor(Math.random() * data.length);
+          setVencedor(data[finalIndex]);
+          setSorteando(false);
+        }
+      }, 100);
+
+    } catch (err) {
+      alert("Erro ao realizar sorteio.");
+      setSorteando(false);
     }
   };
 
-  useEffect(() => {
-    // Check Supabase connection on load
-    const checkSupabase = async () => {
-      console.log("Supabase Client Loaded:", supabase);
-    };
-    checkSupabase();
-  }, []);
+  if (isSorteador) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-8 text-center animate-pulse"><i className="fas fa-trophy text-yellow-400 mr-4"></i>Sorteador Oficial SIPAT 2026</h1>
+        
+        <div className="bg-gray-800 border-4 border-yellow-500 rounded-3xl p-8 md:p-16 shadow-2xl max-w-3xl w-full text-center">
+          {vencedor ? (
+            <div className="animate-fadeInUp">
+              <p className="text-gray-400 text-xl mb-2">O grande ganhador é:</p>
+              <h2 className="text-5xl md:text-7xl font-black text-green-400 mb-4 uppercase">{vencedor.nome}</h2>
+              <p className="text-2xl text-yellow-300 font-bold"><i className="fas fa-briefcase mr-2"></i>Setor: {vencedor.setor}</p>
+            </div>
+          ) : (
+            <div className="text-gray-500 text-2xl font-semibold my-12">
+              <i className="fas fa-question-circle text-6xl mb-4 opacity-50 block"></i>
+              Aguardando sorteio...
+            </div>
+          )}
+        </div>
+
+        <button 
+          onClick={realizarSorteio}
+          disabled={sorteando}
+          className="mt-12 bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-black text-2xl md:text-3xl py-6 px-12 rounded-full shadow-2xl transition transform hover:scale-110 disabled:opacity-50 disabled:scale-100"
+        >
+          {sorteando ? <><i className="fas fa-sync fa-spin mr-3"></i>Sorteando...</> : <><i className="fas fa-play mr-3"></i>REALIZAR SORTEIO</>}
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="antialiased">
@@ -265,17 +331,14 @@ function App() {
                         <p className="text-green-700 text-lg">Confirme sua presença e participe automaticamente dos sorteios diários e do Grande Prêmio Final!</p>
                     </div>
                     <div className="md:w-1/2 w-full">
-                                                <form className="bg-white p-6 rounded-xl shadow-inner w-full" id="form-sorteio" onSubmit={handleSorteioSubmit}>
+                                                                        {isPresencial ? (
+                        <form className="bg-white p-6 rounded-xl shadow-inner w-full" id="form-sorteio" onSubmit={handleSorteioSubmit}>
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nome">Nome Completo</label>
-                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Digite seu nome" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">E-mail ou Matrícula</label>
-                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="email" type="text" placeholder="Seu e-mail ou matrícula" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={status === "loading"} />
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nome">Nome e Sobrenome</label>
+                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Digite seu nome completo" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
                             </div>
                             <div className="mb-6">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="setor">Setor</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="setor">Setor / Departamento</label>
                                 <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Seu setor (Ex: RH, TI, Produção)" required value={setor} onChange={(e) => setSetor(e.target.value)} disabled={status === "loading"} />
                             </div>
                             
@@ -287,6 +350,13 @@ function App() {
                                 {status === "loading" ? "Enviando..." : "Confirmar Presença"}
                             </button>
                         </form>
+                        ) : (
+                        <div className="bg-white p-8 rounded-xl shadow-inner w-full text-center border-2 border-dashed border-gray-300">
+                            <i className="fas fa-qrcode text-6xl text-gray-400 mb-4"></i>
+                            <h4 className="text-xl font-bold text-gray-700 mb-2">Check-in Bloqueado</h4>
+                            <p className="text-gray-500">O formulário de presença só pode ser acessado através do <strong>QR Code oficial</strong> disponibilizado no auditório.</p>
+                        </div>
+                        )}
                     </div>
                 </div>
 
@@ -455,6 +525,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
