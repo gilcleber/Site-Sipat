@@ -13,7 +13,7 @@ function App() {
   const [setor, setSetor] = useState("");
   const [status, setStatus] = useState("idle");
   const [mensagem, setMensagem] = useState("");
-  const [isPresencial, setIsPresencial] = useState(false);
+  const [isPresencial, setIsPresencial] = useState(true);
   const [isSorteador, setIsSorteador] = useState(false);
   
   // Download logic for Oct 22
@@ -397,7 +397,7 @@ function App() {
                 <div className="live-video-container" id="live-player">
                     <iframe
                         id="live-iframe"
-                        src=""
+                        src="https://www.youtube.com/embed/7EJ-iJNOAvI?autoplay=1&mute=1&loop=1&playlist=7EJ-iJNOAvI"
                         title="SIPAT 2026 - Vídeos Educativos"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
