@@ -11,6 +11,8 @@ function App() {
   };
     const [nome, setNome] = useState("");
   const [setor, setSetor] = useState("");
+  const [pin, setPin] = useState("");
+  const [isUnlocked, setIsUnlocked] = useState(false);
   const [status, setStatus] = useState("idle");
   const [mensagem, setMensagem] = useState("");
   const [isPresencial, setIsPresencial] = useState(true);
@@ -397,7 +399,7 @@ function App() {
                 <div className="live-video-container" id="live-player">
                     <iframe
                         id="live-iframe"
-                        src="https://www.youtube.com/embed/7EJ-iJNOAvI?autoplay=1&mute=1&loop=1&playlist=7EJ-iJNOAvI"
+                        src="https://www.youtube.com/embed/7EJ-iJNOAvI?rel=0"
                         title="SIPAT 2026 - Vídeos Educativos"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -544,33 +546,57 @@ function App() {
                         <p className="text-green-700 text-lg">Confirme sua presença e participe automaticamente dos sorteios diários e do Grande Prêmio Final!</p>
                     </div>
                     )}
-                    <div className={isPresencial ? "md:w-1/2 w-full" : "w-full"}>
-                                                                        {isPresencial ? (
-                        <form className="bg-white p-6 rounded-xl shadow-inner w-full" id="form-sorteio" onSubmit={handleSorteioSubmit}>
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nome">Nome e Sobrenome</label>
-                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Digite seu nome completo" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
-                            </div>
-                            <div className="mb-6">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="setor">Setor / Departamento</label>
-                                <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Seu setor (Ex: RH, TI, Produção)" required value={setor} onChange={(e) => setSetor(e.target.value)} disabled={status === "loading"} />
-                            </div>
-                            
-                            {status === "error" && <div className="mb-4 text-red-600 text-sm font-bold bg-red-50 p-2 rounded">{mensagem}</div>}
-                            {status === "success" && <div className="mb-4 text-green-600 text-sm font-bold bg-green-50 p-3 rounded text-center border border-green-200">{mensagem}</div>}
-                            
-                            <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" type="submit" disabled={status === "loading"}>
-                                {status === "loading" ? <i className="fas fa-spinner fa-spin mr-2"></i> : <i className="fas fa-check-circle mr-2"></i>}
-                                {status === "loading" ? "Enviando..." : "Confirmar Presença"}
-                            </button>
-                        </form>
-                        ) : (
-                        <div className="bg-white p-8 rounded-xl shadow-inner w-full text-center border-2 border-dashed border-gray-300">
-                            <i className="fas fa-qrcode text-6xl text-gray-400 mb-4"></i>
-                            <h4 className="text-xl font-bold text-gray-700 mb-2">Check-in Bloqueado</h4>
-                            <p className="text-gray-500">O formulário de presença só pode ser acessado através do <strong>QR Code oficial</strong> disponibilizado no auditório.</p>
-                        </div>
-                        )}
+                    <div className="md:w-1/2 w-full">
+                      {!isUnlocked ? (
+                          <form className="bg-white p-6 sm:p-10 rounded-xl shadow-inner w-full text-center" onSubmit={(e) => { e.preventDefault(); if(pin === "134679") setIsUnlocked(true); else { alert("PIN incorreto!"); setPin(""); } }}>
+                              <i className="fas fa-lock text-5xl text-gray-400 mb-4"></i>
+                              <h4 className="text-xl font-bold text-gray-700 mb-2">Acesso Restrito - CIPA</h4>
+                              <p className="text-sm text-gray-500 mb-6">Digite o PIN de 6 dígitos para liberar o check-in na máquina.</p>
+                              <div className="mb-6 max-w-xs mx-auto">
+                                  <input 
+                                    className="shadow appearance-none border-2 border-gray-300 rounded-lg w-full py-4 px-4 text-center text-2xl tracking-widest text-gray-700 font-bold focus:outline-none focus:border-green-500 transition" 
+                                    type="password" 
+                                    placeholder="******" 
+                                    maxLength="6"
+                                    value={pin}
+                                    onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))}
+                                  />
+                              </div>
+                              <button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition transform hover:scale-105">
+                                  <i className="fas fa-unlock-alt mr-2"></i> Liberar Formulário
+                              </button>
+                          </form>
+                      ) : (
+                          <form className="bg-white p-6 rounded-xl shadow-inner w-full animate-fadeInUp" id="form-sorteio" onSubmit={handleSorteioSubmit}>
+                              <div className="flex justify-between items-center mb-4">
+                                <h4 className="font-bold text-gray-800">Check-in de Presença</h4>
+                                <button type="button" onClick={() => {setIsUnlocked(false); setPin("");}} className="text-xs text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded"><i className="fas fa-lock mr-1"></i>Bloquear Novamente</button>
+                              </div>
+                              <div className="mb-4">
+                                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nome">Nome e Sobrenome</label>
+                                  <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Digite seu nome completo" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
+                              </div>
+                              <div className="mb-6">
+                                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="setor">Setor / Departamento</label>
+                                  <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Seu setor (Ex: RH, TI, Produção)" required value={setor} onChange={(e) => setSetor(e.target.value)} disabled={status === "loading"} />
+                              </div>
+                              <div className="flex items-center justify-between">
+                                  <button className="w-full bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-4 rounded-lg shadow-lg focus:outline-none focus:shadow-outline transition transform hover:scale-105 disabled:opacity-50 flex justify-center items-center" type="submit" disabled={status === "loading"}>
+                                      {status === "loading" ? (
+                                          <><i className="fas fa-circle-notch fa-spin mr-2"></i> Registrando...</>
+                                      ) : (
+                                          <><i className="fas fa-check-circle mr-2"></i> Confirmar Presença</>
+                                      )}
+                                  </button>
+                              </div>
+                              {mensagem && (
+                                  <div className={`mt-4 p-3 rounded-lg text-center font-semibold text-sm ${status === "success" ? "bg-green-100 text-green-800 border border-green-300" : "bg-red-100 text-red-800 border border-red-300"}`}>
+                                      {status === "success" ? <i className="fas fa-check mr-1"></i> : <i className="fas fa-exclamation-triangle mr-1"></i>}
+                                      {mensagem}
+                                  </div>
+                              )}
+                          </form>
+                      )}
                     </div>
                 </div>
 
