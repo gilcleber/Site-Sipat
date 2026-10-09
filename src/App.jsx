@@ -16,6 +16,15 @@ function App() {
   const [isPresencial, setIsPresencial] = useState(false);
   const [isSorteador, setIsSorteador] = useState(false);
   
+  // Download logic for Oct 22
+  const [canDownload, setCanDownload] = useState(false);
+  useEffect(() => {
+    const today = new Date();
+    const releaseDate = new Date("2026-10-22T00:00:00-03:00");
+    if (today >= releaseDate) {
+      setCanDownload(true);
+    }
+  }, []);
   // Sorteador states
   const [vencedor, setVencedor] = useState(null);
   const [sorteando, setSorteando] = useState(false);
@@ -230,7 +239,7 @@ function App() {
     </section>
 
     {/* Prêmios */}
-    <section id="premios" className="py-12 sm:py-20 bg-gradient-to-br from-blue-900 to-blue-950">
+    <section id="premios" className="py-12 sm:py-20 bg-gradient-to-br from-gray-800 to-gray-900">
         <div className="container mx-auto px-4">
             <div className="text-center mb-8 sm:mb-12">
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3 animate-fadeInUp">
@@ -263,16 +272,24 @@ function App() {
                     <p className="text-xs sm:text-sm font-medium text-gray-600 mb-4 text-center">Serão sorteados:</p>
                     <ul className="space-y-2 sm:space-y-3 text-gray-700">
                         <li className="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
-                            <i className="fas fa-gift text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
-                            <span>Prêmio a Escolher 1</span>
+                            <i className="fas fa-hamburger text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Voucher R$ 250 Giovanetti</span>
                         </li>
                         <li className="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
-                            <i className="fas fa-gift text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
-                            <span>Prêmio a Escolher 2</span>
+                            <i className="fas fa-star text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Convites Hopi Hari</span>
                         </li>
                         <li className="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
-                            <i className="fas fa-gift text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
-                            <span>Prêmio a Escolher 3</span>
+                            <i className="fas fa-water text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Thermas de São Pedro</span>
+                        </li>
+                        <li className="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
+                            <i className="fas fa-swimmer text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Convites Wet'n Wild</span>
+                        </li>
+                        <li className="flex items-center font-medium text-sm sm:text-base bg-gray-50 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition">
+                            <i className="fas fa-film text-yellow-500 text-lg sm:text-xl mr-2 sm:mr-3 w-5 sm:w-6 text-center"></i> 
+                            <span>Ingressos de Cinema</span>
                         </li>
                     </ul>
                 </div>
@@ -519,7 +536,7 @@ function App() {
             <div className="mb-4">
                 <i className="fas fa-shield-alt text-3xl sm:text-4xl text-green-400 mb-3 inline-block"></i>
             </div>
-            <p className="text-base sm:text-lg font-semibold">&copy; 2025 SIPAT Band Campinas</p>
+            <p className="text-base sm:text-lg font-semibold">&copy; 2026 SIPAT Band Campinas</p>
             <p className="text-xs sm:text-sm mt-2 text-gray-400">Realização: CIPA e Segurança do Trabalho</p>
             <p className="text-base sm:text-lg mt-4 text-yellow-400 font-bold">
                 <i className="fas fa-heart text-red-500 mr-2"></i>
@@ -537,6 +554,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 
