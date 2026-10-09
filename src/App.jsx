@@ -230,7 +230,7 @@ function App() {
     </section>
 
     {/* Prêmios */}
-    <section id="premios" className="py-12 sm:py-20 bg-gradient-to-br from-gray-800 to-gray-900">
+    <section id="premios" className="py-12 sm:py-20 bg-gradient-to-br from-blue-900 to-blue-950">
         <div className="container mx-auto px-4">
             <div className="text-center mb-8 sm:mb-12">
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3 animate-fadeInUp">
@@ -238,6 +238,10 @@ function App() {
                     Sorteio de Prêmios
                 </h2>
                 <p className="text-lg sm:text-xl text-gray-300 animate-fadeInUp">Participe e Concorra a Prêmios Incríveis!</p>
+                <p className="text-lg sm:text-xl text-yellow-300 animate-fadeInUp mt-2 font-bold">
+    <i className="fas fa-exclamation-triangle mr-2"></i>
+    ATENÇÃO! Os sorteios serão realizados somente para os funcionários presentes no presencial.
+</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
@@ -430,7 +434,7 @@ function App() {
                             </td>
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Autocuidado e gestão do estresse</td>
-                            <td className="font-semibold text-green-700">DANI VIDOTO</td>
+                            <td className="font-semibold text-green-700">DANI VIDOTTO</td>
                             <td className="text-gray-700">Abertura da semana e sorteio de 3 prêmios.</td>
                         </tr>
                         <tr>
@@ -445,7 +449,7 @@ function App() {
                             </td>
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Saúde mental no trabalho</td>
-                            <td className="font-semibold text-green-700">MICHELE PIVA</td>
+                            <td className="font-semibold text-green-700">MICHELE SARKIS</td>
                             <td className="text-gray-700">Sorteio de 3 prêmios.</td>
                         </tr>
                         <tr>
@@ -460,7 +464,7 @@ function App() {
                             </td>
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Equilíbrio, ansiedade e qualidade do sono</td>
-                            <td className="font-semibold text-green-700">CARMEM REGINA</td>
+                            <td className="font-semibold text-green-700">CARMEN REGINA</td>
                             <td className="text-gray-700">Sorteio de 3 prêmios.</td>
                         </tr>
                         <tr>
@@ -476,7 +480,7 @@ function App() {
                             <td className="text-gray-600 font-medium">Todo o dia</td>
                             <td className="font-bold text-gray-800">Informativo Especial</td>
                             <td className="font-semibold text-green-700">-</td>
-                            <td className="text-gray-700">Conteúdo online enviado por e-mail.</td>
+                            <td className="text-gray-700">Prevenção de acidentes domésticos e noções de primeiros socorros.</td>
                         </tr>
                         <tr>
                             <td className="font-bold text-gray-800">
@@ -490,7 +494,7 @@ function App() {
                             </td>
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Cuidados com o corpo na rotina de trabalho</td>
-                            <td className="font-semibold text-green-700">NAYARA VILLAR</td>
+                            <td className="font-semibold text-green-700">NAYARA VILAR</td>
                             <td className="text-gray-700">Encerramento, Sorteio de 3 prêmios e <strong className="text-yellow-600">GRANDE SORTEIO FINAL!</strong></td>
                         </tr>
 </tbody>
@@ -533,6 +537,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
