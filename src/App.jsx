@@ -116,9 +116,57 @@ function App() {
     }
   };
 
+  
   if (isSorteador) {
+    if (telaSorteio === "lista") {
+      return (
+        <div className="min-h-screen bg-gray-900 flex flex-col p-8">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl md:text-5xl font-extrabold text-white"><i className="fas fa-clipboard-list text-yellow-400 mr-4"></i>Participantes do Sorteio</h1>
+            <button 
+              onClick={() => setTelaSorteio("roleta")}
+              className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold text-lg md:text-xl py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105"
+            >
+              Ir para Roleta <i className="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+          
+          <div className="bg-gray-800 rounded-2xl p-6 shadow-2xl flex-grow overflow-auto border-2 border-gray-700">
+            <div className="flex justify-between text-gray-400 mb-4 border-b border-gray-700 pb-2">
+              <span className="font-bold uppercase tracking-wider text-sm">Nome e Sobrenome</span>
+              <span className="font-bold uppercase tracking-wider text-sm text-right">Setor</span>
+            </div>
+            {carregandoLista ? (
+              <div className="text-center text-gray-500 my-12 text-xl"><i className="fas fa-spinner fa-spin mr-3"></i>Carregando lista...</div>
+            ) : listaParticipantes.length === 0 ? (
+              <div className="text-center text-gray-500 my-12 text-xl">Nenhum participante fez check-in ainda.</div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {listaParticipantes.map((p, idx) => (
+                  <div key={p.id || idx} className="bg-gray-700 hover:bg-gray-600 transition p-4 rounded-xl border border-gray-600 flex justify-between items-center">
+                    <span className="text-white font-semibold truncate mr-3">{p.nome}</span>
+                    <span className="text-gray-400 text-xs bg-gray-800 px-2 py-1 rounded-md whitespace-nowrap">{p.setor}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="mt-4 text-center text-gray-400">
+            Total de presentes: <strong className="text-white text-xl">{listaParticipantes.length}</strong>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4 relative">
+        <button 
+          onClick={() => setTelaSorteio("lista")}
+          className="absolute top-6 left-6 text-gray-400 hover:text-white transition flex items-center"
+        >
+          <i className="fas fa-arrow-left mr-2"></i> Voltar para Lista
+        </button>
+
         <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-8 text-center animate-pulse"><i className="fas fa-trophy text-yellow-400 mr-4"></i>Sorteador Oficial SIPAT 2026</h1>
         
         <div className="bg-gray-800 border-4 border-yellow-500 rounded-3xl p-8 md:p-16 shadow-2xl max-w-3xl w-full text-center">
