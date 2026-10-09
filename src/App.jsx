@@ -607,13 +607,13 @@ function App() {
                         <i className="fas fa-spa text-5xl sm:text-6xl text-white animate-float"></i>
                     </div>
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">
-                        🎁 SORTEIO ESPECIAL
+                        🎁 PRÊMIOS INCRÍVEIS
                     </h3>
                     <p className="text-xl sm:text-2xl font-bold text-yellow-300 mb-3">
-                        PRESENTE DOS PALESTRANTES
+                        SORTEIOS TODOS OS DIAS
                     </p>
                     <p className="text-lg sm:text-xl text-white mb-4">
-                        Surpresa especial para você!
+                        Participe presencialmente e concorra!
                     </p>
                     <div className="bg-white/20 rounded-lg p-4 inline-block">
                         <p className="text-white font-semibold text-sm sm:text-base">
