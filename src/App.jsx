@@ -31,6 +31,9 @@ function App() {
   const [listaParticipantes, setListaParticipantes] = useState([]);
   const [telaSorteio, setTelaSorteio] = useState("lista");
   const [carregandoLista, setCarregandoLista] = useState(false);
+  const [nomePremio, setNomePremio] = useState("");
+  const [isGrandeSorteio, setIsGrandeSorteio] = useState(false);
+  const [ganhadoresHoje, setGanhadoresHoje] = useState([]);
 
   useEffect(() => {
     // Check URL parameters for QR Code access
@@ -64,7 +67,9 @@ function App() {
       const { data, error } = await supabase
         .from('ifculos_participantes')
         // Using nome as matricula_ou_email to satisfy the unique constraint without asking for it
-        .insert([{ nome, matricula_ou_email: nome.trim().toLowerCase(), setor }]);
+        const todayString = new Date().toLocaleDateString('pt-BR');
+        const insertData = { nome, matricula_ou_email: `${nome.trim().toLowerCase()}_${todayString}`, setor };
+        const { data, error } = await supabase.from('ifculos_participantes').insert([insertData]);
 
       if (error) {
         if (error.code === '23505') { 
@@ -96,17 +101,63 @@ function App() {
         return;
       }
       
+      let candidatos = data;
+
+      // Se for o grande prêmio final, precisa ter registro nos 4 dias
+      if (isGrandeSorteio) {
+          // Conta as aparições de cada nome
+          const contagem = {};
+          data.forEach(p => {
+              const nameKey = p.nome.trim().toLowerCase();
+              contagem[nameKey] = (contagem[nameKey] || 0) + 1;
+          });
+          // Filtra só quem tem 4 (ou mais) dias
+          const nomesElegiveis = Object.keys(contagem).filter(k => contagem[k] >= 4);
+          
+          candidatos = data.filter(p => nomesElegiveis.includes(p.nome.trim().toLowerCase()));
+          
+          // Remove duplicados para a roleta
+          candidatos = candidatos.filter((v, i, a) => a.findIndex(t => (t.nome.trim().toLowerCase() === v.nome.trim().toLowerCase())) === i);
+
+          if (candidatos.length === 0) {
+              alert("Ninguém cumpriu a regra de estar presente todos os 4 dias!");
+              setSorteando(false);
+              return;
+          }
+      } else {
+          // Sorteio normal: Pega apenas os registros de HOJE
+          const todayString = new Date().toLocaleDateString('pt-BR');
+          const participantesDeHoje = data.filter(p => p.matricula_ou_email.endsWith(`_${todayString}`));
+          
+          if (participantesDeHoje.length > 0) {
+              candidatos = participantesDeHoje;
+          }
+
+          // Remove quem já ganhou hoje da lista
+          candidatos = candidatos.filter(p => !ganhadoresHoje.includes(p.nome));
+          
+          if (candidatos.length === 0) {
+              alert("Todos os participantes de hoje já foram sorteados!");
+              setSorteando(false);
+              return;
+          }
+      }
+
       // Efeito de roleta
       let counter = 0;
+      const maxIterations = isGrandeSorteio ? 200 : 100; // 20s ou 10s (cada tick é 100ms)
+      
       const interval = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * data.length);
-        setVencedor(data[randomIndex]);
+        const randomIndex = Math.floor(Math.random() * candidatos.length);
+        setVencedor(candidatos[randomIndex]);
         counter++;
-        if (counter > 20) {
+        if (counter > maxIterations) {
           clearInterval(interval);
-          const finalIndex = Math.floor(Math.random() * data.length);
-          setVencedor(data[finalIndex]);
+          const finalIndex = Math.floor(Math.random() * candidatos.length);
+          const ganhadorFinal = candidatos[finalIndex];
+          setVencedor(ganhadorFinal);
           setSorteando(false);
+          setGanhadoresHoje(prev => [...prev, ganhadorFinal.nome]);
         }
       }, 100);
 
@@ -115,6 +166,7 @@ function App() {
       setSorteando(false);
     }
   };
+
 
   
   if (isSorteador) {
@@ -167,7 +219,34 @@ function App() {
           <i className="fas fa-arrow-left mr-2"></i> Voltar para Lista
         </button>
 
-        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-8 text-center animate-pulse"><i className="fas fa-trophy text-yellow-400 mr-4"></i>Sorteador Oficial SIPAT 2026</h1>
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 text-center animate-pulse"><i className="fas fa-trophy text-yellow-400 mr-4"></i>Sorteador Oficial SIPAT 2026</h1>
+        
+        {!vencedor && !sorteando && (
+          <div className="mb-8 w-full max-w-3xl bg-gray-800 p-6 rounded-2xl border-2 border-gray-700 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 animate-fadeInUp">
+              <input 
+                  type="text" 
+                  placeholder="Nome do Prêmio (Ex: Voucher Giovanetti)" 
+                  value={nomePremio}
+                  onChange={(e) => setNomePremio(e.target.value)}
+                  className="w-full md:w-2/3 py-3 px-4 rounded-lg bg-gray-900 text-white border border-gray-600 focus:outline-none focus:border-yellow-500 font-semibold"
+              />
+              <label className="flex items-center space-x-3 cursor-pointer">
+                  <input 
+                      type="checkbox" 
+                      checked={isGrandeSorteio}
+                      onChange={(e) => setIsGrandeSorteio(e.target.checked)}
+                      className="h-6 w-6 text-yellow-500 rounded focus:ring-yellow-500 bg-gray-900 border-gray-600"
+                  />
+                  <span className="text-yellow-400 font-bold uppercase tracking-wider text-sm">Grande Sorteio Final</span>
+              </label>
+          </div>
+        )}
+        
+        {vencedor && nomePremio && (
+           <div className="mb-6 bg-yellow-500 text-gray-900 py-2 px-8 rounded-full text-2xl font-black shadow-lg animate-bounce">
+              Prêmio: {nomePremio}
+           </div>
+        )}
         
         <div className="bg-gray-800 border-4 border-yellow-500 rounded-3xl p-8 md:p-16 shadow-2xl max-w-3xl w-full text-center">
           {vencedor ? (
