@@ -64,12 +64,9 @@ function App() {
     setMensagem("");
 
     try {
-      const { data, error } = await supabase
-        .from('ifculos_participantes')
-        // Using nome as matricula_ou_email to satisfy the unique constraint without asking for it
-        const todayString = new Date().toLocaleDateString('pt-BR');
-        const insertData = { nome, matricula_ou_email: `${nome.trim().toLowerCase()}_${todayString}`, setor };
-        const { data, error } = await supabase.from('ifculos_participantes').insert([insertData]);
+      const todayString = new Date().toLocaleDateString('pt-BR');
+      const insertData = { nome, matricula_ou_email: `${nome.trim().toLowerCase()}_${todayString}`, setor };
+      const { data, error } = await supabase.from('ifculos_participantes').insert([insertData]);
 
       if (error) {
         if (error.code === '23505') { 
