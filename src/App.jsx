@@ -28,6 +28,9 @@ function App() {
   // Sorteador states
   const [vencedor, setVencedor] = useState(null);
   const [sorteando, setSorteando] = useState(false);
+  const [listaParticipantes, setListaParticipantes] = useState([]);
+  const [telaSorteio, setTelaSorteio] = useState("lista");
+  const [carregandoLista, setCarregandoLista] = useState(false);
 
   useEffect(() => {
     // Check URL parameters for QR Code access
@@ -37,9 +40,19 @@ function App() {
     }
     
     // Check if it's the sorteador page
+    
+    // Check if it's the sorteador page
     if (window.location.pathname === "/sorteador") {
       setIsSorteador(true);
+      const fetchParticipantes = async () => {
+        setCarregandoLista(true);
+        const { data, error } = await supabase.from('ifculos_participantes').select('*').order('data_cadastro', { ascending: false });
+        if (data) setListaParticipantes(data);
+        setCarregandoLista(false);
+      };
+      fetchParticipantes();
     }
+
   }, []);
 
   const handleSorteioSubmit = async (e) => {
