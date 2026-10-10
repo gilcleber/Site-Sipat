@@ -537,92 +537,94 @@ function App() {
                 
             </div>
 
-                            {/* Registration Form */}
-                <div className={`bg-gradient-to-br from-green-50 to-green-100 p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-green-300 md:col-span-3 flex flex-col items-center justify-center animate-fadeInUp mt-6 ${isPresencial ? 'md:flex-row' : ''}`}>
-                    {isPresencial && (
-                    <div className="md:w-1/2 mb-6 md:mb-0 md:pr-8 text-center md:text-left w-full">
-                        <i className="fas fa-ticket-alt text-5xl text-green-600 mb-4 icon-bounce"></i>
-                        <h3 className="text-2xl sm:text-3xl font-bold text-green-800 mb-2">Check-in e Sorteio</h3>
-                        <p className="text-green-700 text-lg">Confirme sua presença e participe automaticamente dos sorteios diários e do Grande Prêmio Final!</p>
+                            {/* Check-in and Prizes side-by-side block */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mt-6 sm:mt-8 w-full">
+                    
+                    {/* Registration Form */}
+                    <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl shadow-2xl border-4 border-green-300 flex flex-col items-center justify-center animate-fadeInUp h-full">
+                        <div className="w-full text-center mb-6">
+                            <i className="fas fa-ticket-alt text-4xl text-green-600 mb-3 icon-bounce"></i>
+                            <h3 className="text-xl sm:text-2xl font-bold text-green-800 mb-2">Check-in e Sorteio</h3>
+                            <p className="text-green-700 text-sm sm:text-base">Área exclusiva para os Cipeiros registrarem a presença dos funcionários nos sorteios diários.</p>
+                        </div>
+                        <div className="w-full max-w-md">
+                            {!isUnlocked ? (
+                                <form className="bg-white p-6 rounded-xl shadow-inner w-full text-center" onSubmit={(e) => { e.preventDefault(); if(pin === "134679") setIsUnlocked(true); else { alert("PIN incorreto!"); setPin(""); } }}>
+                                    <i className="fas fa-lock text-4xl text-gray-400 mb-3"></i>
+                                    <h4 className="text-lg font-bold text-gray-700 mb-2">Acesso Restrito - CIPA</h4>
+                                    <p className="text-xs text-gray-500 mb-4">Digite o PIN de 6 dígitos para liberar.</p>
+                                    <div className="mb-4">
+                                        <input 
+                                          className="shadow appearance-none border-2 border-gray-300 rounded-lg w-full py-3 px-4 text-center text-xl tracking-widest text-gray-700 font-bold focus:outline-none focus:border-green-500 transition" 
+                                          type="password" 
+                                          placeholder="******" 
+                                          maxLength="6"
+                                          value={pin}
+                                          onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))}
+                                        />
+                                    </div>
+                                    <button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition transform hover:scale-105 text-sm">
+                                        <i className="fas fa-unlock-alt mr-2"></i> Liberar
+                                    </button>
+                                </form>
+                            ) : (
+                                <form className="bg-white p-6 rounded-xl shadow-inner w-full animate-fadeInUp" id="form-sorteio" onSubmit={handleSorteioSubmit}>
+                                    <div className="flex justify-between items-center mb-4 border-b pb-2">
+                                      <h4 className="font-bold text-gray-800 text-sm">Check-in de Presença</h4>
+                                      <button type="button" onClick={() => {setIsUnlocked(false); setPin("");}} className="text-xs text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded"><i className="fas fa-lock mr-1"></i>Bloquear</button>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="nome">Nome e Sobrenome</label>
+                                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Nome completo" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
+                                    </div>
+                                    <div className="mb-5">
+                                        <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="setor">Setor / Departamento</label>
+                                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Setor (Ex: RH, Produção)" required value={setor} onChange={(e) => setSetor(e.target.value)} disabled={status === "loading"} />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <button className="w-full bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-4 rounded-lg shadow-lg focus:outline-none focus:shadow-outline transition transform hover:scale-105 disabled:opacity-50 flex justify-center items-center text-sm" type="submit" disabled={status === "loading"}>
+                                            {status === "loading" ? (
+                                                <><i className="fas fa-circle-notch fa-spin mr-2"></i> Registrando...</>
+                                            ) : (
+                                                <><i className="fas fa-check-circle mr-2"></i> Confirmar</>
+                                            )}
+                                        </button>
+                                    </div>
+                                    {mensagem && (
+                                        <div className={`mt-4 p-2 rounded-lg text-center font-semibold text-xs ${status === "success" ? "bg-green-100 text-green-800 border border-green-300" : "bg-red-100 text-red-800 border border-red-300"}`}>
+                                            {status === "success" ? <i className="fas fa-check mr-1"></i> : <i className="fas fa-exclamation-triangle mr-1"></i>}
+                                            {mensagem}
+                                        </div>
+                                    )}
+                                </form>
+                            )}
+                        </div>
                     </div>
-                    )}
-                    <div className="md:w-1/2 w-full">
-                      {!isUnlocked ? (
-                          <form className="bg-white p-6 sm:p-10 rounded-xl shadow-inner w-full text-center" onSubmit={(e) => { e.preventDefault(); if(pin === "134679") setIsUnlocked(true); else { alert("PIN incorreto!"); setPin(""); } }}>
-                              <i className="fas fa-lock text-5xl text-gray-400 mb-4"></i>
-                              <h4 className="text-xl font-bold text-gray-700 mb-2">Acesso Restrito - CIPA</h4>
-                              <p className="text-sm text-gray-500 mb-6">Digite o PIN de 6 dígitos para liberar o check-in na máquina.</p>
-                              <div className="mb-6 max-w-xs mx-auto">
-                                  <input 
-                                    className="shadow appearance-none border-2 border-gray-300 rounded-lg w-full py-4 px-4 text-center text-2xl tracking-widest text-gray-700 font-bold focus:outline-none focus:border-green-500 transition" 
-                                    type="password" 
-                                    placeholder="******" 
-                                    maxLength="6"
-                                    value={pin}
-                                    onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))}
-                                  />
-                              </div>
-                              <button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition transform hover:scale-105">
-                                  <i className="fas fa-unlock-alt mr-2"></i> Liberar Formulário
-                              </button>
-                          </form>
-                      ) : (
-                          <form className="bg-white p-6 rounded-xl shadow-inner w-full animate-fadeInUp" id="form-sorteio" onSubmit={handleSorteioSubmit}>
-                              <div className="flex justify-between items-center mb-4">
-                                <h4 className="font-bold text-gray-800">Check-in de Presença</h4>
-                                <button type="button" onClick={() => {setIsUnlocked(false); setPin("");}} className="text-xs text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded"><i className="fas fa-lock mr-1"></i>Bloquear Novamente</button>
-                              </div>
-                              <div className="mb-4">
-                                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nome">Nome e Sobrenome</label>
-                                  <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Digite seu nome completo" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
-                              </div>
-                              <div className="mb-6">
-                                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="setor">Setor / Departamento</label>
-                                  <input className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Seu setor (Ex: RH, TI, Produção)" required value={setor} onChange={(e) => setSetor(e.target.value)} disabled={status === "loading"} />
-                              </div>
-                              <div className="flex items-center justify-between">
-                                  <button className="w-full bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-4 rounded-lg shadow-lg focus:outline-none focus:shadow-outline transition transform hover:scale-105 disabled:opacity-50 flex justify-center items-center" type="submit" disabled={status === "loading"}>
-                                      {status === "loading" ? (
-                                          <><i className="fas fa-circle-notch fa-spin mr-2"></i> Registrando...</>
-                                      ) : (
-                                          <><i className="fas fa-check-circle mr-2"></i> Confirmar Presença</>
-                                      )}
-                                  </button>
-                              </div>
-                              {mensagem && (
-                                  <div className={`mt-4 p-3 rounded-lg text-center font-semibold text-sm ${status === "success" ? "bg-green-100 text-green-800 border border-green-300" : "bg-red-100 text-red-800 border border-red-300"}`}>
-                                      {status === "success" ? <i className="fas fa-check mr-1"></i> : <i className="fas fa-exclamation-triangle mr-1"></i>}
-                                      {mensagem}
-                                  </div>
-                              )}
-                          </form>
-                      )}
-                    </div>
-                </div>
 
-                {/* Card Especial: Sorteio Quiropraxia */} 
-            <div className="max-w-4xl mx-auto mt-6 sm:mt-8">
-                <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-white text-center animate-fadeInUp shine">
-                    <div className="flex items-center justify-center mb-4">
-                        <i className="fas fa-spa text-5xl sm:text-6xl text-white animate-float"></i>
-                    </div>
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">
-                        🎁 PRÊMIOS INCRÍVEIS
-                    </h3>
-                    <p className="text-xl sm:text-2xl font-bold text-yellow-300 mb-3">
-                        SORTEIOS TODOS OS DIAS
-                    </p>
-                    <p className="text-lg sm:text-xl text-white mb-4">
-                        Participe presencialmente e concorra!
-                    </p>
-                    <div className="bg-white/20 rounded-lg p-4 inline-block">
-                        <p className="text-white font-semibold text-sm sm:text-base">
-                            <i className="fas fa-calendar-check mr-2"></i>
-                            Sorteio realizado no encerramento da SIPAT
+                    {/* Card Especial: Sorteio Quiropraxia / Prêmios Incríveis */} 
+                    <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-6 rounded-2xl shadow-2xl border-4 border-white text-center animate-fadeInUp shine flex flex-col justify-center h-full">
+                        <div className="flex items-center justify-center mb-4">
+                            <i className="fas fa-spa text-5xl sm:text-6xl text-white animate-float"></i>
+                        </div>
+                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">
+                            🎁 PRÊMIOS INCRÍVEIS
+                        </h3>
+                        <p className="text-xl sm:text-2xl font-bold text-yellow-300 mb-3">
+                            SORTEIOS TODOS OS DIAS
                         </p>
+                        <p className="text-lg sm:text-xl text-white mb-6">
+                            Participe presencialmente e concorra!
+                        </p>
+                        <div>
+                            <div className="bg-white/20 rounded-lg p-3 inline-block">
+                                <p className="text-white font-semibold text-xs sm:text-sm">
+                                    <i className="fas fa-calendar-check mr-2"></i>
+                                    Sorteio realizado no encerramento da SIPAT
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
     </section>
 
