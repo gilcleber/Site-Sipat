@@ -436,7 +436,7 @@ function App() {
                 <p className="text-lg sm:text-xl text-gray-300 animate-fadeInUp">Participe e Concorra a Prêmios Incríveis!</p>
                 <p className="text-lg sm:text-xl text-yellow-300 animate-fadeInUp mt-2 font-bold">
     <i className="fas fa-exclamation-triangle mr-2"></i>
-    ATENÇÃO! Os sorteios serão realizados somente para os funcionários presentes no presencial.
+    ATENÇÃO! Apenas os colaboradores presentes no presencial participarão dos sorteios.
 </p>
             </div>
 
