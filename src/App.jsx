@@ -664,7 +664,7 @@ function App() {
                             </td>
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Autocuidado e gestão do estresse</td>
-                            <td className="font-semibold text-green-700">DANI VIDOTTO</td>
+                            <td className="font-semibold text-green-700">VANESSA FAVIN</td>
                             <td className="text-gray-700">Abertura da semana e sorteio de 3 prêmios.</td>
                         </tr>
                         <tr>
