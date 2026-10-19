@@ -390,8 +390,8 @@ function App() {
             </p>
 
             <div className="text-center animate-fadeInUp" style={{animationDelay: "0.2s"}}>
-                <div className="live-status-badge" id="live-status-badge">
-                    🎬 Vídeos educativos em reprodução contínua
+                <div className="live-status-badge is-live" id="live-status-badge">
+                    🔴 Transmissão Ao Vivo em andamento
                 </div>
             </div>
 
@@ -399,8 +399,8 @@ function App() {
                 <div className="live-video-container" id="live-player">
                     <iframe
                         id="live-iframe"
-                        src="https://www.youtube.com/embed/7EJ-iJNOAvI?rel=0"
-                        title="SIPAT 2026 - Vídeos Educativos"
+                        src="https://www.youtube.com/embed/azCjY5zfypw?autoplay=1&rel=0"
+                        title="SIPAT 2026 - Transmissão Ao Vivo"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen>
@@ -411,7 +411,7 @@ function App() {
             <div className="live-actions animate-fadeInUp" style={{animationDelay: "0.4s"}}>
                 <a
                     id="btn-open-youtube"
-                    href="#"
+                    href="https://www.youtube.com/live/azCjY5zfypw"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-live-primary">
@@ -420,7 +420,7 @@ function App() {
             </div>
 
             <p className="live-note animate-fadeInUp" style={{animationDelay: "0.5s"}} id="live-note">
-                <i className="fas fa-info-circle"></i> Os vídeos estão em reprodução contínua (loop). Nos dias de transmissão ao vivo (25, 26 e 28/Nov), este player exibirá as palestras em tempo real.
+                <i className="fas fa-info-circle"></i> Transmissão oficial da SIPAT 2026 ao vivo.
             </p>
         </div>
     </section>
