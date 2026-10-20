@@ -38,6 +38,21 @@ function App() {
   const [isGrandeSorteio, setIsGrandeSorteio] = useState(false);
   const [ganhadoresHoje, setGanhadoresHoje] = useState([]);
 
+  // Galeria de Fotos states
+  const [diaFotoSelecionado, setDiaFotoSelecionado] = useState("todos");
+  const [fotoModalIndex, setFotoModalIndex] = useState(null);
+
+  const fotosSipat = [
+    { id: 1, src: "/fotos/dia2_capa.jpg", dia: 2, data: "20/Out", destaque: true, titulo: "Foto Oficial da Equipe e Palestrante", desc: "Equipe Band Campinas reunida com a palestrante no encerramento da palestra de Saúde Mental" },
+    { id: 2, src: "/fotos/foto_01.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Auditório e Colaboradores", desc: "Equipe presente acompanhando a apresentação" },
+    { id: 3, src: "/fotos/foto_02.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Exercício Prático", desc: "Dinâmica e apresentação durante a sessão" },
+    { id: 4, src: "/fotos/foto_03.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Mente x Cérebro", desc: "Conceitos de neurociência e saúde mental" },
+    { id: 5, src: "/fotos/foto_04.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Participação Ativa", desc: "Visão geral da sala durante a palestra" },
+    { id: 6, src: "/fotos/foto_05.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Apresentação e Palestrante", desc: "Orientações sobre qualidade de vida e rotina" },
+    { id: 7, src: "/fotos/foto_06.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Qualidade do Sono", desc: "A importância do descanso e hábitos saudáveis" },
+    { id: 8, src: "/fotos/foto_07.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Saúde Mental no Trabalho", desc: "Reflexão sobre equilíbrio emocional e profissional" },
+  ];
+
   const fetchParticipantes = async () => {
     setCarregandoLista(true);
     try {
@@ -427,6 +442,10 @@ function App() {
                     <span className="hidden sm:inline">IR PARA PLAYER</span>
                     <span className="sm:hidden">PLAYER</span>
                 </button>
+                <a href="#fotos" className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 sm:px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105 text-sm sm:text-base flex items-center">
+                    <i className="fas fa-camera mr-1.5 text-green-600"></i>
+                    <span>Fotos</span>
+                </a>
                 <a href="#agenda" className="btn-primary bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 px-4 sm:px-6 rounded-lg shadow-md transition duration-300 transform hover:scale-105 text-sm sm:text-base">
                     Ver Agenda
                 </a>
@@ -836,6 +855,219 @@ function App() {
                 </p>
             </div>
         </div>
+    </section>
+
+    {/* Galeria de Fotos */}
+    <section id="fotos" className="py-12 sm:py-20 bg-gray-950 text-white border-t border-gray-800 relative">
+        <div className="container mx-auto px-4">
+            <div className="text-center mb-10 sm:mb-14">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 font-semibold text-sm mb-3">
+                    <i className="fas fa-camera"></i> Registros dos Dias Presenciais
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-extrabold text-white mb-3">
+                    📸 Galeria de Fotos – SIPAT 2026
+                </h2>
+                <p className="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto">
+                    Confira os melhores momentos, dinâmicas e a participação dos colaboradores em cada dia presencial!
+                </p>
+
+                {/* Filtro por Dia */}
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-8">
+                    {[
+                        { id: "todos", label: "Todas as Fotos", icon: "fa-images" },
+                        { id: "1", label: "Dia 1 (19/Out)", icon: "fa-calendar-day" },
+                        { id: "2", label: "Dia 2 (20/Out)", icon: "fa-calendar-day" },
+                        { id: "3", label: "Dia 3 (21/Out)", icon: "fa-calendar-day" },
+                        { id: "4", label: "Dia 4 (23/Out)", icon: "fa-star" },
+                    ].map((tab) => {
+                        const count = tab.id === "todos" 
+                            ? fotosSipat.length 
+                            : fotosSipat.filter(f => String(f.dia) === tab.id).length;
+                        const isActive = diaFotoSelecionado === tab.id;
+                        return (
+                            <button
+                                key={tab.id}
+                                onClick={() => setDiaFotoSelecionado(tab.id)}
+                                className={`px-4 sm:px-5 py-2.5 rounded-full font-bold text-xs sm:text-sm transition-all transform hover:scale-105 flex items-center gap-2 shadow-md cursor-pointer ${
+                                    isActive
+                                        ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white ring-2 ring-green-400 shadow-green-900/40"
+                                        : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700"
+                                }`}
+                            >
+                                <i className={`fas ${tab.icon}`}></i>
+                                <span>{tab.label}</span>
+                                {count > 0 && (
+                                    <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${isActive ? "bg-white/20 text-white" : "bg-gray-900 text-gray-400"}`}>
+                                        {count}
+                                    </span>
+                                )}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* Grid de Fotos */}
+            {(() => {
+                const fotosExibidas = diaFotoSelecionado === "todos" 
+                    ? fotosSipat 
+                    : fotosSipat.filter(f => String(f.dia) === diaFotoSelecionado);
+
+                if (fotosExibidas.length === 0) {
+                    const diaNome = diaFotoSelecionado === "1" ? "Dia 1 (19/Out)" : diaFotoSelecionado === "3" ? "Dia 3 (21/Out)" : "Dia 4 (23/Out)";
+                    return (
+                        <div className="bg-gray-900 border-2 border-dashed border-gray-700 rounded-3xl p-10 sm:p-16 text-center max-w-xl mx-auto my-8">
+                            <i className="fas fa-camera-retro text-5xl text-gray-600 mb-4 block"></i>
+                            <h3 className="text-xl sm:text-2xl font-bold text-gray-300 mb-2">Fotos do {diaNome}</h3>
+                            <p className="text-gray-500 text-sm sm:text-base">
+                                As fotos desta palestra serão publicadas logo após a realização das atividades presenciais. Fique ligado!
+                            </p>
+                        </div>
+                    );
+                }
+
+                const capaFoto = fotosExibidas.find(f => f.destaque);
+                const outrasFotos = fotosExibidas.filter(f => !f.destaque);
+
+                return (
+                    <div className="space-y-6">
+                        {/* Foto Capa em Destaque */}
+                        {capaFoto && (
+                            <div 
+                                onClick={() => setFotoModalIndex(fotosSipat.findIndex(f => f.id === capaFoto.id))}
+                                className="group relative rounded-3xl overflow-hidden shadow-2xl border-2 border-yellow-500/50 bg-gray-900 cursor-pointer transition transform hover:scale-[1.01]"
+                            >
+                                <div className="relative aspect-[16/9] sm:aspect-[21/9] max-h-[500px] w-full overflow-hidden bg-black flex items-center justify-center">
+                                    <img 
+                                        src={capaFoto.src} 
+                                        alt={capaFoto.titulo}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent"></div>
+                                    <div className="absolute top-4 left-4 bg-yellow-500 text-gray-900 font-black text-xs sm:text-sm px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-wider">
+                                        <i className="fas fa-star text-yellow-950"></i> Capa Oficial • Dia 2 (20/Out)
+                                    </div>
+                                    <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+                                        <h3 className="text-xl sm:text-3xl font-extrabold text-white mb-1 drop-shadow">
+                                            {capaFoto.titulo}
+                                        </h3>
+                                        <p className="text-gray-300 text-xs sm:text-base line-clamp-2 drop-shadow">
+                                            {capaFoto.desc}
+                                        </p>
+                                    </div>
+                                    <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 hidden sm:flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold text-white">
+                                        <i className="fas fa-search-plus"></i> Clique para ampliar
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Galeria Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                            {outrasFotos.map((foto) => {
+                                const originalIndex = fotosSipat.findIndex(f => f.id === foto.id);
+                                return (
+                                    <div
+                                        key={foto.id}
+                                        onClick={() => setFotoModalIndex(originalIndex)}
+                                        className="group relative rounded-2xl overflow-hidden shadow-xl border border-gray-800 bg-gray-900 hover:border-green-500/50 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-2xl flex flex-col"
+                                    >
+                                        <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+                                            <img 
+                                                src={foto.src} 
+                                                alt={foto.titulo}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                            <span className="absolute top-2.5 left-2.5 bg-black/70 backdrop-blur-md text-green-400 font-bold text-[10px] sm:text-xs px-2.5 py-1 rounded-md border border-green-500/30">
+                                                Dia {foto.dia} • {foto.data}
+                                            </span>
+                                            <span className="absolute bottom-2.5 right-2.5 bg-black/70 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition">
+                                                <i className="fas fa-search-plus"></i>
+                                            </span>
+                                        </div>
+                                        <div className="p-3 sm:p-4 bg-gray-900/90 flex-grow">
+                                            <h4 className="font-bold text-sm sm:text-base text-white group-hover:text-green-400 transition truncate">
+                                                {foto.titulo}
+                                            </h4>
+                                            <p className="text-xs text-gray-400 mt-1 line-clamp-2">
+                                                {foto.desc}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            })()}
+        </div>
+
+        {/* Modal Lightbox */}
+        {fotoModalIndex !== null && fotosSipat[fotoModalIndex] && (
+            <div 
+                className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"
+                onClick={() => setFotoModalIndex(null)}
+            >
+                <button
+                    onClick={() => setFotoModalIndex(null)}
+                    className="absolute top-4 right-4 sm:top-6 sm:right-6 text-gray-300 hover:text-white bg-gray-800/80 hover:bg-red-600 w-11 h-11 rounded-full flex items-center justify-center text-xl transition z-10 cursor-pointer"
+                    title="Fechar (ESC)"
+                >
+                    <i className="fas fa-times"></i>
+                </button>
+
+                {/* Seta Anterior */}
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setFotoModalIndex((fotoModalIndex - 1 + fotosSipat.length) % fotosSipat.length);
+                    }}
+                    className="absolute left-2 sm:left-6 text-gray-300 hover:text-white bg-gray-800/80 hover:bg-green-600 w-11 h-11 rounded-full flex items-center justify-center text-lg transition z-10 cursor-pointer"
+                    title="Anterior"
+                >
+                    <i className="fas fa-chevron-left"></i>
+                </button>
+
+                {/* Seta Próxima */}
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setFotoModalIndex((fotoModalIndex + 1) % fotosSipat.length);
+                    }}
+                    className="absolute right-2 sm:right-6 text-gray-300 hover:text-white bg-gray-800/80 hover:bg-green-600 w-11 h-11 rounded-full flex items-center justify-center text-lg transition z-10 cursor-pointer"
+                    title="Próxima"
+                >
+                    <i className="fas fa-chevron-right"></i>
+                </button>
+
+                {/* Conteúdo Imagem + Legenda */}
+                <div 
+                    className="max-w-5xl w-full flex flex-col items-center max-h-[90vh]"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <img
+                        src={fotosSipat[fotoModalIndex].src}
+                        alt={fotosSipat[fotoModalIndex].titulo}
+                        className="max-h-[75vh] max-w-full object-contain rounded-2xl shadow-2xl border-2 border-gray-700"
+                    />
+                    <div className="mt-4 text-center text-white px-4">
+                        <span className="inline-block bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-2">
+                            Dia {fotosSipat[fotoModalIndex].dia} • {fotosSipat[fotoModalIndex].data}
+                        </span>
+                        <h3 className="text-lg sm:text-2xl font-extrabold">
+                            {fotosSipat[fotoModalIndex].titulo}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                            {fotosSipat[fotoModalIndex].desc}
+                        </p>
+                        <p className="text-[11px] text-gray-500 mt-2">
+                            Foto {fotoModalIndex + 1} de {fotosSipat.length}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        )}
     </section>
 
     {/* Rodapé */}
