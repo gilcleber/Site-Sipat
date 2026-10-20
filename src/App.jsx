@@ -38,6 +38,18 @@ function App() {
   const [isGrandeSorteio, setIsGrandeSorteio] = useState(false);
   const [ganhadoresHoje, setGanhadoresHoje] = useState([]);
 
+  const fetchParticipantes = async () => {
+    setCarregandoLista(true);
+    try {
+      const { data, error } = await supabase.from('ifculos_participantes').select('*').order('data_cadastro', { ascending: false });
+      if (data) setListaParticipantes(data);
+    } catch (err) {
+      console.error("Erro ao buscar participantes:", err);
+    } finally {
+      setCarregandoLista(false);
+    }
+  };
+
   useEffect(() => {
     // Check URL parameters for QR Code access
     const searchParams = new URLSearchParams(window.location.search);
@@ -45,20 +57,12 @@ function App() {
       setIsPresencial(true);
     }
     
-    // Check if it's the sorteador page
-    
-    // Check if it's the sorteador page
-    if (window.location.pathname === "/sorteador") {
+    // Check if it's the sorteador or sorteio page
+    const fullLoc = (window.location.pathname + window.location.search + window.location.hash).toLowerCase();
+    if (fullLoc.includes("sorteio") || fullLoc.includes("sorteador")) {
       setIsSorteador(true);
-      const fetchParticipantes = async () => {
-        setCarregandoLista(true);
-        const { data, error } = await supabase.from('ifculos_participantes').select('*').order('data_cadastro', { ascending: false });
-        if (data) setListaParticipantes(data);
-        setCarregandoLista(false);
-      };
       fetchParticipantes();
     }
-
   }, []);
 
   const handleSorteioSubmit = async (e) => {
@@ -127,14 +131,14 @@ function App() {
       } else {
           // Sorteio normal: Pega apenas os registros de HOJE
           const todayString = new Date().toLocaleDateString('pt-BR');
-          const participantesDeHoje = data.filter(p => p.matricula_ou_email.endsWith(`_${todayString}`));
+          const participantesDeHoje = data.filter(p => p && p.matricula_ou_email && (p.matricula_ou_email.endsWith(`_${todayString}`) || !p.matricula_ou_email.includes('_')));
           
           if (participantesDeHoje.length > 0) {
               candidatos = participantesDeHoje;
           }
 
           // Remove quem já ganhou hoje da lista
-          candidatos = candidatos.filter(p => !ganhadoresHoje.includes(p.nome));
+          candidatos = candidatos.filter(p => p && p.nome && !ganhadoresHoje.includes(p.nome));
           
           if (candidatos.length === 0) {
               alert("Todos os participantes de hoje já foram sorteados!");
@@ -173,14 +177,30 @@ function App() {
     if (telaSorteio === "lista") {
       return (
         <div className="min-h-screen bg-gray-900 flex flex-col p-8">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl md:text-5xl font-extrabold text-white"><i className="fas fa-clipboard-list text-yellow-400 mr-4"></i>Participantes do Sorteio</h1>
-            <button 
-              onClick={() => setTelaSorteio("roleta")}
-              className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold text-lg md:text-xl py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105"
-            >
-              Ir para Roleta <i className="fas fa-arrow-right ml-2"></i>
-            </button>
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div className="flex items-center gap-3">
+              <a href="/" className="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-xl text-sm font-semibold transition border border-gray-700 flex items-center">
+                <i className="fas fa-arrow-left mr-2"></i>Voltar ao Site
+              </a>
+              <h1 className="text-2xl md:text-4xl font-extrabold text-white">
+                <i className="fas fa-clipboard-list text-yellow-400 mr-3"></i>Participantes do Sorteio
+              </h1>
+            </div>
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={fetchParticipantes}
+                disabled={carregandoLista}
+                className="bg-gray-800 hover:bg-gray-700 text-white font-bold text-sm md:text-base py-3 px-5 rounded-full shadow border border-gray-600 transition flex items-center"
+              >
+                <i className={`fas fa-sync-alt mr-2 ${carregandoLista ? 'fa-spin' : ''}`}></i> Atualizar Lista
+              </button>
+              <button 
+                onClick={() => setTelaSorteio("roleta")}
+                className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold text-base md:text-lg py-3 px-6 rounded-full shadow-lg transition transform hover:scale-105 flex items-center"
+              >
+                Ir para Roleta <i className="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
           </div>
           
           
@@ -259,12 +279,20 @@ function App() {
 
     return (
       <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4 relative">
-        <button 
-          onClick={() => setTelaSorteio("lista")}
-          className="absolute top-6 left-6 text-gray-400 hover:text-white transition flex items-center"
-        >
-          <i className="fas fa-arrow-left mr-2"></i> Voltar para Lista
-        </button>
+        <div className="absolute top-6 left-6 flex gap-3">
+          <button 
+            onClick={() => setTelaSorteio("lista")}
+            className="text-gray-300 hover:text-white transition flex items-center bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-sm font-semibold"
+          >
+            <i className="fas fa-arrow-left mr-2"></i> Voltar para Lista
+          </button>
+          <a 
+            href="/"
+            className="text-gray-300 hover:text-white transition flex items-center bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-sm font-semibold"
+          >
+            <i className="fas fa-home mr-2"></i> Ir ao Site
+          </a>
+        </div>
 
         <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 text-center animate-pulse"><i className="fas fa-trophy text-yellow-400 mr-4"></i>Sorteador Oficial SIPAT 2026</h1>
         
@@ -347,6 +375,10 @@ function App() {
             </h1>
             
             <div className="flex items-center gap-2 sm:gap-3 animate-fadeInUp">
+                <a href="/sorteio" className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 sm:px-4 rounded-lg shadow-sm transition flex items-center text-xs sm:text-sm border border-gray-300">
+                    <i className="fas fa-trophy mr-1.5 text-yellow-500"></i>
+                    <span>Sorteio</span>
+                </a>
                 <button onClick={scrollToLivePlayer} className="btn-header-player">
                     <i className="fas fa-play-circle"></i>
                     <span className="hidden sm:inline">IR PARA PLAYER</span>
@@ -568,12 +600,22 @@ function App() {
                                     <button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition transform hover:scale-105 text-sm">
                                         <i className="fas fa-unlock-alt mr-2"></i> Liberar
                                     </button>
+                                    <div className="mt-4 pt-3 border-t border-gray-100 flex justify-center">
+                                        <a href="/sorteio" className="text-xs text-green-700 hover:text-green-900 font-semibold flex items-center transition">
+                                            <i className="fas fa-trophy mr-1 text-yellow-500"></i> Ir para Painel de Sorteio
+                                        </a>
+                                    </div>
                                 </form>
                             ) : (
                                 <form className="bg-white p-6 rounded-xl shadow-inner w-full animate-fadeInUp" id="form-sorteio" onSubmit={handleSorteioSubmit}>
                                     <div className="flex justify-between items-center mb-4 border-b pb-2">
                                       <h4 className="font-bold text-gray-800 text-sm">Check-in de Presença</h4>
-                                      <button type="button" onClick={() => {setIsUnlocked(false); setPin("");}} className="text-xs text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded"><i className="fas fa-lock mr-1"></i>Bloquear</button>
+                                      <div className="flex items-center gap-2">
+                                        <a href="/sorteio" target="_blank" rel="noopener noreferrer" className="text-xs text-yellow-800 hover:text-yellow-900 font-bold px-2 py-1 bg-yellow-100 rounded border border-yellow-300 flex items-center">
+                                          <i className="fas fa-trophy mr-1 text-yellow-600"></i>Sorteador
+                                        </a>
+                                        <button type="button" onClick={() => {setIsUnlocked(false); setPin("");}} className="text-xs text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded"><i className="fas fa-lock mr-1"></i>Bloquear</button>
+                                      </div>
                                     </div>
                                     <div className="mb-4">
                                         <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="nome">Nome e Sobrenome</label>
