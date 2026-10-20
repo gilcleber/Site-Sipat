@@ -174,14 +174,61 @@ function App() {
 
   
   if (isSorteador) {
+    if (!isUnlocked) {
+      return (
+        <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
+          <div className="bg-gray-800 border-2 border-gray-700 p-8 rounded-2xl shadow-2xl max-w-md w-full text-center">
+            <i className="fas fa-lock text-5xl text-yellow-400 mb-4"></i>
+            <h2 className="text-2xl font-bold text-white mb-2">Acesso Restrito - CIPA</h2>
+            <p className="text-sm text-gray-400 mb-6">Digite o PIN de 6 dígitos para acessar o painel do sorteio.</p>
+            <form onSubmit={(e) => { 
+              e.preventDefault(); 
+              if (pin === "134679") {
+                setIsUnlocked(true);
+                fetchParticipantes();
+              } else { 
+                alert("PIN incorreto!"); 
+                setPin(""); 
+              } 
+            }}>
+              <input 
+                className="shadow appearance-none border-2 border-gray-600 bg-gray-900 rounded-lg w-full py-4 px-4 text-center text-2xl tracking-widest text-white font-bold focus:outline-none focus:border-yellow-500 mb-6 transition" 
+                type="password" 
+                placeholder="******" 
+                maxLength="6"
+                value={pin}
+                onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))}
+                autoFocus
+              />
+              <button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-3 px-4 rounded-lg shadow-lg transition transform hover:scale-105">
+                <i className="fas fa-unlock-alt mr-2"></i> Liberar Sorteador
+              </button>
+              <div className="mt-4">
+                <button 
+                  type="button"
+                  onClick={() => setIsSorteador(false)} 
+                  className="text-xs text-gray-400 hover:text-white transition"
+                >
+                  <i className="fas fa-arrow-left mr-1"></i> Voltar à página inicial
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
     if (telaSorteio === "lista") {
       return (
         <div className="min-h-screen bg-gray-900 flex flex-col p-8">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div className="flex items-center gap-3">
-              <a href="/" className="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-xl text-sm font-semibold transition border border-gray-700 flex items-center">
+              <button 
+                onClick={() => setIsSorteador(false)} 
+                className="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-xl text-sm font-semibold transition border border-gray-700 flex items-center"
+              >
                 <i className="fas fa-arrow-left mr-2"></i>Voltar ao Site
-              </a>
+              </button>
               <h1 className="text-2xl md:text-4xl font-extrabold text-white">
                 <i className="fas fa-clipboard-list text-yellow-400 mr-3"></i>Participantes do Sorteio
               </h1>
@@ -286,12 +333,12 @@ function App() {
           >
             <i className="fas fa-arrow-left mr-2"></i> Voltar para Lista
           </button>
-          <a 
-            href="/"
+          <button 
+            onClick={() => setIsSorteador(false)}
             className="text-gray-300 hover:text-white transition flex items-center bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-sm font-semibold"
           >
             <i className="fas fa-home mr-2"></i> Ir ao Site
-          </a>
+          </button>
         </div>
 
         <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 text-center animate-pulse"><i className="fas fa-trophy text-yellow-400 mr-4"></i>Sorteador Oficial SIPAT 2026</h1>
@@ -375,10 +422,6 @@ function App() {
             </h1>
             
             <div className="flex items-center gap-2 sm:gap-3 animate-fadeInUp">
-                <a href="/sorteio" className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 sm:px-4 rounded-lg shadow-sm transition flex items-center text-xs sm:text-sm border border-gray-300">
-                    <i className="fas fa-trophy mr-1.5 text-yellow-500"></i>
-                    <span>Sorteio</span>
-                </a>
                 <button onClick={scrollToLivePlayer} className="btn-header-player">
                     <i className="fas fa-play-circle"></i>
                     <span className="hidden sm:inline">IR PARA PLAYER</span>
@@ -598,23 +641,31 @@ function App() {
                                         />
                                     </div>
                                     <button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition transform hover:scale-105 text-sm">
-                                        <i className="fas fa-unlock-alt mr-2"></i> Liberar
+                                        <i className="fas fa-unlock-alt mr-2"></i> Liberar Formulário
                                     </button>
-                                    <div className="mt-4 pt-3 border-t border-gray-100 flex justify-center">
-                                        <a href="/sorteio" className="text-xs text-green-700 hover:text-green-900 font-semibold flex items-center transition">
-                                            <i className="fas fa-trophy mr-1 text-yellow-500"></i> Ir para Painel de Sorteio
-                                        </a>
-                                    </div>
                                 </form>
                             ) : (
                                 <form className="bg-white p-6 rounded-xl shadow-inner w-full animate-fadeInUp" id="form-sorteio" onSubmit={handleSorteioSubmit}>
-                                    <div className="flex justify-between items-center mb-4 border-b pb-2">
+                                    <div className="flex justify-between items-center mb-4 border-b pb-3">
                                       <h4 className="font-bold text-gray-800 text-sm">Check-in de Presença</h4>
                                       <div className="flex items-center gap-2">
-                                        <a href="/sorteio" target="_blank" rel="noopener noreferrer" className="text-xs text-yellow-800 hover:text-yellow-900 font-bold px-2 py-1 bg-yellow-100 rounded border border-yellow-300 flex items-center">
-                                          <i className="fas fa-trophy mr-1 text-yellow-600"></i>Sorteador
-                                        </a>
-                                        <button type="button" onClick={() => {setIsUnlocked(false); setPin("");}} className="text-xs text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded"><i className="fas fa-lock mr-1"></i>Bloquear</button>
+                                        <button 
+                                          type="button" 
+                                          onClick={() => {
+                                            setIsSorteador(true);
+                                            fetchParticipantes();
+                                          }} 
+                                          className="text-xs text-yellow-900 hover:text-black font-extrabold px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 rounded-lg shadow-sm border border-yellow-500 flex items-center transition transform hover:scale-105 cursor-pointer"
+                                        >
+                                          <i className="fas fa-trophy mr-1.5 text-yellow-800"></i>Abrir Sorteador
+                                        </button>
+                                        <button 
+                                          type="button" 
+                                          onClick={() => {setIsUnlocked(false); setPin("");}} 
+                                          className="text-xs text-red-600 hover:text-red-800 font-bold px-2 py-1.5 bg-red-50 hover:bg-red-100 rounded-lg transition"
+                                        >
+                                          <i className="fas fa-lock mr-1"></i>Bloquear
+                                        </button>
                                       </div>
                                     </div>
                                     <div className="mb-4">
