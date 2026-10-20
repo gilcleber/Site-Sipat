@@ -38,92 +38,58 @@ function App() {
   const [isGrandeSorteio, setIsGrandeSorteio] = useState(false);
   const [ganhadoresHoje, setGanhadoresHoje] = useState([]);
 
-  // Galeria de Fotos states
-  const [diaFotoSelecionado, setDiaFotoSelecionado] = useState("todos");
-  const [fotoModalIndex, setFotoModalIndex] = useState(null);
+  // Galeria de Álbuns states
+  const [albumAtivo, setAlbumAtivo] = useState(null);
+  const [fotoAtivaIndex, setFotoAtivaIndex] = useState(0);
 
-  const fotosSipat = [
-    { 
-      id: 1, 
-      src: "/fotos/dia1_capa.jpg", 
-      dia: 1, 
-      data: "19/Out", 
-      destaque: true, 
-      titulo: "Foto Oficial da Equipe • Dia 1", 
-      desc: "Equipe Band Campinas reunida no encerramento da palestra do Dia 1 (Autocuidado e Gestão do Estresse)" 
+  const albunsSipat = [
+    {
+      dia: 1,
+      data: "19/Out (Segunda)",
+      tema: "Autocuidado e Gestão do Estresse",
+      palestrante: "Vanessa Favin",
+      capa: "/fotos/dia1_capa.jpg",
+      disponivel: true,
+      fotos: [
+        { id: 1, src: "/fotos/dia1_capa.jpg", titulo: "Foto Oficial da Equipe • Dia 1", desc: "Equipe Band Campinas reunida no encerramento da palestra de Autocuidado e Gestão do Estresse" }
+      ]
     },
-    { 
-      id: 2, 
-      src: "/fotos/dia2_capa.jpg", 
-      dia: 2, 
-      data: "20/Out", 
-      destaque: true, 
-      titulo: "Foto Oficial da Equipe e Palestrante • Dia 2", 
-      desc: "Equipe Band Campinas reunida com a palestrante no encerramento da palestra de Saúde Mental" 
+    {
+      dia: 2,
+      data: "20/Out (Terça)",
+      tema: "Saúde Mental no Trabalho",
+      palestrante: "Michele Sarkis",
+      capa: "/fotos/dia2_capa.jpg",
+      disponivel: true,
+      fotos: [
+        { id: 2, src: "/fotos/dia2_capa.jpg", titulo: "Foto Oficial da Equipe e Palestrante • Dia 2", desc: "Equipe Band Campinas reunida com a palestrante no encerramento da palestra de Saúde Mental" },
+        { id: 3, src: "/fotos/foto_01.jpg", titulo: "Auditório e Colaboradores", desc: "Equipe presente acompanhando a apresentação" },
+        { id: 4, src: "/fotos/foto_02.jpg", titulo: "Exercício Prático", desc: "Dinâmica e exercícios durante a sessão" },
+        { id: 5, src: "/fotos/foto_03.jpg", titulo: "Mente x Cérebro", desc: "Conceitos de neurociência e saúde mental aplicados à rotina" },
+        { id: 6, src: "/fotos/foto_04.jpg", titulo: "Participação Ativa", desc: "Visão ampla da sala durante a palestra" },
+        { id: 7, src: "/fotos/foto_05.jpg", titulo: "Apresentação e Palestrante", desc: "Orientações sobre qualidade de vida e rotina" },
+        { id: 8, src: "/fotos/foto_06.jpg", titulo: "Qualidade do Sono", desc: "A importância do descanso e hábitos saudáveis" },
+        { id: 9, src: "/fotos/foto_07.jpg", titulo: "Saúde Mental no Trabalho", desc: "Reflexão sobre equilíbrio emocional e profissional" }
+      ]
     },
-    { 
-      id: 3, 
-      src: "/fotos/foto_01.jpg", 
-      dia: 2, 
-      data: "20/Out", 
-      destaque: false, 
-      titulo: "Auditório e Colaboradores", 
-      desc: "Equipe presente acompanhando a apresentação" 
+    {
+      dia: 3,
+      data: "21/Out (Quarta)",
+      tema: "Equilíbrio, Ansiedade e Qualidade do Sono",
+      palestrante: "Carmen Regina",
+      capa: null,
+      disponivel: false,
+      fotos: []
     },
-    { 
-      id: 4, 
-      src: "/fotos/foto_02.jpg", 
-      dia: 2, 
-      data: "20/Out", 
-      destaque: false, 
-      titulo: "Exercício Prático", 
-      desc: "Dinâmica e apresentação durante a sessão" 
-    },
-    { 
-      id: 5, 
-      src: "/fotos/foto_03.jpg", 
-      dia: 2, 
-      data: "20/Out", 
-      destaque: false, 
-      titulo: "Mente x Cérebro", 
-      desc: "Conceitos de neurociência e saúde mental" 
-    },
-    { 
-      id: 6, 
-      src: "/fotos/foto_04.jpg", 
-      dia: 2, 
-      data: "20/Out", 
-      destaque: false, 
-      titulo: "Participação Ativa", 
-      desc: "Visão geral da sala durante a palestra" 
-    },
-    { 
-      id: 7, 
-      src: "/fotos/foto_05.jpg", 
-      dia: 2, 
-      data: "20/Out", 
-      destaque: false, 
-      titulo: "Apresentação e Palestrante", 
-      desc: "Orientações sobre qualidade de vida e rotina" 
-    },
-    { 
-      id: 8, 
-      src: "/fotos/foto_06.jpg", 
-      dia: 2, 
-      data: "20/Out", 
-      destaque: false, 
-      titulo: "Qualidade do Sono", 
-      desc: "A importância do descanso e hábitos saudáveis" 
-    },
-    { 
-      id: 9, 
-      src: "/fotos/foto_07.jpg", 
-      dia: 2, 
-      data: "20/Out", 
-      destaque: false, 
-      titulo: "Saúde Mental no Trabalho", 
-      desc: "Reflexão sobre equilíbrio emocional e profissional" 
-    },
+    {
+      dia: 4,
+      data: "23/Out (Sexta)",
+      tema: "Cuidados com o Corpo & Grande Sorteio",
+      palestrante: "Nayara Vilar",
+      capa: null,
+      disponivel: false,
+      fotos: []
+    }
   ];
 
   const fetchParticipantes = async () => {
@@ -152,6 +118,22 @@ function App() {
       fetchParticipantes();
     }
   }, []);
+
+  // Navegação por teclado no álbum de fotos
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!albumAtivo) return;
+      if (e.key === "Escape") setAlbumAtivo(null);
+      if (e.key === "ArrowLeft" && albumAtivo.fotos && albumAtivo.fotos.length > 1) {
+        setFotoAtivaIndex((prev) => (prev - 1 + albumAtivo.fotos.length) % albumAtivo.fotos.length);
+      }
+      if (e.key === "ArrowRight" && albumAtivo.fotos && albumAtivo.fotos.length > 1) {
+        setFotoAtivaIndex((prev) => (prev + 1) % albumAtivo.fotos.length);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [albumAtivo]);
 
   const handleSorteioSubmit = async (e) => {
     e.preventDefault();
@@ -930,9 +912,9 @@ function App() {
         </div>
     </section>
 
-    {/* Galeria de Fotos */}
+    {/* Galeria de Fotos - Álbuns por Dia */}
     <section id="fotos" className="py-12 sm:py-20 bg-gray-950 text-white border-t border-gray-800 relative">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-10 sm:mb-14">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 font-semibold text-sm mb-3">
                     <i className="fas fa-camera"></i> Registros dos Dias Presenciais
@@ -941,208 +923,227 @@ function App() {
                     📸 Galeria de Fotos – SIPAT 2026
                 </h2>
                 <p className="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto">
-                    Confira os melhores momentos, dinâmicas e a participação dos colaboradores em cada dia presencial!
+                    Clique na capa de cada dia para abrir o álbum e visualizar todas as fotos das palestras e dos colaboradores!
                 </p>
-
-                {/* Filtro por Dia */}
-                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-8">
-                    {[
-                        { id: "todos", label: "Todas as Fotos", icon: "fa-images" },
-                        { id: "1", label: "Dia 1 (19/Out)", icon: "fa-calendar-day" },
-                        { id: "2", label: "Dia 2 (20/Out)", icon: "fa-calendar-day" },
-                        { id: "3", label: "Dia 3 (21/Out)", icon: "fa-calendar-day" },
-                        { id: "4", label: "Dia 4 (23/Out)", icon: "fa-star" },
-                    ].map((tab) => {
-                        const count = tab.id === "todos" 
-                            ? fotosSipat.length 
-                            : fotosSipat.filter(f => String(f.dia) === tab.id).length;
-                        const isActive = diaFotoSelecionado === tab.id;
-                        return (
-                            <button
-                                key={tab.id}
-                                onClick={() => setDiaFotoSelecionado(tab.id)}
-                                className={`px-4 sm:px-5 py-2.5 rounded-full font-bold text-xs sm:text-sm transition-all transform hover:scale-105 flex items-center gap-2 shadow-md cursor-pointer ${
-                                    isActive
-                                        ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white ring-2 ring-green-400 shadow-green-900/40"
-                                        : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700"
-                                }`}
-                            >
-                                <i className={`fas ${tab.icon}`}></i>
-                                <span>{tab.label}</span>
-                                {count > 0 && (
-                                    <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${isActive ? "bg-white/20 text-white" : "bg-gray-900 text-gray-400"}`}>
-                                        {count}
-                                    </span>
-                                )}
-                            </button>
-                        );
-                    })}
-                </div>
             </div>
 
-            {/* Grid de Fotos */}
-            {(() => {
-                const fotosExibidas = diaFotoSelecionado === "todos" 
-                    ? fotosSipat 
-                    : fotosSipat.filter(f => String(f.dia) === diaFotoSelecionado);
+            {/* Grid dos Álbuns (Apenas as Capas Oficiais) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                {albunsSipat.map((album) => {
+                    if (album.disponivel) {
+                        return (
+                            <div
+                                key={album.dia}
+                                onClick={() => {
+                                    setAlbumAtivo(album);
+                                    setFotoAtivaIndex(0);
+                                }}
+                                className="group relative bg-gray-900 rounded-3xl overflow-hidden border-2 border-gray-800 hover:border-green-500 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-950/40 cursor-pointer flex flex-col"
+                            >
+                                {/* Foto da Capa */}
+                                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
+                                    <img
+                                        src={album.capa}
+                                        alt={album.tema}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-black/20 to-transparent"></div>
 
-                if (fotosExibidas.length === 0) {
-                    const diaNome = diaFotoSelecionado === "1" ? "Dia 1 (19/Out)" : diaFotoSelecionado === "3" ? "Dia 3 (21/Out)" : "Dia 4 (23/Out)";
+                                    {/* Badges no topo */}
+                                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                                        <span className="bg-green-600/90 backdrop-blur-md text-white font-extrabold text-xs px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
+                                            <i className="fas fa-calendar-day"></i> Dia {album.dia}
+                                        </span>
+                                        <span className="bg-black/75 backdrop-blur-md text-green-300 border border-green-500/40 text-[11px] font-bold px-2.5 py-1 rounded-full shadow flex items-center gap-1">
+                                            <i className="fas fa-images"></i> {album.fotos.length} {album.fotos.length === 1 ? "foto" : "fotos"}
+                                        </span>
+                                    </div>
+
+                                    {/* Overlay hover CTA */}
+                                    <div className="absolute inset-0 bg-green-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
+                                        <span className="bg-white text-gray-900 font-extrabold text-xs sm:text-sm px-4 py-2 rounded-full shadow-xl flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                            <i className="fas fa-folder-open text-green-600"></i> Abrir Álbum
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Conteúdo do Card */}
+                                <div className="p-5 flex-grow flex flex-col justify-between">
+                                    <div>
+                                        <div className="text-xs text-green-400 font-semibold mb-1 flex items-center gap-1.5">
+                                            <i className="far fa-clock"></i> {album.data}
+                                        </div>
+                                        <h3 className="text-lg font-bold text-white group-hover:text-green-400 transition-colors line-clamp-2">
+                                            {album.tema}
+                                        </h3>
+                                        <p className="text-xs text-gray-400 mt-1.5 flex items-center gap-1.5">
+                                            <i className="fas fa-user-tie text-gray-500"></i> {album.palestrante}
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-4 pt-3 border-t border-gray-800/80 flex items-center justify-between text-xs font-bold text-green-400 group-hover:text-green-300">
+                                        <span>Visualizar fotos</span>
+                                        <i className="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    }
+
+                    {/* Card Álbum Em Breve */}
                     return (
-                        <div className="bg-gray-900 border-2 border-dashed border-gray-700 rounded-3xl p-10 sm:p-16 text-center max-w-xl mx-auto my-8">
-                            <i className="fas fa-camera-retro text-5xl text-gray-600 mb-4 block"></i>
-                            <h3 className="text-xl sm:text-2xl font-bold text-gray-300 mb-2">Fotos do {diaNome}</h3>
-                            <p className="text-gray-500 text-sm sm:text-base">
-                                As fotos desta palestra serão publicadas logo após a realização das atividades presenciais. Fique ligado!
-                            </p>
+                        <div
+                            key={album.dia}
+                            className="bg-gray-900/60 rounded-3xl border-2 border-dashed border-gray-800 p-6 flex flex-col justify-between text-center relative overflow-hidden"
+                        >
+                            <div className="my-auto py-6">
+                                <div className="w-14 h-14 mx-auto rounded-2xl bg-gray-800/80 border border-gray-700/60 flex items-center justify-center text-gray-500 mb-4">
+                                    <i className="fas fa-lock text-xl"></i>
+                                </div>
+                                <span className="inline-block bg-gray-800 text-gray-400 text-[11px] font-bold px-3 py-1 rounded-full mb-2">
+                                    Dia {album.dia} • {album.data}
+                                </span>
+                                <h3 className="text-base font-bold text-gray-300 mb-1">
+                                    {album.tema}
+                                </h3>
+                                <p className="text-xs text-gray-500 mb-2">
+                                    Palestrante: {album.palestrante}
+                                </p>
+                            </div>
+                            <div className="pt-3 border-t border-gray-800/50">
+                                <span className="text-[11px] font-medium text-gray-500 flex items-center justify-center gap-1.5">
+                                    <i className="far fa-clock"></i> Fotos liberadas após a palestra
+                                </span>
+                            </div>
                         </div>
                     );
-                }
+                })}
+            </div>
+        </div>
 
-                const capas = fotosExibidas.filter(f => f.destaque);
-                const outrasFotos = fotosExibidas.filter(f => !f.destaque);
+        {/* Modal Visualizador do Álbum */}
+        {albumAtivo && (
+            <div
+                className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col items-center justify-between p-3 sm:p-6 animate-fadeIn"
+                onClick={() => setAlbumAtivo(null)}
+            >
+                {/* Topbar do Modal */}
+                <div
+                    className="w-full max-w-6xl flex items-center justify-between py-2 px-3 sm:px-4 bg-gray-900/80 backdrop-blur-md rounded-2xl border border-gray-800 mb-2 z-20"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-green-500/20 border border-green-500/40 text-green-400 flex items-center justify-center font-black text-sm">
+                            D{albumAtivo.dia}
+                        </div>
+                        <div>
+                            <h3 className="text-sm sm:text-base font-extrabold text-white truncate max-w-[200px] sm:max-w-md">
+                                {albumAtivo.tema}
+                            </h3>
+                            <p className="text-[11px] sm:text-xs text-gray-400">
+                                {albumAtivo.data} • {albumAtivo.palestrante}
+                            </p>
+                        </div>
+                    </div>
 
-                return (
-                    <div className="space-y-8">
-                        {/* Fotos Capa em Destaque */}
-                        {capas.length > 0 && (
-                            <div className={`grid grid-cols-1 ${capas.length > 1 ? 'lg:grid-cols-2' : ''} gap-6`}>
-                                {capas.map((capa) => (
-                                    <div 
-                                        key={capa.id}
-                                        onClick={() => setFotoModalIndex(fotosSipat.findIndex(f => f.id === capa.id))}
-                                        className="group relative rounded-3xl overflow-hidden shadow-2xl border-2 border-yellow-500/50 bg-gray-900 cursor-pointer transition transform hover:scale-[1.01]"
-                                    >
-                                        <div className="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[16/10] max-h-[460px] w-full overflow-hidden bg-black flex items-center justify-center">
-                                            <img 
-                                                src={capa.src} 
-                                                alt={capa.titulo}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent"></div>
-                                            <div className="absolute top-4 left-4 bg-yellow-500 text-gray-900 font-black text-xs sm:text-sm px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-wider">
-                                                <i className="fas fa-star text-yellow-950"></i> Capa Oficial • Dia {capa.dia} ({capa.data})
-                                            </div>
-                                            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
-                                                <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-1 drop-shadow">
-                                                    {capa.titulo}
-                                                </h3>
-                                                <p className="text-gray-300 text-xs sm:text-sm line-clamp-2 drop-shadow">
-                                                    {capa.desc}
-                                                </p>
-                                            </div>
-                                            <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 hidden sm:flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold text-white">
-                                                <i className="fas fa-search-plus"></i> Ampliar
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                    <div className="flex items-center gap-3">
+                        <span className="text-xs sm:text-sm font-bold text-gray-300 bg-gray-800 px-3 py-1 rounded-full border border-gray-700">
+                            {fotoAtivaIndex + 1} / {albumAtivo.fotos.length}
+                        </span>
+                        <button
+                            onClick={() => setAlbumAtivo(null)}
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-800 hover:bg-red-600 text-gray-300 hover:text-white flex items-center justify-center text-lg transition duration-200 cursor-pointer"
+                            title="Fechar (ESC)"
+                        >
+                            <i className="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
 
-                        {/* Galeria Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                            {outrasFotos.map((foto) => {
-                                const originalIndex = fotosSipat.findIndex(f => f.id === foto.id);
+                {/* Área Principal da Foto */}
+                <div
+                    className="relative w-full max-w-6xl flex-grow flex items-center justify-center my-auto min-h-0"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {/* Botão Anterior */}
+                    {albumAtivo.fotos.length > 1 && (
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setFotoAtivaIndex((fotoAtivaIndex - 1 + albumAtivo.fotos.length) % albumAtivo.fotos.length);
+                            }}
+                            className="absolute left-1 sm:left-4 z-20 text-white bg-black/60 hover:bg-green-600 w-10 h-10 sm:w-13 sm:h-13 rounded-full flex items-center justify-center text-base sm:text-xl transition backdrop-blur-sm border border-white/10 cursor-pointer shadow-2xl"
+                            title="Foto Anterior (Seta Esquerda)"
+                        >
+                            <i className="fas fa-chevron-left"></i>
+                        </button>
+                    )}
+
+                    {/* Foto Ativa */}
+                    <div className="relative max-h-[66vh] sm:max-h-[72vh] w-full flex items-center justify-center">
+                        <img
+                            key={albumAtivo.fotos[fotoAtivaIndex]?.src}
+                            src={albumAtivo.fotos[fotoAtivaIndex]?.src}
+                            alt={albumAtivo.fotos[fotoAtivaIndex]?.titulo}
+                            className="max-h-[66vh] sm:max-h-[72vh] max-w-full object-contain rounded-2xl shadow-2xl border border-gray-800 select-none"
+                        />
+                    </div>
+
+                    {/* Botão Próximo */}
+                    {albumAtivo.fotos.length > 1 && (
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setFotoAtivaIndex((fotoAtivaIndex + 1) % albumAtivo.fotos.length);
+                            }}
+                            className="absolute right-1 sm:right-4 z-20 text-white bg-black/60 hover:bg-green-600 w-10 h-10 sm:w-13 sm:h-13 rounded-full flex items-center justify-center text-base sm:text-xl transition backdrop-blur-sm border border-white/10 cursor-pointer shadow-2xl"
+                            title="Próxima Foto (Seta Direita)"
+                        >
+                            <i className="fas fa-chevron-right"></i>
+                        </button>
+                    )}
+                </div>
+
+                {/* Legenda e Miniaturas no Rodapé */}
+                <div
+                    className="w-full max-w-6xl bg-gray-900/90 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-gray-800 mt-2 z-20"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {/* Título e Descrição da foto atual */}
+                    <div className="text-center mb-2.5">
+                        <h4 className="text-sm sm:text-base font-bold text-white">
+                            {albumAtivo.fotos[fotoAtivaIndex]?.titulo}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-gray-400 mt-0.5 max-w-2xl mx-auto truncate">
+                            {albumAtivo.fotos[fotoAtivaIndex]?.desc}
+                        </p>
+                    </div>
+
+                    {/* Barra de Miniaturas (se houver mais de 1 foto) */}
+                    {albumAtivo.fotos.length > 1 && (
+                        <div className="flex items-center justify-center gap-2 overflow-x-auto py-1 px-2 no-scrollbar">
+                            {albumAtivo.fotos.map((foto, idx) => {
+                                const isCurrent = idx === fotoAtivaIndex;
                                 return (
-                                    <div
-                                        key={foto.id}
-                                        onClick={() => setFotoModalIndex(originalIndex)}
-                                        className="group relative rounded-2xl overflow-hidden shadow-xl border border-gray-800 bg-gray-900 hover:border-green-500/50 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-2xl flex flex-col"
+                                    <button
+                                        key={foto.id || idx}
+                                        onClick={() => setFotoAtivaIndex(idx)}
+                                        className={`relative w-14 h-11 sm:w-18 sm:h-13 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all cursor-pointer ${
+                                            isCurrent
+                                                ? "border-green-400 scale-105 shadow-md shadow-green-500/50 ring-2 ring-green-400/40"
+                                                : "border-transparent opacity-50 hover:opacity-100 hover:border-gray-500"
+                                        }`}
                                     >
-                                        <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
-                                            <img 
-                                                src={foto.src} 
-                                                alt={foto.titulo}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                            <span className="absolute top-2.5 left-2.5 bg-black/70 backdrop-blur-md text-green-400 font-bold text-[10px] sm:text-xs px-2.5 py-1 rounded-md border border-green-500/30">
-                                                Dia {foto.dia} • {foto.data}
-                                            </span>
-                                            <span className="absolute bottom-2.5 right-2.5 bg-black/70 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition">
-                                                <i className="fas fa-search-plus"></i>
-                                            </span>
-                                        </div>
-                                        <div className="p-3 sm:p-4 bg-gray-900/90 flex-grow">
-                                            <h4 className="font-bold text-sm sm:text-base text-white group-hover:text-green-400 transition truncate">
-                                                {foto.titulo}
-                                            </h4>
-                                            <p className="text-xs text-gray-400 mt-1 line-clamp-2">
-                                                {foto.desc}
-                                            </p>
-                                        </div>
-                                    </div>
+                                        <img
+                                            src={foto.src}
+                                            alt={foto.titulo}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </button>
                                 );
                             })}
                         </div>
-                    </div>
-                );
-            })()}
-        </div>
-
-        {/* Modal Lightbox */}
-        {fotoModalIndex !== null && fotosSipat[fotoModalIndex] && (
-            <div 
-                className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"
-                onClick={() => setFotoModalIndex(null)}
-            >
-                <button
-                    onClick={() => setFotoModalIndex(null)}
-                    className="absolute top-4 right-4 sm:top-6 sm:right-6 text-gray-300 hover:text-white bg-gray-800/80 hover:bg-red-600 w-11 h-11 rounded-full flex items-center justify-center text-xl transition z-10 cursor-pointer"
-                    title="Fechar (ESC)"
-                >
-                    <i className="fas fa-times"></i>
-                </button>
-
-                {/* Seta Anterior */}
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setFotoModalIndex((fotoModalIndex - 1 + fotosSipat.length) % fotosSipat.length);
-                    }}
-                    className="absolute left-2 sm:left-6 text-gray-300 hover:text-white bg-gray-800/80 hover:bg-green-600 w-11 h-11 rounded-full flex items-center justify-center text-lg transition z-10 cursor-pointer"
-                    title="Anterior"
-                >
-                    <i className="fas fa-chevron-left"></i>
-                </button>
-
-                {/* Seta Próxima */}
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setFotoModalIndex((fotoModalIndex + 1) % fotosSipat.length);
-                    }}
-                    className="absolute right-2 sm:right-6 text-gray-300 hover:text-white bg-gray-800/80 hover:bg-green-600 w-11 h-11 rounded-full flex items-center justify-center text-lg transition z-10 cursor-pointer"
-                    title="Próxima"
-                >
-                    <i className="fas fa-chevron-right"></i>
-                </button>
-
-                {/* Conteúdo Imagem + Legenda */}
-                <div 
-                    className="max-w-5xl w-full flex flex-col items-center max-h-[90vh]"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <img
-                        src={fotosSipat[fotoModalIndex].src}
-                        alt={fotosSipat[fotoModalIndex].titulo}
-                        className="max-h-[75vh] max-w-full object-contain rounded-2xl shadow-2xl border-2 border-gray-700"
-                    />
-                    <div className="mt-4 text-center text-white px-4">
-                        <span className="inline-block bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-2">
-                            Dia {fotosSipat[fotoModalIndex].dia} • {fotosSipat[fotoModalIndex].data}
-                        </span>
-                        <h3 className="text-lg sm:text-2xl font-extrabold">
-                            {fotosSipat[fotoModalIndex].titulo}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-gray-400 mt-1">
-                            {fotosSipat[fotoModalIndex].desc}
-                        </p>
-                        <p className="text-[11px] text-gray-500 mt-2">
-                            Foto {fotoModalIndex + 1} de {fotosSipat.length}
-                        </p>
-                    </div>
+                    )}
                 </div>
             </div>
         )}
