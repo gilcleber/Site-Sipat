@@ -493,13 +493,15 @@ function App() {
                         Para quem participar de <span className="text-red-700 font-extrabold">TODOS OS DIAS</span> no presencial:
                     </p>
                     
-                    <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" 
-                         alt="Grande Prêmio" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/200x200/cccccc/333333?text=Air+Fryer+Mondial';"
+                    <img src="/airfryer.png" 
+                         alt="Air Fryer Mondial" 
                          className="air-fryer-image my-4 sm:my-6 animate-float" />
+                    <p className="text-[11px] sm:text-xs text-gray-700 italic font-semibold -mt-2 mb-2">
+                        *Imagem meramente ilustrativa
+                    </p>
                     
                     <p className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-red-700 animate-pulse">
-                        PRÊMIO SURPRESA
+                        AIR FRYER MONDIAL
                     </p>
                     <p className="text-xs sm:text-sm text-gray-800 mt-3 font-semibold">
                         <i className="fas fa-check-circle mr-1"></i>
