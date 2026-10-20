@@ -43,14 +43,87 @@ function App() {
   const [fotoModalIndex, setFotoModalIndex] = useState(null);
 
   const fotosSipat = [
-    { id: 1, src: "/fotos/dia2_capa.jpg", dia: 2, data: "20/Out", destaque: true, titulo: "Foto Oficial da Equipe e Palestrante", desc: "Equipe Band Campinas reunida com a palestrante no encerramento da palestra de Saúde Mental" },
-    { id: 2, src: "/fotos/foto_01.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Auditório e Colaboradores", desc: "Equipe presente acompanhando a apresentação" },
-    { id: 3, src: "/fotos/foto_02.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Exercício Prático", desc: "Dinâmica e apresentação durante a sessão" },
-    { id: 4, src: "/fotos/foto_03.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Mente x Cérebro", desc: "Conceitos de neurociência e saúde mental" },
-    { id: 5, src: "/fotos/foto_04.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Participação Ativa", desc: "Visão geral da sala durante a palestra" },
-    { id: 6, src: "/fotos/foto_05.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Apresentação e Palestrante", desc: "Orientações sobre qualidade de vida e rotina" },
-    { id: 7, src: "/fotos/foto_06.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Qualidade do Sono", desc: "A importância do descanso e hábitos saudáveis" },
-    { id: 8, src: "/fotos/foto_07.jpg", dia: 2, data: "20/Out", destaque: false, titulo: "Saúde Mental no Trabalho", desc: "Reflexão sobre equilíbrio emocional e profissional" },
+    { 
+      id: 1, 
+      src: "/fotos/dia1_capa.jpg", 
+      dia: 1, 
+      data: "19/Out", 
+      destaque: true, 
+      titulo: "Foto Oficial da Equipe • Dia 1", 
+      desc: "Equipe Band Campinas reunida no encerramento da palestra do Dia 1 (Autocuidado e Gestão do Estresse)" 
+    },
+    { 
+      id: 2, 
+      src: "/fotos/dia2_capa.jpg", 
+      dia: 2, 
+      data: "20/Out", 
+      destaque: true, 
+      titulo: "Foto Oficial da Equipe e Palestrante • Dia 2", 
+      desc: "Equipe Band Campinas reunida com a palestrante no encerramento da palestra de Saúde Mental" 
+    },
+    { 
+      id: 3, 
+      src: "/fotos/foto_01.jpg", 
+      dia: 2, 
+      data: "20/Out", 
+      destaque: false, 
+      titulo: "Auditório e Colaboradores", 
+      desc: "Equipe presente acompanhando a apresentação" 
+    },
+    { 
+      id: 4, 
+      src: "/fotos/foto_02.jpg", 
+      dia: 2, 
+      data: "20/Out", 
+      destaque: false, 
+      titulo: "Exercício Prático", 
+      desc: "Dinâmica e apresentação durante a sessão" 
+    },
+    { 
+      id: 5, 
+      src: "/fotos/foto_03.jpg", 
+      dia: 2, 
+      data: "20/Out", 
+      destaque: false, 
+      titulo: "Mente x Cérebro", 
+      desc: "Conceitos de neurociência e saúde mental" 
+    },
+    { 
+      id: 6, 
+      src: "/fotos/foto_04.jpg", 
+      dia: 2, 
+      data: "20/Out", 
+      destaque: false, 
+      titulo: "Participação Ativa", 
+      desc: "Visão geral da sala durante a palestra" 
+    },
+    { 
+      id: 7, 
+      src: "/fotos/foto_05.jpg", 
+      dia: 2, 
+      data: "20/Out", 
+      destaque: false, 
+      titulo: "Apresentação e Palestrante", 
+      desc: "Orientações sobre qualidade de vida e rotina" 
+    },
+    { 
+      id: 8, 
+      src: "/fotos/foto_06.jpg", 
+      dia: 2, 
+      data: "20/Out", 
+      destaque: false, 
+      titulo: "Qualidade do Sono", 
+      desc: "A importância do descanso e hábitos saudáveis" 
+    },
+    { 
+      id: 9, 
+      src: "/fotos/foto_07.jpg", 
+      dia: 2, 
+      data: "20/Out", 
+      destaque: false, 
+      titulo: "Saúde Mental no Trabalho", 
+      desc: "Reflexão sobre equilíbrio emocional e profissional" 
+    },
   ];
 
   const fetchParticipantes = async () => {
@@ -926,39 +999,44 @@ function App() {
                     );
                 }
 
-                const capaFoto = fotosExibidas.find(f => f.destaque);
+                const capas = fotosExibidas.filter(f => f.destaque);
                 const outrasFotos = fotosExibidas.filter(f => !f.destaque);
 
                 return (
-                    <div className="space-y-6">
-                        {/* Foto Capa em Destaque */}
-                        {capaFoto && (
-                            <div 
-                                onClick={() => setFotoModalIndex(fotosSipat.findIndex(f => f.id === capaFoto.id))}
-                                className="group relative rounded-3xl overflow-hidden shadow-2xl border-2 border-yellow-500/50 bg-gray-900 cursor-pointer transition transform hover:scale-[1.01]"
-                            >
-                                <div className="relative aspect-[16/9] sm:aspect-[21/9] max-h-[500px] w-full overflow-hidden bg-black flex items-center justify-center">
-                                    <img 
-                                        src={capaFoto.src} 
-                                        alt={capaFoto.titulo}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent"></div>
-                                    <div className="absolute top-4 left-4 bg-yellow-500 text-gray-900 font-black text-xs sm:text-sm px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-wider">
-                                        <i className="fas fa-star text-yellow-950"></i> Capa Oficial • Dia 2 (20/Out)
+                    <div className="space-y-8">
+                        {/* Fotos Capa em Destaque */}
+                        {capas.length > 0 && (
+                            <div className={`grid grid-cols-1 ${capas.length > 1 ? 'lg:grid-cols-2' : ''} gap-6`}>
+                                {capas.map((capa) => (
+                                    <div 
+                                        key={capa.id}
+                                        onClick={() => setFotoModalIndex(fotosSipat.findIndex(f => f.id === capa.id))}
+                                        className="group relative rounded-3xl overflow-hidden shadow-2xl border-2 border-yellow-500/50 bg-gray-900 cursor-pointer transition transform hover:scale-[1.01]"
+                                    >
+                                        <div className="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[16/10] max-h-[460px] w-full overflow-hidden bg-black flex items-center justify-center">
+                                            <img 
+                                                src={capa.src} 
+                                                alt={capa.titulo}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent"></div>
+                                            <div className="absolute top-4 left-4 bg-yellow-500 text-gray-900 font-black text-xs sm:text-sm px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-wider">
+                                                <i className="fas fa-star text-yellow-950"></i> Capa Oficial • Dia {capa.dia} ({capa.data})
+                                            </div>
+                                            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+                                                <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-1 drop-shadow">
+                                                    {capa.titulo}
+                                                </h3>
+                                                <p className="text-gray-300 text-xs sm:text-sm line-clamp-2 drop-shadow">
+                                                    {capa.desc}
+                                                </p>
+                                            </div>
+                                            <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 hidden sm:flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold text-white">
+                                                <i className="fas fa-search-plus"></i> Ampliar
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
-                                        <h3 className="text-xl sm:text-3xl font-extrabold text-white mb-1 drop-shadow">
-                                            {capaFoto.titulo}
-                                        </h3>
-                                        <p className="text-gray-300 text-xs sm:text-base line-clamp-2 drop-shadow">
-                                            {capaFoto.desc}
-                                        </p>
-                                    </div>
-                                    <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 hidden sm:flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold text-white">
-                                        <i className="fas fa-search-plus"></i> Clique para ampliar
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         )}
 

@@ -8,6 +8,7 @@ if (!(Test-Path $outputFolder)) {
 }
 
 $photos = @(
+    @{ Name = "dia1_capa.jpg"; File = "media_1792528843477_cc5c685d.jpg"; CropTop = 0.08; CropBottom = 0.0 },
     @{ Name = "dia2_capa.jpg"; File = "media_1792528110867_6ece586c.jpg"; CropTop = 0.08; CropBottom = 0.0 },
     @{ Name = "foto_01.jpg"; File = "media_1792527797499_f3d31845.jpg"; CropTop = 0.05; CropBottom = 0.0 },
     @{ Name = "foto_02.jpg"; File = "media_1792527797501_2ae97eee.jpg"; CropTop = 0.38; CropBottom = 0.0 },
