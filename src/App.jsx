@@ -474,7 +474,7 @@ function App() {
                 <div className="live-video-container" id="live-player">
                     <iframe
                         id="live-iframe"
-                        src="https://www.youtube.com/embed/azCjY5zfypw?autoplay=1&rel=0"
+                        src="https://www.youtube.com/embed/ddmA02BNbGc?autoplay=1&rel=0"
                         title="SIPAT 2026 - Transmissão Ao Vivo"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -486,7 +486,7 @@ function App() {
             <div className="live-actions animate-fadeInUp" style={{animationDelay: "0.4s"}}>
                 <a
                     id="btn-open-youtube"
-                    href="https://www.youtube.com/live/azCjY5zfypw"
+                    href="https://www.youtube.com/live/ddmA02BNbGc"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-live-primary">
