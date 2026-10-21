@@ -92,19 +92,98 @@ function App() {
     }
   ];
 
+  // Base Oficial de Participantes (Registros das Listas Presenciais Físicas)
+  const participantesOficiais = [
+    // --- DIA 1: 19/10/2026 ---
+    { id: "d1_01", nome: "Juliano C. Chiquitame", setor: "Band", matricula_ou_email: "juliano c. chiquitame_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_02", nome: "Karina Cardoso Vergílio", setor: "Band", matricula_ou_email: "karina cardoso vergílio_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_03", nome: "Valentina Peixoto da Silva", setor: "Band", matricula_ou_email: "valentina peixoto da silva_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_04", nome: "Fabio Alexandre Vieira dos Santos", setor: "Band", matricula_ou_email: "fabio alexandre vieira dos santos_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_05", nome: "Gabriella G. Bittencourt Souza", setor: "Band", matricula_ou_email: "gabriella g. bittencourt souza_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_06", nome: "Bruna Farina", setor: "Band", matricula_ou_email: "bruna farina_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_07", nome: "Elizabeth Zoccoli", setor: "Band", matricula_ou_email: "elizabeth zoccoli_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_08", nome: "Igor de Paula Rocha", setor: "Band", matricula_ou_email: "igor de paula rocha_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_09", nome: "Gilson Del Passo", setor: "Band", matricula_ou_email: "gilson del passo_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_10", nome: "José Ricardo Fazio Luiz", setor: "Band", matricula_ou_email: "josé ricardo fazio luiz_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_11", nome: "Camila Ap. M. Trindade", setor: "Band", matricula_ou_email: "camila ap. m. trindade_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_12", nome: "Michely Rodrigues de Souza", setor: "Band", matricula_ou_email: "michely rodrigues de souza_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_13", nome: "Audrey de Andrade e Silva", setor: "Band", matricula_ou_email: "audrey de andrade e silva_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_14", nome: "Débora C. L. Santos", setor: "Band", matricula_ou_email: "débora c. l. santos_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_15", nome: "Bianca Amabile Crista Terzan", setor: "Band", matricula_ou_email: "bianca amabile crista terzan_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_16", nome: "Marilia Renaldo", setor: "Band", matricula_ou_email: "marilia renaldo_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_17", nome: "Vanessa C. Ribeiro", setor: "Band", matricula_ou_email: "vanessa c. ribeiro_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_18", nome: "Larissa L. Ramos", setor: "Band", matricula_ou_email: "larissa l. ramos_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_19", nome: "Leticia Fernanda Reis Santos", setor: "Band", matricula_ou_email: "leticia fernanda reis santos_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_20", nome: "Marcela P. Gomide Picardo", setor: "Band", matricula_ou_email: "marcela p. gomide picardo_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+    { id: "d1_21", nome: "Gil Cleber", setor: "Band", matricula_ou_email: "gil cleber_19/10/2026", data_cadastro: "2026-10-19T15:00:00.000Z" },
+
+    // --- DIA 2: 20/10/2026 ---
+    { id: "d2_01", nome: "Vítor Barbosa Martins de Andrade", setor: "Band", matricula_ou_email: "vítor barbosa martins de andrade_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_02", nome: "Bianca Amabile Crista Terzan", setor: "Band", matricula_ou_email: "bianca amabile crista terzan_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_03", nome: "Erick Henrique da Silva Barros", setor: "Band", matricula_ou_email: "erick henrique da silva barros_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_04", nome: "Cinthia Zotarelli Leonel", setor: "Band", matricula_ou_email: "cinthia zotarelli leonel_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_05", nome: "Karina Cardoso Vergílio", setor: "Band", matricula_ou_email: "karina cardoso vergílio_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_06", nome: "Juliano C. Chiquitame", setor: "Band", matricula_ou_email: "juliano c. chiquitame_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_07", nome: "Fabio Alexandre Vieira dos Santos", setor: "Band", matricula_ou_email: "fabio alexandre vieira dos santos_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_08", nome: "Camila Ap. M. Trindade", setor: "Band", matricula_ou_email: "camila ap. m. trindade_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_09", nome: "Leticia Fernanda Reis Santos", setor: "Band", matricula_ou_email: "leticia fernanda reis santos_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_10", nome: "Larissa L. Ramos", setor: "Band", matricula_ou_email: "larissa l. ramos_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_11", nome: "Franciéle B. Cerqueira", setor: "Band", matricula_ou_email: "franciéle b. cerqueira_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_12", nome: "Débora C. L. Santos", setor: "Band", matricula_ou_email: "débora c. l. santos_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_13", nome: "Gilson Del Passo", setor: "Band", matricula_ou_email: "gilson del passo_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_14", nome: "José Renato", setor: "Band", matricula_ou_email: "josé renato_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_15", nome: "Audrey de Andrade e Silva", setor: "Band", matricula_ou_email: "audrey de andrade e silva_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_16", nome: "Gil Cleber", setor: "Band", matricula_ou_email: "gil cleber_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_17", nome: "Vinicius E. Mota", setor: "Band", matricula_ou_email: "vinicius e. mota_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_18", nome: "Luiz Carlos", setor: "Band", matricula_ou_email: "luiz carlos_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" }
+  ];
+
   const fetchParticipantes = async () => {
     setCarregandoLista(true);
     try {
-      const { data, error } = await supabase.from('ifculos_participantes').select('*').order('data_cadastro', { ascending: false });
-      if (data) setListaParticipantes(data);
+      // 1. Inicia com a base física oficial
+      const mapa = new Map();
+      participantesOficiais.forEach(p => {
+        const key = `${p.nome.trim().toLowerCase()}_${p.matricula_ou_email}`;
+        mapa.set(key, p);
+      });
+
+      // 2. Mescla com check-ins salvos localmente
+      try {
+        const locais = JSON.parse(localStorage.getItem('sipat26_participantes') || '[]');
+        locais.forEach(p => {
+          const key = `${p.nome.trim().toLowerCase()}_${p.matricula_ou_email}`;
+          if (!mapa.has(key)) mapa.set(key, p);
+        });
+      } catch (e) {
+        console.warn("Erro ao ler participantes do localStorage:", e);
+      }
+
+      // 3. Tenta mesclar com Supabase (se conectado e online)
+      try {
+        const { data, error } = await supabase.from('ifculos_participantes').select('*').order('data_cadastro', { ascending: false });
+        if (data && !error) {
+          data.forEach(p => {
+            const key = `${p.nome.trim().toLowerCase()}_${p.matricula_ou_email}`;
+            if (!mapa.has(key)) mapa.set(key, p);
+          });
+        }
+      } catch (err) {
+        console.warn("Supabase indisponível no momento, utilizando registros locais:", err);
+      }
+
+      setListaParticipantes(Array.from(mapa.values()));
     } catch (err) {
       console.error("Erro ao buscar participantes:", err);
+      setListaParticipantes(participantesOficiais);
     } finally {
       setCarregandoLista(false);
     }
   };
 
   useEffect(() => {
+    fetchParticipantes();
+
     // Check URL parameters for QR Code access
     const searchParams = new URLSearchParams(window.location.search);
     if (searchParams.get("presencial") === "sipat26") {
@@ -115,7 +194,6 @@ function App() {
     const fullLoc = (window.location.pathname + window.location.search + window.location.hash).toLowerCase();
     if (fullLoc.includes("sorteio") || fullLoc.includes("sorteador")) {
       setIsSorteador(true);
-      fetchParticipantes();
     }
   }, []);
 
@@ -142,25 +220,54 @@ function App() {
 
     try {
       const todayString = new Date().toLocaleDateString('pt-BR');
-      const insertData = { nome, matricula_ou_email: `${nome.trim().toLowerCase()}_${todayString}`, setor };
-      const { data, error } = await supabase.from('ifculos_participantes').insert([insertData]);
+      const setorFinal = setor.trim() || "Band";
+      const nomeLimpo = nome.trim();
+      const matricula = `${nomeLimpo.toLowerCase()}_${todayString}`;
 
-      if (error) {
-        if (error.code === '23505') { 
-            setMensagem("Você já está cadastrado para o sorteio de hoje!");
-        } else {
-            setMensagem("Ocorreu um erro. Tente novamente mais tarde.");
+      // Salva no localStorage imediatamente para garantir
+      try {
+        const locais = JSON.parse(localStorage.getItem('sipat26_participantes') || '[]');
+        const jaExiste = locais.some(p => p.matricula_ou_email === matricula) ||
+          listaParticipantes.some(p => p.matricula_ou_email === matricula);
+
+        if (jaExiste) {
+          setStatus("error");
+          setMensagem("Você já está cadastrado para o sorteio de hoje!");
+          return;
         }
-        setStatus("error");
-      } else {
-        setStatus("success");
-        setMensagem("Presença confirmada com sucesso! Boa sorte no sorteio 🍀");
-        setNome("");
-        setSetor("");
+
+        const novo = {
+          id: 'local_' + Date.now(),
+          nome: nomeLimpo,
+          matricula_ou_email: matricula,
+          setor: setorFinal,
+          data_cadastro: new Date().toISOString()
+        };
+        locais.push(novo);
+        localStorage.setItem('sipat26_participantes', JSON.stringify(locais));
+      } catch (errLocal) {
+        console.warn("Erro ao salvar local:", errLocal);
       }
+
+      // Tenta gravar no Supabase em segundo plano
+      try {
+        await supabase.from('ifculos_participantes').insert([{
+          nome: nomeLimpo,
+          matricula_ou_email: matricula,
+          setor: setorFinal
+        }]);
+      } catch (errSupa) {
+        console.warn("Supabase não respondeu, registro persistido com segurança localmente:", errSupa);
+      }
+
+      setStatus("success");
+      setMensagem("Presença confirmada com sucesso! Boa sorte no sorteio 🍀");
+      setNome("");
+      setSetor("");
+      fetchParticipantes();
     } catch (err) {
       setStatus("error");
-      setMensagem("Erro de conexão. Verifique sua internet.");
+      setMensagem("Ocorreu um erro ao registrar. Tente novamente.");
     }
   };
 
@@ -168,50 +275,62 @@ function App() {
     setSorteando(true);
     setVencedor(null);
     try {
-      const { data, error } = await supabase.from('ifculos_participantes').select('*');
-      if (error || !data || data.length === 0) {
-        alert("Nenhum participante encontrado no banco de dados.");
+      let candidatos = [...listaParticipantes];
+      if (candidatos.length === 0) {
+        alert("Nenhum participante encontrado.");
         setSorteando(false);
         return;
       }
-      
-      let candidatos = data;
 
-      // Se for o grande prêmio final, precisa ter registro nos 4 dias
+      const norm = (s) => (s || "").trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+      // Se for o grande prêmio final:
       if (isGrandeSorteio) {
-          // Conta as aparições de cada nome
           const contagem = {};
-          data.forEach(p => {
-              const nameKey = p.nome.trim().toLowerCase();
-              contagem[nameKey] = (contagem[nameKey] || 0) + 1;
+          candidatos.forEach(p => {
+              const nameKey = norm(p.nome);
+              if (!contagem[nameKey]) contagem[nameKey] = { ...p, count: 0, dias: new Set() };
+              contagem[nameKey].count += 1;
+              if (p.matricula_ou_email) {
+                if (p.matricula_ou_email.includes("19/10")) contagem[nameKey].dias.add("19");
+                if (p.matricula_ou_email.includes("20/10")) contagem[nameKey].dias.add("20");
+                if (p.matricula_ou_email.includes("21/10")) contagem[nameKey].dias.add("21");
+                if (p.matricula_ou_email.includes("23/10")) contagem[nameKey].dias.add("23");
+              }
           });
-          // Filtra só quem tem 4 (ou mais) dias
-          const nomesElegiveis = Object.keys(contagem).filter(k => contagem[k] >= 4);
-          
-          candidatos = data.filter(p => nomesElegiveis.includes(p.nome.trim().toLowerCase()));
-          
-          // Remove duplicados para a roleta
-          candidatos = candidatos.filter((v, i, a) => a.findIndex(t => (t.nome.trim().toLowerCase() === v.nome.trim().toLowerCase())) === i);
 
-          if (candidatos.length === 0) {
-              alert("Ninguém cumpriu a regra de estar presente todos os 4 dias!");
+          // Determina o máximo de dias que já ocorreram
+          const maxDiasAtingidos = Math.max(...Object.values(contagem).map(v => v.dias.size || v.count), 1);
+          const diasExigidos = maxDiasAtingidos >= 4 ? 4 : maxDiasAtingidos;
+
+          const elegiveis = Object.values(contagem).filter(p => (p.dias.size >= diasExigidos) || (p.count >= diasExigidos));
+
+          if (elegiveis.length === 0) {
+              alert(`Nenhum participante atingiu as presenças exigidas (${diasExigidos} dias) até o momento.`);
               setSorteando(false);
               return;
           }
+
+          candidatos = elegiveis;
       } else {
-          // Sorteio normal: Pega apenas os registros de HOJE
+          // Sorteio diário: Pega os registros de HOJE ou do dia mais recente
           const todayString = new Date().toLocaleDateString('pt-BR');
-          const participantesDeHoje = data.filter(p => p && p.matricula_ou_email && (p.matricula_ou_email.endsWith(`_${todayString}`) || !p.matricula_ou_email.includes('_')));
-          
-          if (participantesDeHoje.length > 0) {
-              candidatos = participantesDeHoje;
+          let participantesHoje = candidatos.filter(p => p && p.matricula_ou_email && p.matricula_ou_email.endsWith(`_${todayString}`));
+
+          // Se ninguém fez checkin hoje ainda (ex: antes de começar a palestra de hoje), permite sortear quem esteve ontem (Dia 2)
+          if (participantesHoje.length === 0) {
+             participantesHoje = candidatos.filter(p => p && p.matricula_ou_email && p.matricula_ou_email.includes("20/10"));
+          }
+
+          if (participantesHoje.length > 0) {
+              candidatos = participantesHoje;
           }
 
           // Remove quem já ganhou hoje da lista
           candidatos = candidatos.filter(p => p && p.nome && !ganhadoresHoje.includes(p.nome));
           
           if (candidatos.length === 0) {
-              alert("Todos os participantes de hoje já foram sorteados!");
+              alert("Todos os participantes deste sorteio já foram contemplados!");
               setSorteando(false);
               return;
           }
@@ -219,7 +338,7 @@ function App() {
 
       // Efeito de roleta
       let counter = 0;
-      const maxIterations = isGrandeSorteio ? 200 : 100; // 20s ou 10s (cada tick é 100ms)
+      const maxIterations = isGrandeSorteio ? 180 : 90; // 18s ou 9s
       
       const interval = setInterval(() => {
         const randomIndex = Math.floor(Math.random() * candidatos.length);
@@ -322,73 +441,117 @@ function App() {
           
           
           {/* Toggle de Filtro */}
-          <div className="flex justify-center mb-6">
-            <div className="bg-gray-800 p-1 rounded-xl flex space-x-1 border border-gray-700">
+          <div className="flex justify-center mb-6 overflow-x-auto py-1">
+            <div className="bg-gray-800 p-1.5 rounded-2xl flex flex-wrap justify-center gap-1.5 border border-gray-700">
               <button 
                 onClick={() => setFiltroVisao("hoje")}
-                className={`px-6 py-2 rounded-lg font-semibold transition ${filtroVisao === "hoje" ? "bg-green-600 text-white shadow-lg" : "text-gray-400 hover:text-white"}`}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${filtroVisao === "hoje" ? "bg-green-600 text-white shadow-lg" : "text-gray-400 hover:text-white"}`}
               >
-                Presentes Hoje
+                <i className="fas fa-calendar-check"></i> Hoje (21/Out)
+              </button>
+              <button 
+                onClick={() => setFiltroVisao("dia2")}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${filtroVisao === "dia2" ? "bg-blue-600 text-white shadow-lg" : "text-gray-400 hover:text-white"}`}
+              >
+                <i className="fas fa-calendar-day"></i> Dia 2 (20/Out)
+              </button>
+              <button 
+                onClick={() => setFiltroVisao("dia1")}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${filtroVisao === "dia1" ? "bg-blue-600 text-white shadow-lg" : "text-gray-400 hover:text-white"}`}
+              >
+                <i className="fas fa-calendar-day"></i> Dia 1 (19/Out)
               </button>
               <button 
                 onClick={() => setFiltroVisao("final")}
-                className={`px-6 py-2 rounded-lg font-semibold transition ${filtroVisao === "final" ? "bg-yellow-500 text-gray-900 shadow-lg" : "text-gray-400 hover:text-white"}`}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${filtroVisao === "final" ? "bg-yellow-500 text-gray-900 shadow-lg font-black" : "text-gray-400 hover:text-white"}`}
               >
-                <i className="fas fa-star mr-2"></i>Classificados (Prêmio Final)
+                <i className="fas fa-star text-yellow-900"></i> ⭐ Aptos Prêmio Final (100%)
+              </button>
+              <button 
+                onClick={() => setFiltroVisao("todos")}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${filtroVisao === "todos" ? "bg-purple-600 text-white shadow-lg" : "text-gray-400 hover:text-white"}`}
+              >
+                <i className="fas fa-users"></i> Todos os Registros
               </button>
             </div>
           </div>
 
           <div className="bg-gray-800 rounded-2xl p-6 shadow-2xl flex-grow overflow-auto border-2 border-gray-700">
             <div className="flex justify-between text-gray-400 mb-4 border-b border-gray-700 pb-2 px-2">
-              <span className="font-bold uppercase tracking-wider text-sm">Nome e Sobrenome</span>
-              <span className="font-bold uppercase tracking-wider text-sm text-right">Setor / Presenças</span>
+              <span className="font-bold uppercase tracking-wider text-sm">Nome do Participante</span>
+              <span className="font-bold uppercase tracking-wider text-sm text-right">Setor / Status</span>
             </div>
             {(() => {
                 if (carregandoLista) {
                     return <div className="text-center text-gray-500 my-12 text-xl"><i className="fas fa-spinner fa-spin mr-3"></i>Carregando lista...</div>;
                 }
                 
+                const todayString = new Date().toLocaleDateString('pt-BR');
                 let exibir = [];
+                let labelVazio = "";
+
                 if (filtroVisao === "hoje") {
-                    const todayString = new Date().toLocaleDateString('pt-BR');
                     exibir = listaParticipantes.filter(p => p.matricula_ou_email && p.matricula_ou_email.endsWith(`_${todayString}`));
-                } else {
+                    labelVazio = "Nenhum participante fez check-in online hoje ainda (21/Out).";
+                } else if (filtroVisao === "dia2") {
+                    exibir = listaParticipantes.filter(p => p.matricula_ou_email && p.matricula_ou_email.includes("20/10"));
+                    labelVazio = "Nenhum participante cadastrado para o Dia 2 (20/Out).";
+                } else if (filtroVisao === "dia1") {
+                    exibir = listaParticipantes.filter(p => p.matricula_ou_email && p.matricula_ou_email.includes("19/10"));
+                    labelVazio = "Nenhum participante cadastrado para o Dia 1 (19/Out).";
+                } else if (filtroVisao === "final") {
+                    const norm = (s) => (s || "").trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                     const contagem = {};
                     listaParticipantes.forEach(p => {
-                        const nameKey = p.nome.trim().toUpperCase();
-                        if (!contagem[nameKey]) contagem[nameKey] = { ...p, count: 0 };
+                        const nameKey = norm(p.nome);
+                        if (!contagem[nameKey]) contagem[nameKey] = { ...p, count: 0, dias: new Set() };
                         contagem[nameKey].count += 1;
+                        if (p.matricula_ou_email) {
+                          if (p.matricula_ou_email.includes("19/10")) contagem[nameKey].dias.add("D1");
+                          if (p.matricula_ou_email.includes("20/10")) contagem[nameKey].dias.add("D2");
+                          if (p.matricula_ou_email.includes("21/10")) contagem[nameKey].dias.add("D3");
+                          if (p.matricula_ou_email.includes("23/10")) contagem[nameKey].dias.add("D4");
+                        }
                     });
-                    exibir = Object.values(contagem).filter(p => p.count >= 4);
+                    // Quem participou de todos os dias ocorridos até agora (pelo menos 2 dias: D1 e D2)
+                    exibir = Object.values(contagem).filter(p => p.dias.size >= 2 || p.count >= 2);
+                    labelVazio = "Ninguém atingiu 100% de presenças até agora.";
+                } else {
+                    exibir = listaParticipantes;
+                    labelVazio = "Nenhum participante registrado.";
                 }
 
                 if (exibir.length === 0) {
-                    return <div className="text-center text-gray-500 my-12 text-xl">{filtroVisao === "hoje" ? "Nenhum participante fez check-in hoje ainda." : "Ninguém atingiu 4 presenças ainda."}</div>;
+                    return <div className="text-center text-gray-500 my-12 text-xl">{labelVazio}</div>;
                 }
 
                 return (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {exibir.map((p, idx) => (
-                      <div key={idx} className="bg-gray-700 hover:bg-gray-600 transition p-4 rounded-xl border border-gray-600 flex justify-between items-center">
-                        <span className="text-white font-semibold truncate mr-3">{p.nome.toUpperCase()}</span>
-                        {filtroVisao === "hoje" ? (
-                           <span className="text-gray-300 text-xs bg-gray-900 px-3 py-1 rounded-md whitespace-nowrap border border-gray-600">{p.setor}</span>
-                        ) : (
-                           <span className="text-yellow-400 text-xs bg-gray-900 px-3 py-1 rounded-md whitespace-nowrap border border-yellow-600 font-bold">{p.count} Presenças</span>
-                        )}
-                      </div>
-                    ))}
+                  <div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {exibir.map((p, idx) => (
+                        <div key={idx} className="bg-gray-700/80 hover:bg-gray-700 transition p-4 rounded-xl border border-gray-600 flex justify-between items-center shadow-md">
+                          <div className="truncate mr-3">
+                            <span className="text-white font-bold text-sm block truncate">{p.nome.toUpperCase()}</span>
+                            <span className="text-gray-400 text-xs">Setor: {p.setor || "Band"}</span>
+                          </div>
+                          {filtroVisao === "final" ? (
+                             <span className="text-yellow-400 text-xs bg-yellow-950/90 px-3 py-1.5 rounded-full border border-yellow-500/50 font-black whitespace-nowrap shadow-sm">
+                               ⭐ {p.dias ? Array.from(p.dias).join(" + ") : `${p.count} Dias`} (Apto)
+                             </span>
+                          ) : (
+                             <span className="text-green-400 text-xs bg-gray-900/90 px-3 py-1 rounded-md whitespace-nowrap border border-green-500/30 font-semibold">
+                               {p.matricula_ou_email && p.matricula_ou_email.includes("_") ? p.matricula_ou_email.split("_")[1] : "Presencial"}
+                             </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 text-center text-gray-400 bg-gray-900/50 py-3 px-6 rounded-xl border border-gray-700 max-w-md mx-auto">
+                      Total exibido: <strong className="text-white text-lg ml-1">{exibir.length}</strong> {filtroVisao === "final" ? "colaboradores com 100% de presença!" : "registros"}
+                    </div>
                   </div>
                 );
             })()}
-          </div>
-          <div className="mt-4 text-center text-gray-400">
-            Total exibido: <strong className="text-white text-xl">
-              {filtroVisao === "hoje" 
-                ? listaParticipantes.filter(p => p.matricula_ou_email && p.matricula_ou_email.endsWith(`_${new Date().toLocaleDateString('pt-BR')}`)).length 
-                : Object.values(listaParticipantes.reduce((acc, p) => { const k = p.nome.trim().toUpperCase(); acc[k] = (acc[k]||0)+1; return acc; }, {})).filter(c => c >= 4).length}
-            </strong>
           </div>
         </div>
       );
@@ -743,12 +906,14 @@ function App() {
                                       </div>
                                     </div>
                                     <div className="mb-4">
-                                        <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="nome">Nome e Sobrenome</label>
-                                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="nome" type="text" placeholder="Nome completo" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
+                                        <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="nome">Nome Completo</label>
+                                        <input className="shadow appearance-none border rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 font-medium" id="nome" type="text" placeholder="Digite seu nome e sobrenome" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={status === "loading"} />
                                     </div>
                                     <div className="mb-5">
-                                        <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="setor">Setor / Departamento</label>
-                                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500" id="setor" type="text" placeholder="Setor (Ex: RH, Produção)" required value={setor} onChange={(e) => setSetor(e.target.value)} disabled={status === "loading"} />
+                                        <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="setor">
+                                            Setor / Departamento <span className="text-gray-400 font-normal">(Opcional)</span>
+                                        </label>
+                                        <input className="shadow appearance-none border rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 text-sm" id="setor" type="text" placeholder="Setor (Padrão: Band)" value={setor} onChange={(e) => setSetor(e.target.value)} disabled={status === "loading"} />
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <button className="w-full bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-4 rounded-lg shadow-lg focus:outline-none focus:shadow-outline transition transform hover:scale-105 disabled:opacity-50 flex justify-center items-center text-sm" type="submit" disabled={status === "loading"}>
