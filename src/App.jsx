@@ -167,7 +167,26 @@ function App() {
     { id: "d3_17", nome: "Leticia Fernanda Reis Santos", setor: "Band", matricula_ou_email: "leticia fernanda reis santos_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
     { id: "d3_18", nome: "Marcela P. Gomide Picardo", setor: "Band", matricula_ou_email: "marcela p. gomide picardo_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
     { id: "d3_19", nome: "Marilia Renaldo", setor: "Band", matricula_ou_email: "marilia renaldo_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
-    { id: "d3_20", nome: "Camila Ap. M. Trindade", setor: "Band", matricula_ou_email: "camila ap. m. trindade_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" }
+    { id: "d3_20", nome: "Camila Ap. M. Trindade", setor: "Band", matricula_ou_email: "camila ap. m. trindade_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+
+    // --- DIA 4: 23/10/2026 ---
+    { id: "d4_01", nome: "Fabio Alexandre Vieira dos Santos", setor: "Band", matricula_ou_email: "fabio alexandre vieira dos santos_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_02", nome: "Gabriella G. Bittencourt Souza", setor: "Band", matricula_ou_email: "gabriella g. bittencourt souza_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_03", nome: "Elizabeth Zoccoli", setor: "Band", matricula_ou_email: "elizabeth zoccoli_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_04", nome: "Valentina Peixoto da Silva", setor: "Band", matricula_ou_email: "valentina peixoto da silva_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_05", nome: "Karina Cardoso Vergílio", setor: "Band", matricula_ou_email: "karina cardoso vergílio_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_06", nome: "Bruna Farina", setor: "Band", matricula_ou_email: "bruna farina_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_07", nome: "Audrey de Andrade e Silva", setor: "Band", matricula_ou_email: "audrey de andrade e silva_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_08", nome: "Larissa L. Ramos", setor: "Band", matricula_ou_email: "larissa l. ramos_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_09", nome: "Camila Ap. M. Trindade", setor: "Band", matricula_ou_email: "camila ap. m. trindade_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_10", nome: "Leticia Fernanda Reis Santos", setor: "Band", matricula_ou_email: "leticia fernanda reis santos_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_11", nome: "Débora C. L. Santos", setor: "Band", matricula_ou_email: "débora c. l. santos_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_12", nome: "Marilia Renaldo", setor: "Band", matricula_ou_email: "marilia renaldo_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_13", nome: "Juliano C. Chiquitame", setor: "Band", matricula_ou_email: "juliano c. chiquitame_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_14", nome: "Erick Henrique da Silva Barros", setor: "Band", matricula_ou_email: "erick henrique da silva barros_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_15", nome: "Gilson Del Passo", setor: "Band", matricula_ou_email: "gilson del passo_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_16", nome: "Gil Cleber", setor: "Band", matricula_ou_email: "gil cleber_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" },
+    { id: "d4_17", nome: "José Ricardo Fazio Luiz", setor: "Band", matricula_ou_email: "josé ricardo fazio luiz_23/10/2026", data_cadastro: "2026-10-23T15:00:00.000Z" }
   ];
 
   const fetchParticipantes = async () => {
@@ -360,9 +379,9 @@ function App() {
           const todayString = new Date().toLocaleDateString('pt-BR');
           let participantesHoje = candidatos.filter(p => p && p.matricula_ou_email && p.matricula_ou_email.endsWith(`_${todayString}`));
 
-          // Se ninguém fez checkin hoje ainda (ex: antes de começar a palestra de hoje), permite sortear quem esteve no Dia 3 (21/Out)
+          // Se ninguém fez checkin hoje ainda (ex: antes de começar a palestra de hoje), permite sortear quem esteve no Dia 4 (23/Out)
           if (participantesHoje.length === 0) {
-             participantesHoje = candidatos.filter(p => p && p.matricula_ou_email && p.matricula_ou_email.includes("21/10"));
+             participantesHoje = candidatos.filter(p => p && p.matricula_ou_email && p.matricula_ou_email.includes("23/10"));
           }
 
           if (participantesHoje.length > 0) {
@@ -573,11 +592,11 @@ function App() {
                           if (p.matricula_ou_email.includes("23/10")) contagem[nameKey].dias.add("D4");
                         }
                     });
-                    // Quem participou de todos os 3 dias realizados (D1, D2 e D3)
+                    // Quem participou de todos os 4 dias realizados (D1, D2, D3 e D4)
                     const maxDias = Math.max(...Object.values(contagem).map(v => v.dias ? v.dias.size : v.count), 1);
-                    const exigidos = maxDias >= 3 ? 3 : maxDias;
+                    const exigidos = maxDias >= 4 ? 4 : maxDias;
                     exibir = Object.values(contagem).filter(p => (p.dias && p.dias.size >= exigidos) || p.count >= exigidos);
-                    labelVazio = "Ninguém atingiu 100% de presenças até agora.";
+                    labelVazio = "Nenhum participante atingiu as presenças exigidas (4 dias) para o Grande Prêmio Final.";
                 } else {
                     exibir = listaParticipantes;
                     labelVazio = "Nenhum participante registrado.";
@@ -598,7 +617,7 @@ function App() {
                           </div>
                           {filtroVisao === "final" ? (
                              <span className="text-yellow-400 text-xs bg-yellow-950/90 px-3 py-1.5 rounded-full border border-yellow-500/50 font-black whitespace-nowrap shadow-sm">
-                               ⭐ {p.dias ? Array.from(p.dias).join(" + ") : `${p.count} Dias`} (Apto)
+                               ⭐ {p.dias ? Array.from(p.dias).join(" + ") : `${p.count} Dias`} (Finalista 🏆)
                              </span>
                           ) : (
                              <span className="text-green-400 text-xs bg-gray-900/90 px-3 py-1 rounded-md whitespace-nowrap border border-green-500/30 font-semibold">
@@ -609,7 +628,7 @@ function App() {
                       ))}
                     </div>
                     <div className="mt-6 text-center text-gray-400 bg-gray-900/50 py-3 px-6 rounded-xl border border-gray-700 max-w-md mx-auto">
-                      Total exibido: <strong className="text-white text-lg ml-1">{exibir.length}</strong> {filtroVisao === "final" ? "colaboradores com 100% de presença!" : "registros"}
+                      Total exibido: <strong className="text-white text-lg ml-1">{exibir.length}</strong> {filtroVisao === "final" ? "colaboradores finalistas (4 de 4 dias)!" : "registros"}
                     </div>
                   </div>
                 );
