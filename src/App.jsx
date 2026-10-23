@@ -141,7 +141,7 @@ function App() {
     { id: "d2_11", nome: "Franciéle B. Cerqueira", setor: "Band", matricula_ou_email: "franciéle b. cerqueira_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
     { id: "d2_12", nome: "Débora C. L. Santos", setor: "Band", matricula_ou_email: "débora c. l. santos_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
     { id: "d2_13", nome: "Gilson Del Passo", setor: "Band", matricula_ou_email: "gilson del passo_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
-    { id: "d2_14", nome: "José Renato", setor: "Band", matricula_ou_email: "josé renato_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+    { id: "d2_14", nome: "José Ricardo Fazio Luiz", setor: "Band", matricula_ou_email: "josé ricardo fazio luiz_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
     { id: "d2_15", nome: "Audrey de Andrade e Silva", setor: "Band", matricula_ou_email: "audrey de andrade e silva_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
     { id: "d2_16", nome: "Gil Cleber", setor: "Band", matricula_ou_email: "gil cleber_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
     { id: "d2_17", nome: "Vinicius E. Mota", setor: "Band", matricula_ou_email: "vinicius e. mota_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
@@ -182,7 +182,10 @@ function App() {
 
       // 2. Mescla com check-ins salvos localmente
       try {
-        const locais = JSON.parse(localStorage.getItem('sipat26_participantes') || '[]');
+        let locais = JSON.parse(localStorage.getItem('sipat26_participantes') || '[]');
+        // Limpa qualquer cache antigo com o nome incorreto "José Renato"
+        locais = locais.filter(p => !p.nome || !p.nome.toLowerCase().includes("renato") || p.nome.toLowerCase().includes("azevedo"));
+        localStorage.setItem('sipat26_participantes', JSON.stringify(locais));
         locais.forEach(p => {
           const key = `${p.nome.trim().toLowerCase()}_${p.matricula_ou_email}`;
           if (!mapa.has(key)) mapa.set(key, p);
@@ -314,7 +317,15 @@ function App() {
         return;
       }
 
-      const norm = (s) => (s || "").trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const norm = (s) => {
+        const clean = (s || "").trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (clean.includes("JOSE RICARDO") || clean.includes("JOSE RENATO")) return "JOSE RICARDO FAZIO LUIZ";
+        if (clean.includes("LARISSA L. RAMOS") || clean.includes("LARISSA LIMA") || clean.includes("LARISSA RAMOS")) return "LARISSA L. RAMOS";
+        if (clean.includes("LETICIA FERNANDA")) return "LETICIA FERNANDA REIS SANTOS";
+        if (clean.includes("MARCELA GOMIDE") || clean.includes("MARCELA P. GOMIDE")) return "MARCELA P. GOMIDE PICARDO";
+        if (clean.includes("CAMILA TRINDADE") || clean.includes("CAMILA AP. M. TRINDADE")) return "CAMILA AP. M. TRINDADE";
+        return clean;
+      };
 
       // Se for o grande prêmio final:
       if (isGrandeSorteio) {
@@ -541,7 +552,15 @@ function App() {
                     exibir = listaParticipantes.filter(p => p.matricula_ou_email && p.matricula_ou_email.includes("19/10"));
                     labelVazio = "Nenhum participante cadastrado para o Dia 1 (19/Out).";
                 } else if (filtroVisao === "final") {
-                    const norm = (s) => (s || "").trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    const norm = (s) => {
+        const clean = (s || "").trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (clean.includes("JOSE RICARDO") || clean.includes("JOSE RENATO")) return "JOSE RICARDO FAZIO LUIZ";
+        if (clean.includes("LARISSA L. RAMOS") || clean.includes("LARISSA LIMA") || clean.includes("LARISSA RAMOS")) return "LARISSA L. RAMOS";
+        if (clean.includes("LETICIA FERNANDA")) return "LETICIA FERNANDA REIS SANTOS";
+        if (clean.includes("MARCELA GOMIDE") || clean.includes("MARCELA P. GOMIDE")) return "MARCELA P. GOMIDE PICARDO";
+        if (clean.includes("CAMILA TRINDADE") || clean.includes("CAMILA AP. M. TRINDADE")) return "CAMILA AP. M. TRINDADE";
+        return clean;
+      };
                     const contagem = {};
                     listaParticipantes.forEach(p => {
                         const nameKey = norm(p.nome);
