@@ -94,11 +94,22 @@ function App() {
     {
       dia: 4,
       data: "23/Out (Sexta)",
-      tema: "Cuidados com o Corpo & Grande Sorteio",
-      palestrante: "Nayara Vilar",
-      capa: null,
-      disponivel: false,
-      fotos: []
+      tema: "Cuidados com o Corpo na Rotina de Trabalho & Grande Encerramento da SIPAT",
+      palestrante: "Dra. Nayara Vilar",
+      capa: "/fotos/dia4_capa.jpg",
+      disponivel: true,
+      fotos: [
+        { id: 401, src: "/fotos/dia4_capa.jpg", titulo: "Foto Oficial da Equipe e Palestrante • Encerramento", desc: "Equipe Band Campinas reunida com a Dra. Nayara Vilar no encerramento oficial da SIPAT 2026" },
+        { id: 402, src: "/fotos/dia4_foto_01.jpg", titulo: "Selfie Coletiva com a Equipe", desc: "Momento descontraído reunindo todos os participantes no auditório" },
+        { id: 403, src: "/fotos/dia4_foto_02.jpg", titulo: "Demonstração Prática de Massoterapia", desc: "Técnicas de liberação de tensão e alívio do estresse na rotina de trabalho" },
+        { id: 404, src: "/fotos/dia4_foto_03.jpg", titulo: "Técnicas de Relaxamento Corporal", desc: "Demonstração ao vivo de massoterapia e autocuidado para a equipe" },
+        { id: 405, src: "/fotos/dia4_foto_04.jpg", titulo: "Abertura da Palestra", desc: "Dra. Nayara Vilar iniciando as orientações de ergonomia e saúde corporal" },
+        { id: 406, src: "/fotos/dia4_foto_05.jpg", titulo: "Cuidados com o Corpo no Trabalho", desc: "Abordagem pela massoterapia e hábitos saudáveis no dia a dia corporativo" },
+        { id: 407, src: "/fotos/dia4_foto_06.jpg", titulo: "Cuidar do Corpo é Cuidar da Vida", desc: "Orientações sobre pequenas pausas, posturas conscientes e momentos de relaxamento" },
+        { id: 408, src: "/fotos/dia4_foto_07.jpg", titulo: "Qualidade de Vida e Hábitos Saudáveis", desc: "Conteúdo e materiais para autocuidado e equilíbrio físico" },
+        { id: 409, src: "/fotos/dia4_foto_08.jpg", titulo: "Interação com os Colaboradores", desc: "Dra. Nayara Vilar compartilhando orientações práticas com os presentes" },
+        { id: 410, src: "/fotos/dia4_foto_09.jpg", titulo: "Apresentação Profissional e Spa Terapias", desc: "Dra. Nayara apresentando suas especializações em dermato-funcional e massoterapia" }
+      ]
     }
   ];
 
