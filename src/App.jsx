@@ -99,16 +99,23 @@ function App() {
       capa: "/fotos/dia4_capa.jpg",
       disponivel: true,
       fotos: [
-        { id: 401, src: "/fotos/dia4_capa.jpg", titulo: "Foto Oficial da Equipe e Palestrante • Encerramento", desc: "Equipe Band Campinas reunida com a Dra. Nayara Vilar no encerramento oficial da SIPAT 2026" },
-        { id: 402, src: "/fotos/dia4_foto_01.jpg", titulo: "Selfie Coletiva com a Equipe", desc: "Momento descontraído reunindo todos os participantes no auditório" },
-        { id: 403, src: "/fotos/dia4_foto_02.jpg", titulo: "Demonstração Prática de Massoterapia", desc: "Técnicas de liberação de tensão e alívio do estresse na rotina de trabalho" },
-        { id: 404, src: "/fotos/dia4_foto_03.jpg", titulo: "Técnicas de Relaxamento Corporal", desc: "Demonstração ao vivo de massoterapia e autocuidado para a equipe" },
-        { id: 405, src: "/fotos/dia4_foto_04.jpg", titulo: "Abertura da Palestra", desc: "Dra. Nayara Vilar iniciando as orientações de ergonomia e saúde corporal" },
-        { id: 406, src: "/fotos/dia4_foto_05.jpg", titulo: "Cuidados com o Corpo no Trabalho", desc: "Abordagem pela massoterapia e hábitos saudáveis no dia a dia corporativo" },
-        { id: 407, src: "/fotos/dia4_foto_06.jpg", titulo: "Cuidar do Corpo é Cuidar da Vida", desc: "Orientações sobre pequenas pausas, posturas conscientes e momentos de relaxamento" },
-        { id: 408, src: "/fotos/dia4_foto_07.jpg", titulo: "Qualidade de Vida e Hábitos Saudáveis", desc: "Conteúdo e materiais para autocuidado e equilíbrio físico" },
-        { id: 409, src: "/fotos/dia4_foto_08.jpg", titulo: "Interação com os Colaboradores", desc: "Dra. Nayara Vilar compartilhando orientações práticas com os presentes" },
-        { id: 410, src: "/fotos/dia4_foto_09.jpg", titulo: "Apresentação Profissional e Spa Terapias", desc: "Dra. Nayara apresentando suas especializações em dermato-funcional e massoterapia" }
+        { id: 401, src: "/fotos/dia4_capa.jpg", titulo: "Selfie Coletiva com a Equipe • Capa Oficial", desc: "Auditório e colaboradores reunidos com a Dra. Nayara Vilar na selfie oficial de encerramento da SIPAT" },
+        { id: 402, src: "/fotos/dia4_foto_01.jpg", titulo: "Foto Oficial da Equipe e Palestrante", desc: "Registro formal com toda a equipe Band Campinas e a palestrante Dra. Nayara Vilar" },
+        { id: 403, src: "/fotos/dia4_foto_02.jpg", titulo: "Auditório e Premiação do Grande Sorteio", desc: "Colaboradores acompanhando a apresentação e a expectativa para o sorteio final" },
+        { id: 404, src: "/fotos/dia4_foto_03.jpg", titulo: "Visão Geral do Auditório", desc: "Equipe presente e atenta aos ensinamentos de autocuidado e bem-estar" },
+        { id: 405, src: "/fotos/dia4_foto_04.jpg", titulo: "Transmissão ao Vivo e Demonstrações", desc: "Visão ampla da sala, ilha técnica de transmissão e massoterapia" },
+        { id: 406, src: "/fotos/dia4_foto_05.jpg", titulo: "Participantes e Prêmio Especial", desc: "Ambiente descontraído e a premiação da Air Fryer pronta para o sorteio" },
+        { id: 407, src: "/fotos/dia4_foto_06.jpg", titulo: "Orientações Posturais e Ergonomia", desc: "Apresentação dos conceitos essenciais para prevenção de dores na jornada de trabalho" },
+        { id: 408, src: "/fotos/dia4_foto_07.jpg", titulo: "Demonstração Prática na Cadeira Ergonômica", desc: "Aplicação ao vivo das manobras de alívio muscular e descompressão" },
+        { id: 409, src: "/fotos/dia4_foto_08.jpg", titulo: "Massoterapia e Alívio de Tensões", desc: "Técnicas de liberação miofascial e desativação de pontos de tensão" },
+        { id: 410, src: "/fotos/dia4_foto_09.jpg", titulo: "Técnicas de Relaxamento Corporal", desc: "Práticas fáceis de aplicar no dia a dia para recuperar a disposição" },
+        { id: 411, src: "/fotos/dia4_foto_10.jpg", titulo: "Cadeira de Massagem e Preparação", desc: "Estrutura dedicada para a prática de relaxamento e massoterapia laboral" },
+        { id: 412, src: "/fotos/dia4_foto_11.jpg", titulo: "Abertura Oficial da Palestra", desc: "Dra. Nayara Vilar abrindo a apresentação de encerramento da SIPAT 2026" },
+        { id: 413, src: "/fotos/dia4_foto_12.jpg", titulo: "Cuidados com o Corpo na Rotina", desc: "A importância de pequenos hábitos diários para a longevidade profissional" },
+        { id: 414, src: "/fotos/dia4_foto_13.jpg", titulo: "Cuidar do Corpo é Cuidar da Vida", desc: "Pausas ativas e consciência corporal para uma vida saudável" },
+        { id: 415, src: "/fotos/dia4_foto_14.jpg", titulo: "Materiais e Dicas de Saúde", desc: "QR Code e orientações complementares para a equipe Band" },
+        { id: 416, src: "/fotos/dia4_foto_15.jpg", titulo: "Interação com os Colaboradores", desc: "Dra. Nayara tirando dúvidas e conversando diretamente com os colaboradores" },
+        { id: 417, src: "/fotos/dia4_foto_16.jpg", titulo: "Apresentação e Terapias Integrativas", desc: "Conhecimento em dermato-funcional e saúde integral aplicado ao ambiente corporativo" }
       ]
     }
   ];
