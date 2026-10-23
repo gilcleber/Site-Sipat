@@ -76,10 +76,20 @@ function App() {
       dia: 3,
       data: "21/Out (Quarta)",
       tema: "Equilíbrio, Ansiedade e Qualidade do Sono",
-      palestrante: "Carmen Regina",
-      capa: null,
-      disponivel: false,
-      fotos: []
+      palestrante: "Dra. Carmen Regina",
+      capa: "/fotos/dia3_capa.jpg",
+      disponivel: true,
+      fotos: [
+        { id: 301, src: "/fotos/dia3_capa.jpg", titulo: "Foto Oficial da Equipe e Palestrante • Dia 3", desc: "Equipe Band Campinas reunida com a Dra. Carmen Regina ao término da palestra sobre Equilíbrio, Ansiedade e Qualidade do Sono" },
+        { id: 302, src: "/fotos/dia3_foto_01.jpg", titulo: "Corpo em Equilíbrio", desc: "Acupuntura, Medicina Tradicional Chinesa e Qi Gong para o bem-estar no trabalho" },
+        { id: 303, src: "/fotos/dia3_foto_02.jpg", titulo: "Encerramento e Agradecimentos", desc: "Dra. Carmen Regina interagindo com os colaboradores e tirando dúvidas" },
+        { id: 304, src: "/fotos/dia3_foto_03.jpg", titulo: "Pilares do Bem-Estar", desc: "Apresentação dos conceitos fundamentais de equilíbrio físico e mental" },
+        { id: 305, src: "/fotos/dia3_foto_04.jpg", titulo: "Medicina Integrativa", desc: "Práticas e orientações aplicadas ao dia a dia profissional" },
+        { id: 306, src: "/fotos/dia3_foto_05.jpg", titulo: "Auditório e Colaboradores", desc: "Visão ampla da sala acompanhando a exposição e as técnicas" },
+        { id: 307, src: "/fotos/dia3_foto_06.jpg", titulo: "Participação Ativa da Equipe", desc: "Colaboradores atentos aos ensinamentos de saúde preventiva" },
+        { id: 308, src: "/fotos/dia3_foto_07.jpg", titulo: "O Olhar da Medicina Chinesa", desc: "Visão integral: corpo, mente, ambiente e hábitos saudáveis" },
+        { id: 309, src: "/fotos/dia3_foto_08.jpg", titulo: "Qualidade do Sono e Ansiedade", desc: "Orientações práticas para redução do estresse e recuperação de energia" }
+      ]
     },
     {
       dia: 4,
@@ -135,7 +145,29 @@ function App() {
     { id: "d2_15", nome: "Audrey de Andrade e Silva", setor: "Band", matricula_ou_email: "audrey de andrade e silva_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
     { id: "d2_16", nome: "Gil Cleber", setor: "Band", matricula_ou_email: "gil cleber_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
     { id: "d2_17", nome: "Vinicius E. Mota", setor: "Band", matricula_ou_email: "vinicius e. mota_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
-    { id: "d2_18", nome: "Luiz Carlos", setor: "Band", matricula_ou_email: "luiz carlos_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" }
+    { id: "d2_18", nome: "Luiz Carlos", setor: "Band", matricula_ou_email: "luiz carlos_20/10/2026", data_cadastro: "2026-10-20T15:00:00.000Z" },
+
+    // --- DIA 3: 21/10/2026 ---
+    { id: "d3_01", nome: "Léo Rossetti B. T. Corrêa", setor: "Band", matricula_ou_email: "léo rossetti b. t. corrêa_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_02", nome: "Gislayne Gomes", setor: "Band", matricula_ou_email: "gislayne gomes_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_03", nome: "Bianca Amabile Crista Terzan", setor: "Band", matricula_ou_email: "bianca amabile crista terzan_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_04", nome: "Fabio Alexandre Vieira dos Santos", setor: "Band", matricula_ou_email: "fabio alexandre vieira dos santos_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_05", nome: "Juliano C. Chiquitame", setor: "Band", matricula_ou_email: "juliano c. chiquitame_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_06", nome: "Valentina Peixoto da Silva", setor: "Band", matricula_ou_email: "valentina peixoto da silva_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_07", nome: "Vanessa C. Ribeiro", setor: "Band", matricula_ou_email: "vanessa c. ribeiro_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_08", nome: "Vítor Barbosa Martins de Andrade", setor: "Band", matricula_ou_email: "vítor barbosa martins de andrade_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_09", nome: "Erick Henrique da Silva Barros", setor: "Band", matricula_ou_email: "erick henrique da silva barros_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_10", nome: "Gilson Del Passo", setor: "Band", matricula_ou_email: "gilson del passo_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_11", nome: "Cinthia Zotarelli Leonel", setor: "Band", matricula_ou_email: "cinthia zotarelli leonel_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_12", nome: "Renato Azevedo", setor: "Band", matricula_ou_email: "renato azevedo_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_13", nome: "José Ricardo Fazio Luiz", setor: "Band", matricula_ou_email: "josé ricardo fazio luiz_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_14", nome: "Gil Cleber", setor: "Band", matricula_ou_email: "gil cleber_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_15", nome: "Débora C. L. Santos", setor: "Band", matricula_ou_email: "débora c. l. santos_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_16", nome: "Larissa L. Ramos", setor: "Band", matricula_ou_email: "larissa l. ramos_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_17", nome: "Leticia Fernanda Reis Santos", setor: "Band", matricula_ou_email: "leticia fernanda reis santos_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_18", nome: "Marcela P. Gomide Picardo", setor: "Band", matricula_ou_email: "marcela p. gomide picardo_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_19", nome: "Marilia Renaldo", setor: "Band", matricula_ou_email: "marilia renaldo_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" },
+    { id: "d3_20", nome: "Camila Ap. M. Trindade", setor: "Band", matricula_ou_email: "camila ap. m. trindade_21/10/2026", data_cadastro: "2026-10-21T15:00:00.000Z" }
   ];
 
   const fetchParticipantes = async () => {
@@ -317,9 +349,9 @@ function App() {
           const todayString = new Date().toLocaleDateString('pt-BR');
           let participantesHoje = candidatos.filter(p => p && p.matricula_ou_email && p.matricula_ou_email.endsWith(`_${todayString}`));
 
-          // Se ninguém fez checkin hoje ainda (ex: antes de começar a palestra de hoje), permite sortear quem esteve ontem (Dia 2)
+          // Se ninguém fez checkin hoje ainda (ex: antes de começar a palestra de hoje), permite sortear quem esteve no Dia 3 (21/Out)
           if (participantesHoje.length === 0) {
-             participantesHoje = candidatos.filter(p => p && p.matricula_ou_email && p.matricula_ou_email.includes("20/10"));
+             participantesHoje = candidatos.filter(p => p && p.matricula_ou_email && p.matricula_ou_email.includes("21/10"));
           }
 
           if (participantesHoje.length > 0) {
@@ -447,7 +479,13 @@ function App() {
                 onClick={() => setFiltroVisao("hoje")}
                 className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${filtroVisao === "hoje" ? "bg-green-600 text-white shadow-lg" : "text-gray-400 hover:text-white"}`}
               >
-                <i className="fas fa-calendar-check"></i> Hoje (21/Out)
+                <i className="fas fa-calendar-check"></i> Hoje (23/Out)
+              </button>
+              <button 
+                onClick={() => setFiltroVisao("dia3")}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${filtroVisao === "dia3" ? "bg-blue-600 text-white shadow-lg" : "text-gray-400 hover:text-white"}`}
+              >
+                <i className="fas fa-calendar-day"></i> Dia 3 (21/Out)
               </button>
               <button 
                 onClick={() => setFiltroVisao("dia2")}
@@ -492,7 +530,10 @@ function App() {
 
                 if (filtroVisao === "hoje") {
                     exibir = listaParticipantes.filter(p => p.matricula_ou_email && p.matricula_ou_email.endsWith(`_${todayString}`));
-                    labelVazio = "Nenhum participante fez check-in online hoje ainda (21/Out).";
+                    labelVazio = "Nenhum participante fez check-in online hoje ainda (23/Out).";
+                } else if (filtroVisao === "dia3") {
+                    exibir = listaParticipantes.filter(p => p.matricula_ou_email && p.matricula_ou_email.includes("21/10"));
+                    labelVazio = "Nenhum participante cadastrado para o Dia 3 (21/Out).";
                 } else if (filtroVisao === "dia2") {
                     exibir = listaParticipantes.filter(p => p.matricula_ou_email && p.matricula_ou_email.includes("20/10"));
                     labelVazio = "Nenhum participante cadastrado para o Dia 2 (20/Out).";
@@ -513,8 +554,10 @@ function App() {
                           if (p.matricula_ou_email.includes("23/10")) contagem[nameKey].dias.add("D4");
                         }
                     });
-                    // Quem participou de todos os dias ocorridos até agora (pelo menos 2 dias: D1 e D2)
-                    exibir = Object.values(contagem).filter(p => p.dias.size >= 2 || p.count >= 2);
+                    // Quem participou de todos os 3 dias realizados (D1, D2 e D3)
+                    const maxDias = Math.max(...Object.values(contagem).map(v => v.dias ? v.dias.size : v.count), 1);
+                    const exigidos = maxDias >= 3 ? 3 : maxDias;
+                    exibir = Object.values(contagem).filter(p => (p.dias && p.dias.size >= exigidos) || p.count >= exigidos);
                     labelVazio = "Ninguém atingiu 100% de presenças até agora.";
                 } else {
                     exibir = listaParticipantes;
