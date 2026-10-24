@@ -4,9 +4,9 @@ import { supabase } from "./supabaseClient";
 
 function App() {
   const scrollToLivePlayer = () => {
-    const player = document.getElementById("live-player");
+    const player = document.getElementById("ao-vivo") || document.getElementById("live-player");
     if (player) {
-      player.scrollIntoView({ behavior: "smooth", block: "center" });
+      player.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
     const [nome, setNome] = useState("");
@@ -42,6 +42,45 @@ function App() {
   const [albumAtivo, setAlbumAtivo] = useState(null);
   const [fotoAtivaIndex, setFotoAtivaIndex] = useState(0);
 
+  // Gravações das Palestras
+  const palestrasGravadas = [
+    {
+      dia: 1,
+      data: "19/Out (Segunda)",
+      tema: "Autocuidado e Gestão do Estresse",
+      palestrante: "Vanessa Favin",
+      videoId: "azCjY5zfypw",
+      youtubeUrl: "https://www.youtube.com/live/azCjY5zfypw"
+    },
+    {
+      dia: 2,
+      data: "20/Out (Terça)",
+      tema: "Saúde Mental no Trabalho",
+      palestrante: "Michele Sarkis",
+      videoId: "ddmA02BNbGc",
+      youtubeUrl: "https://youtube.com/live/ddmA02BNbGc"
+    },
+    {
+      dia: 3,
+      data: "21/Out (Quarta)",
+      tema: "Equilíbrio, Ansiedade e Qualidade do Sono",
+      palestrante: "Dra. Carmen Regina",
+      videoId: "nGUlfNbN4hc",
+      youtubeUrl: "https://youtube.com/live/nGUlfNbN4hc"
+    },
+    {
+      dia: 4,
+      data: "23/Out (Sexta)",
+      tema: "Cuidados com o Corpo na Rotina & Grande Encerramento",
+      palestrante: "Dra. Nayara Vilar",
+      videoId: "J6VlXZr4nHE",
+      youtubeUrl: "https://youtube.com/live/J6VlXZr4nHE"
+    }
+  ];
+
+  const [palestraAtiva, setPalestraAtiva] = useState(palestrasGravadas[3]);
+  const [linkCopiado, setLinkCopiado] = useState(false);
+
   const albunsSipat = [
     {
       dia: 1,
@@ -49,6 +88,8 @@ function App() {
       tema: "Autocuidado e Gestão do Estresse",
       palestrante: "Vanessa Favin",
       capa: "/fotos/dia1_capa.jpg",
+      videoId: "azCjY5zfypw",
+      videoUrl: "https://www.youtube.com/live/azCjY5zfypw",
       disponivel: true,
       fotos: [
         { id: 1, src: "/fotos/dia1_capa.jpg", titulo: "Foto Oficial da Equipe • Dia 1", desc: "Equipe Band Campinas reunida no encerramento da palestra de Autocuidado e Gestão do Estresse" }
@@ -60,6 +101,8 @@ function App() {
       tema: "Saúde Mental no Trabalho",
       palestrante: "Michele Sarkis",
       capa: "/fotos/dia2_capa.jpg",
+      videoId: "ddmA02BNbGc",
+      videoUrl: "https://youtube.com/live/ddmA02BNbGc",
       disponivel: true,
       fotos: [
         { id: 2, src: "/fotos/dia2_capa.jpg", titulo: "Foto Oficial da Equipe e Palestrante • Dia 2", desc: "Equipe Band Campinas reunida com a palestrante no encerramento da palestra de Saúde Mental" },
@@ -78,6 +121,8 @@ function App() {
       tema: "Equilíbrio, Ansiedade e Qualidade do Sono",
       palestrante: "Dra. Carmen Regina",
       capa: "/fotos/dia3_capa.jpg",
+      videoId: "nGUlfNbN4hc",
+      videoUrl: "https://youtube.com/live/nGUlfNbN4hc",
       disponivel: true,
       fotos: [
         { id: 301, src: "/fotos/dia3_capa.jpg", titulo: "Foto Oficial da Equipe e Palestrante • Dia 3", desc: "Equipe Band Campinas reunida com a Dra. Carmen Regina ao término da palestra sobre Equilíbrio, Ansiedade e Qualidade do Sono" },
@@ -97,6 +142,8 @@ function App() {
       tema: "Cuidados com o Corpo na Rotina de Trabalho & Grande Encerramento da SIPAT",
       palestrante: "Dra. Nayara Vilar",
       capa: "/fotos/dia4_capa.jpg",
+      videoId: "J6VlXZr4nHE",
+      videoUrl: "https://youtube.com/live/J6VlXZr4nHE",
       disponivel: true,
       fotos: [
         { id: 401, src: "/fotos/dia4_capa.jpg", titulo: "Selfie Coletiva com a Equipe • Capa Oficial", desc: "Auditório e colaboradores reunidos com a Dra. Nayara Vilar na selfie oficial de encerramento da SIPAT" },
@@ -755,9 +802,9 @@ function App() {
             
             <div className="flex items-center gap-2 sm:gap-3 animate-fadeInUp">
                 <button onClick={scrollToLivePlayer} className="btn-header-player">
-                    <i className="fas fa-play-circle"></i>
-                    <span className="hidden sm:inline">IR PARA PLAYER</span>
-                    <span className="sm:hidden">PLAYER</span>
+                    <i className="fab fa-youtube text-red-500"></i>
+                    <span className="hidden sm:inline">VÍDEOS DAS PALESTRAS</span>
+                    <span className="sm:hidden">VÍDEOS</span>
                 </button>
                 <a href="#fotos" className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 sm:px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105 text-sm sm:text-base flex items-center">
                     <i className="fas fa-camera mr-1.5 text-green-600"></i>
@@ -789,29 +836,104 @@ function App() {
         </div>
     </section>
     
-    {/* Transmissão Ao Vivo */}
+    {/* Gravações e Vídeos das Palestras */}
     <section id="ao-vivo" className="live-section">
         <div className="container">
-            <h2 className="animate-fadeInUp">
-                <i className="fab fa-youtube"></i> <span id="live-title">Transmissão Ao Vivo – SIPAT 2026</span>
-            </h2>
-            <p className="live-subtitle animate-fadeInUp" id="live-subtitle">
-                
-                Nos dias <strong>19, 20, 21 e 23 de Outubro</strong>, acompanhe as palestras ao vivo neste mesmo player.
-            </p>
+            <div className="text-center mb-6">
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/15 border border-red-500/40 text-red-300 font-bold text-xs uppercase tracking-wider mb-3">
+                    <i className="fab fa-youtube text-red-500"></i> Transmissões Oficiais Gravadas
+                </span>
+                <h2 className="animate-fadeInUp text-3xl sm:text-4xl font-extrabold text-white">
+                    <i className="fab fa-youtube text-red-500"></i> <span id="live-title">Gravações das Palestras – SIPAT 2026</span>
+                </h2>
+                <p className="live-subtitle animate-fadeInUp mt-2 text-gray-300 text-sm sm:text-base max-w-2xl mx-auto" id="live-subtitle">
+                    Assista na íntegra às palestras dos <strong>4 dias presenciais</strong> da SIPAT Band Campinas. Escolha o dia abaixo para carregar no player ou acesse diretamente pelo link oficial do YouTube:
+                </p>
+            </div>
 
-            <div className="text-center animate-fadeInUp" style={{animationDelay: "0.2s"}}>
-                <div className="live-status-badge is-live" id="live-status-badge">
-                    🔴 Transmissão Ao Vivo em andamento
+            {/* Grid dos 4 Dias de Palestras */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+                {palestrasGravadas.map((palestra) => {
+                    const isSelected = palestraAtiva.dia === palestra.dia;
+                    return (
+                        <div
+                            key={palestra.dia}
+                            onClick={() => {
+                                setPalestraAtiva(palestra);
+                                scrollToLivePlayer();
+                            }}
+                            className={`p-4 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-left flex flex-col justify-between ${
+                                isSelected
+                                    ? "bg-gradient-to-br from-red-950/80 via-gray-900 to-gray-950 border-red-500 shadow-2xl shadow-red-950/60 scale-[1.02] ring-2 ring-red-500/40"
+                                    : "bg-gray-900/90 border-gray-800 hover:border-gray-700 hover:bg-gray-800/90 opacity-85 hover:opacity-100"
+                            }`}
+                        >
+                            <div>
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className={`text-xs font-black px-2.5 py-1 rounded-full ${
+                                        isSelected ? "bg-red-600 text-white shadow-md" : "bg-gray-800 text-gray-300"
+                                    }`}>
+                                        <i className="fas fa-calendar-day mr-1"></i> Dia {palestra.dia} • {palestra.data.split(" ")[0]}
+                                    </span>
+                                    {isSelected ? (
+                                        <span className="text-[11px] font-bold text-red-400 flex items-center gap-1.5 animate-pulse">
+                                            <span className="w-2 h-2 rounded-full bg-red-500"></span> No Player
+                                        </span>
+                                    ) : (
+                                        <span className="text-[11px] text-gray-500 font-semibold">
+                                            Não listado
+                                        </span>
+                                    )}
+                                </div>
+                                <h4 className="text-sm font-bold text-white line-clamp-2 leading-snug mt-1">
+                                    {palestra.tema}
+                                </h4>
+                                <p className="text-xs text-gray-400 mt-1.5 flex items-center gap-1.5">
+                                    <i className="fas fa-user-tie text-gray-500 text-xs"></i> {palestra.palestrante}
+                                </p>
+                            </div>
+
+                            <div className="mt-4 pt-3 border-t border-gray-800 flex items-center justify-between text-xs font-bold">
+                                <span className={isSelected ? "text-red-400 flex items-center gap-1" : "text-gray-400 hover:text-white"}>
+                                    <i className={isSelected ? "fas fa-play text-red-500" : "far fa-play-circle"}></i>
+                                    {isSelected ? "Assistindo agora" : "Carregar no Player"}
+                                </span>
+                                <a
+                                    href={palestra.youtubeUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="text-gray-400 hover:text-red-400 p-1.5 rounded-lg hover:bg-red-500/10 transition-colors"
+                                    title={`Abrir Dia ${palestra.dia} no YouTube`}
+                                >
+                                    <i className="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Badge do Vídeo em Exibição */}
+            <div className="text-center animate-fadeInUp mb-4" style={{animationDelay: "0.15s"}}>
+                <div className="inline-flex items-center flex-wrap justify-center gap-2 px-4 py-2 rounded-full bg-red-500/15 border border-red-500/40 text-red-200 text-xs sm:text-sm font-bold shadow-lg">
+                    <span className="flex items-center gap-1.5 text-red-400">
+                        <i className="fab fa-youtube text-red-500 text-base"></i> Dia {palestraAtiva.dia} ({palestraAtiva.data}):
+                    </span>
+                    <span className="text-white font-bold">{palestraAtiva.tema}</span>
+                    <span className="text-gray-400 hidden sm:inline">•</span>
+                    <span className="text-gray-300 font-semibold">{palestraAtiva.palestrante}</span>
                 </div>
             </div>
 
-            <div className="live-video-wrapper animate-fadeInUp" style={{animationDelay: "0.3s"}}>
+            {/* Video Player Responsivo */}
+            <div className="live-video-wrapper animate-fadeInUp" style={{animationDelay: "0.25s"}}>
                 <div className="live-video-container" id="live-player">
                     <iframe
+                        key={palestraAtiva.videoId}
                         id="live-iframe"
-                        src="https://www.youtube.com/embed/J6VlXZr4nHE?autoplay=1&rel=0"
-                        title="SIPAT 2026 - Transmissão Ao Vivo"
+                        src={`https://www.youtube.com/embed/${palestraAtiva.videoId}?rel=0`}
+                        title={`SIPAT 2026 - Dia ${palestraAtiva.dia} - ${palestraAtiva.tema}`}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen>
@@ -819,19 +941,33 @@ function App() {
                 </div>
             </div>
 
-            <div className="live-actions animate-fadeInUp" style={{animationDelay: "0.4s"}}>
+            {/* Ações e Compartilhamento */}
+            <div className="live-actions animate-fadeInUp" style={{animationDelay: "0.35s"}}>
                 <a
                     id="btn-open-youtube"
-                    href="https://www.youtube.com/live/J6VlXZr4nHE"
+                    href={palestraAtiva.youtubeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-live-primary">
-                    <i className="fab fa-youtube"></i> Abrir no YouTube
+                    className="btn btn-live-primary bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-950/50 transform hover:scale-105 transition-all">
+                    <i className="fab fa-youtube"></i> Abrir Dia {palestraAtiva.dia} no YouTube
                 </a>
+                <button
+                    type="button"
+                    onClick={() => {
+                        if (navigator.clipboard) {
+                            navigator.clipboard.writeText(palestraAtiva.youtubeUrl);
+                            setLinkCopiado(true);
+                            setTimeout(() => setLinkCopiado(false), 2500);
+                        }
+                    }}
+                    className="btn bg-gray-800 hover:bg-gray-700 text-white font-bold border border-gray-700 shadow-lg transform hover:scale-105 transition-all cursor-pointer">
+                    <i className={`fas ${linkCopiado ? "fa-check text-green-400" : "fa-copy text-yellow-400"}`}></i>
+                    {linkCopiado ? "Link do Vídeo Copiado!" : "Copiar Link para Palestrante"}
+                </button>
             </div>
 
-            <p className="live-note animate-fadeInUp" style={{animationDelay: "0.5s"}} id="live-note">
-                <i className="fas fa-info-circle"></i> Transmissão oficial da SIPAT 2026 ao vivo.
+            <p className="live-note animate-fadeInUp text-center text-xs text-gray-400 mt-4" style={{animationDelay: "0.4s"}} id="live-note">
+                <i className="fas fa-lock text-yellow-500 mr-1.5"></i> Vídeos transmitidos em modo <strong>não listado</strong> para acesso exclusivo da equipe Band Campinas e dos palestrantes convidados.
             </p>
         </div>
     </section>
@@ -1098,7 +1234,19 @@ function App() {
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Autocuidado e gestão do estresse</td>
                             <td className="font-semibold text-green-700">VANESSA FAVIN</td>
-                            <td className="text-gray-700">Abertura da semana e sorteio de 3 prêmios.</td>
+                            <td className="text-gray-700">
+                                Abertura da semana e sorteio de 3 prêmios.
+                                <div className="mt-1.5">
+                                    <a
+                                        href="https://www.youtube.com/live/azCjY5zfypw"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 hover:bg-red-700 text-white shadow-xs transition"
+                                    >
+                                        <i className="fab fa-youtube"></i> Gravação
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td className="font-bold text-gray-800">
@@ -1113,7 +1261,19 @@ function App() {
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Saúde mental no trabalho</td>
                             <td className="font-semibold text-green-700">MICHELE SARKIS</td>
-                            <td className="text-gray-700">Sorteio de 3 prêmios.</td>
+                            <td className="text-gray-700">
+                                Sorteio de 3 prêmios.
+                                <div className="mt-1.5">
+                                    <a
+                                        href="https://youtube.com/live/ddmA02BNbGc"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 hover:bg-red-700 text-white shadow-xs transition"
+                                    >
+                                        <i className="fab fa-youtube"></i> Gravação
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td className="font-bold text-gray-800">
@@ -1128,7 +1288,19 @@ function App() {
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Equilíbrio, ansiedade e qualidade do sono</td>
                             <td className="font-semibold text-green-700">CARMEN REGINA</td>
-                            <td className="text-gray-700">Sorteio de 3 prêmios.</td>
+                            <td className="text-gray-700">
+                                Sorteio de 3 prêmios.
+                                <div className="mt-1.5">
+                                    <a
+                                        href="https://youtube.com/live/nGUlfNbN4hc"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 hover:bg-red-700 text-white shadow-xs transition"
+                                    >
+                                        <i className="fab fa-youtube"></i> Gravação
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td className="font-bold text-gray-800">
@@ -1158,7 +1330,19 @@ function App() {
                             <td className="font-bold text-red-600 text-base sm:text-lg">15h00</td>
                             <td className="font-bold text-gray-800">Cuidados com o corpo na rotina de trabalho</td>
                             <td className="font-semibold text-green-700">NAYARA VILAR</td>
-                            <td className="text-gray-700">Encerramento, Sorteio de 3 prêmios e <strong className="text-yellow-600">GRANDE SORTEIO FINAL!</strong></td>
+                            <td className="text-gray-700">
+                                Encerramento, Sorteio de 3 prêmios e <strong className="text-yellow-600">GRANDE SORTEIO FINAL!</strong>
+                                <div className="mt-1.5">
+                                    <a
+                                        href="https://youtube.com/live/J6VlXZr4nHE"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 hover:bg-red-700 text-white shadow-xs transition"
+                                    >
+                                        <i className="fab fa-youtube"></i> Gravação
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
 </tbody>
                 </table>
@@ -1245,9 +1429,23 @@ function App() {
                                         </p>
                                     </div>
 
-                                    <div className="mt-4 pt-3 border-t border-gray-800/80 flex items-center justify-between text-xs font-bold text-green-400 group-hover:text-green-300">
-                                        <span>Visualizar fotos</span>
-                                        <i className="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                                    <div className="mt-4 pt-3 border-t border-gray-800/80 flex items-center justify-between">
+                                        <span className="text-xs font-bold text-green-400 group-hover:text-green-300 flex items-center gap-1.5">
+                                            <span>Visualizar fotos</span>
+                                            <i className="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                                        </span>
+                                        {album.videoUrl && (
+                                            <a
+                                                href={album.videoUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-600 hover:bg-red-700 text-white shadow-md hover:scale-105 transition-all"
+                                                title={`Assistir gravação do Dia ${album.dia} no YouTube`}
+                                            >
+                                                <i className="fab fa-youtube"></i> Vídeo
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -1310,7 +1508,20 @@ function App() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                        {albumAtivo.videoUrl && (
+                            <a
+                                href={albumAtivo.videoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow transition-all hover:scale-105"
+                                title="Assistir gravação completa da palestra no YouTube"
+                            >
+                                <i className="fab fa-youtube"></i>
+                                <span className="hidden sm:inline">Assistir Gravação</span>
+                                <span className="sm:hidden">Vídeo</span>
+                            </a>
+                        )}
                         <span className="text-xs sm:text-sm font-bold text-gray-300 bg-gray-800 px-3 py-1 rounded-full border border-gray-700">
                             {fotoAtivaIndex + 1} / {albumAtivo.fotos.length}
                         </span>
